@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/NavBar';
 import ReviewList from './components/ReviewList';
 import Favorites from './components/Favorites';
+import Categories from './components/Categories';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Navbar />
       <div class="container">
         <div class="row">
-          <Favorites />
+          <Categories />
           <Routes>
             <Route path="/" element={<ReviewList />} />
           </Routes>
