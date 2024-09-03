@@ -14,6 +14,7 @@ function App() {
           <Categories />
           <Routes>
             <Route path="/" element={<ReviewList />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
           <Favorites />
         </div>
