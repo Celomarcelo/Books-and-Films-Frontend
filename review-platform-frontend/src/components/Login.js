@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -22,7 +24,7 @@ const Login = () => {
 
     return (
         <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-            <form className="w-100 p-3" onSubmit={handleSubmit}>
+            <form className="w-50 p-3" onSubmit={handleSubmit}>
                 <div className="w-100 bg-secondary rounded p-4">
                     <div className="text-center mb-4">
                         <h2 className="fs-1">Login</h2>
@@ -49,6 +51,11 @@ const Login = () => {
                         <button type="submit" className="btn btn-primary btn-lg">
                             Login
                         </button>
+                    </div>
+                    <div className="text-center m-4">
+                        <p>
+                            Don't have an account yet? You can register <Link  className="text-primary" to="/Register">here</Link>
+                        </p>
                     </div>
                 </div>
             </form>
