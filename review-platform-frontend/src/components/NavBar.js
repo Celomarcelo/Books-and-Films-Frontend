@@ -18,7 +18,7 @@ function Navbar() {
                             <a className="nav-link" href="#">About</a>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/register">Register</Link>
+                            <Link className="nav-link" to="/api/login/">Login</Link>
                         </li>
                     </ul>
                     <form className="d-flex">
