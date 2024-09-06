@@ -5,22 +5,24 @@ import Categories from './Categories';
 import ReviewList from './ReviewList';
 import Register from './Register';
 import Favorites from './Favorites';
+import Login from './Login';
 
 function Layout() {
     const location = useLocation();
-    const isRegisterPage = location.pathname === '/register';
+    const isAuthPage = location.pathname === '/Register' || location.pathname === '/api/login/';
 
     return (
         <div>
             <Navbar />
             <div className="container">
                 <div className="row">
-                    {!isRegisterPage && <Categories />}
+                    {!isAuthPage && <Categories />}
                     <Routes>
                         <Route path="/" element={<ReviewList />} />
                         <Route path="/register" element={<Register />} />
+                        <Route path="/api/login/" element={<Login />} />
                     </Routes>
-                    {!isRegisterPage && <Favorites />}
+                    {!isAuthPage && <Favorites />}
                 </div>
             </div>
         </div>
