@@ -6,6 +6,7 @@ import ReviewList from './ReviewList';
 import Register from './Register';
 import Favorites from './Favorites';
 import Login from './Login';
+import Profile from './Profile';
 
 function Layout() {
     const location = useLocation();
@@ -21,6 +22,7 @@ function Layout() {
                         <Route path="/" element={<ReviewList />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/api/login/" element={<Login />} />
+                        <Route path="/profile/" element={<Profile />} />
                     </Routes>
                     {!isAuthPage && <Favorites />}
                 </div>
