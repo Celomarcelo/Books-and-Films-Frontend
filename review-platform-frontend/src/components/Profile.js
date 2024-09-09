@@ -13,18 +13,21 @@ const Profile = () => {
 
         const token = localStorage.getItem('token');
 
-        
-        axios.get('/api/user/profile/', {
-            headers: {
-                Authorization: `Bearer ${token}`  
-            }
-        })
-            .then(response => {
-                setUser(response.data);  
+        if (token) {
+            axios.get('/api/user/profile/', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             })
-            .catch(error => {
-                console.error("Error", error);  
-            });
+                .then(response => {
+                    setUser(response.data);
+                })
+                .catch(error => {
+                    console.error("Error", error);
+                });
+        } else {
+            console.error("Token not found");
+        }
     }, []);
 
     return (
