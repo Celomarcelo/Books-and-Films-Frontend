@@ -32,12 +32,14 @@ const Profile = () => {
 
     return (
         <div className="container">
-            <h2 className="mt-4">User Profile</h2>
-            <div className="card mt-4">
+            <h1 className="text-center my-5">Welcome, {user.username}!</h1>
+            <div className="card">
                 <div className="card-body">
-                    <h5 className="card-title">{user.firstName}{user.lastName}</h5>
-                    <p><strong>User name:</strong> {user.username}</p>
-                    <p><strong>Email:</strong> {user.email}</p>
+                    <h5 className="card-title">User Information</h5>
+                    <p className="card-text"><strong>Username:</strong> {user.username}</p>
+                    <p className="card-text"><strong>Email:</strong> {user.email}</p>
+                    <p className="card-text"><strong>First Name:</strong> {user.first_name}</p>
+                    <p className="card-text"><strong>Last Name:</strong> {user.last_name}</p>
                 </div>
             </div>
         </div>
