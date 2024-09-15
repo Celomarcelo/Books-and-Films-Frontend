@@ -16,10 +16,11 @@ const Login = () => {
             password,
         })
             .then(response => {
+                console.log("Login Response:", response.data);
                 localStorage.setItem('token', response.data.access);
                 navigate('/profile/');
             })
-            .catch(error => console.error(error));
+            .catch(error => console.error("Login Error:", error));
     };
 
     return (
