@@ -3,9 +3,17 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
-    const [userData, setUserData] = useState(null);
+    const [userData, setUserData] = useState({
+        username: '',
+        email: '',
+        first_name: '',
+        last_name: '',
+        profile_image: null
+    });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
+    const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,6 +32,7 @@ const UserProfile = () => {
                 });
 
                 setUserData(response.data);
+                setImagePreview(response.data.profile_image);
             } catch (error) {
                 setError('Failed to fetch user data.');
                 console.error("Error fetching user data", error);
