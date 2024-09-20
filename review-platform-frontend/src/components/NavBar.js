@@ -1,7 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function Navbar() {
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get('/api/user/profile/', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setUserData(response.data);
+            } catch (error) {
+                console.error("Login Error:", error);
+            }
+        };
+
+        fetchUserData();
+    }, []);
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
