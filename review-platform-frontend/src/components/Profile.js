@@ -9,7 +9,8 @@ const UserProfile = () => {
         email: '',
         first_name: '',
         last_name: '',
-        profile_image: null
+        profile_image: null,
+        biography: ''
     });
     const [imagePreview, setImagePreview] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -70,6 +71,7 @@ const UserProfile = () => {
         formData.append('email', userData.email);
         formData.append('first_name', userData.first_name);
         formData.append('last_name', userData.last_name);
+        formData.append('biography', userData.biography); 
         if (userData.profile_image instanceof File) {
             formData.append('profile_image', userData.profile_image);
         }
@@ -162,8 +164,18 @@ const UserProfile = () => {
                             onChange={handleChange}
                         />
                     </div>
+                    <div className="form-group w-50 mt-3">
+                        <label>Biography</label>
+                        <textarea
+                            className="form-control"
+                            name="biography"
+                            rows="4"
+                            value={userData.biography}
+                            onChange={handleChange}
+                        />
+                    </div>
                 </div>
-                <div className="d-flex justify-content-center align-items-center mt-4">
+                <div className="d-flex justify-content-center align-items-center m-5">
                     <button type="submit" className="btn btn-primary mt-3">Save Changes</button>
                 </div>
             </form>
