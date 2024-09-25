@@ -2,7 +2,7 @@ import React from 'react'
 
 function Categories() {
   return (
-    <div class="col-md-2  border border-secondary rounded">Categories</div>
+    <div className="col-md-2  border border-secondary rounded mt-4">Categories</div>
   )
 }
 
