@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../assets/css/profile_style.css'
 
 const UserProfile = () => {
     const [userData, setUserData] = useState({
@@ -97,11 +98,11 @@ const UserProfile = () => {
     }
 
     return (
-        <div className="container">
-            <h1 className="text-center my-5">Edit Your Profile</h1>
+        <div className="col-8">
+            <h1 className="text-center my-5">Welcome {userData.username}</h1>
             {successMessage && <div className="alert alert-success">{successMessage}</div>}
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
+                <div className="form-group text-center">
                     {imagePreview && (
                         <img
                             src={imagePreview}
@@ -110,53 +111,61 @@ const UserProfile = () => {
                             style={{ width: '150px', height: '150px' }}
                         />
                     )}
-                    <input
-                        type="file"
-                        className="form-control"
-                        onChange={handleImageChange}
-                    />
+                    <div className="custom-file-upload">
+                        <input
+                            type="file"
+                            id="fileInput"
+                            className="file-input"
+                            onChange={handleImageChange}
+                        />
+                        <label htmlFor="fileInput" className="btn btn-primary">Upload File</label>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label>Username</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        name="username"
-                        value={userData.username}
-                        onChange={handleChange}
-                    />
+                <div className="d-flex flex-column align-items-center mt-4">
+                    <div className="form-group w-50">
+                        <label>Username</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="username"
+                            value={userData.username}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="form-group w-50">
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            name="email"
+                            value={userData.email}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="form-group w-50">
+                        <label>First Name</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="first_name"
+                            value={userData.first_name}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="form-group w-50">
+                        <label>Last Name</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="last_name"
+                            value={userData.last_name}
+                            onChange={handleChange}
+                        />
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        name="email"
-                        value={userData.email}
-                        onChange={handleChange}
-                    />
+                <div className="d-flex justify-content-center align-items-center mt-4">
+                    <button type="submit" className="btn btn-primary mt-3">Save Changes</button>
                 </div>
-                <div className="form-group">
-                    <label>First Name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        name="first_name"
-                        value={userData.first_name}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Last Name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        name="last_name"
-                        value={userData.last_name}
-                        onChange={handleChange}
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary mt-3">Save Changes</button>
             </form>
         </div>
     );
