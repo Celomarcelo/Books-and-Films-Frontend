@@ -17,14 +17,24 @@ function Layout() {
             <Navbar />
             <div className="container">
                 <div className="row">
-                    {!isAuthPage && <Categories />}
-                    <Routes>
-                        <Route path="/" element={<ReviewList />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/api/login/" element={<Login />} />
-                        <Route path="/profile/" element={<Profile />} />
-                    </Routes>
-                    {!isAuthPage && <Favorites />}
+                    {!isAuthPage && (
+                        <div className="col-md-2">
+                            <Categories />
+                        </div>
+                    )}
+                    <div className="col-md-8">
+                        <Routes>
+                            <Route path="/" element={<ReviewList />} />
+                            <Route path="/register" element={<Register />} />
+                            <Route path="/api/login/" element={<Login />} />
+                            <Route path="/profile/" element={<Profile />} />
+                        </Routes>
+                    </div>
+                    {!isAuthPage && (
+                        <div className="col-md-2">
+                            <Favorites />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
