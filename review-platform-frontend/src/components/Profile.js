@@ -256,6 +256,49 @@ const UserProfile = () => {
                     <button type="submit" className="btn btn-primary mt-3">Save Changes</button>
                 </div>
             </form>
+            
+            {/* Password change form */}
+            <h2 className="text-center mt-5">Change Password</h2>
+            {passwordSuccessMessage && <div className="alert alert-success">{passwordSuccessMessage}</div>}
+            {passwordError && <div className="alert alert-danger">{passwordError}</div>}
+            <form onSubmit={handlePasswordSubmit}>
+                <div className="d-flex flex-column align-items-center mt-4">
+                    <div className="form-group w-50">
+                        <label>Current Password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            name="current_password"
+                            value={passwordData.current_password}
+                            onChange={handlePasswordChange}
+                        />
+                    </div>
+                    <div className="form-group w-50">
+                        <label>New Password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            name="new_password"
+                            value={passwordData.new_password}
+                            onChange={handlePasswordChange}
+                        />
+                    </div>
+                    <div className="form-group w-50">
+                        <label>Confirm New Password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            name="confirm_new_password"
+                            value={passwordData.confirm_new_password}
+                            onChange={handlePasswordChange}
+                        />
+                    </div>
+                </div>
+
+                <div className="d-flex justify-content-center align-items-center m-5">
+                    <button type="submit" className="btn btn-primary mt-3">Change Password</button>
+                </div>
+            </form>
         </div>
     );
 };
