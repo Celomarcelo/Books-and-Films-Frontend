@@ -113,6 +113,9 @@ const UserProfile = () => {
 
             // Display success message after successful update
             setSuccessMessage('Profile updated successfully!');
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
         } catch (error) {
             // Handle errors during profile update
             setError('Failed to update profile.');
@@ -138,7 +141,7 @@ const UserProfile = () => {
 
         try {
             const token = localStorage.getItem('token');
-            await axios.post('/api/user/change-password/', {
+            await axios.post('/user/change-password/', {
                 current_password: passwordData.current_password,
                 new_password: passwordData.new_password
             }, {
@@ -149,6 +152,9 @@ const UserProfile = () => {
 
             setPasswordSuccessMessage('Password changed successfully!');
             setPasswordError(null); // Clear any previous errors
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
         } catch (error) {
             setPasswordError('Failed to change password.');
         }
@@ -165,13 +171,13 @@ const UserProfile = () => {
     }
 
     return (
-        <div className="col-8">
+        <div className="d-flex flex-column align-items-center">
             <h1 className="text-center my-5">Welcome {userData.username}</h1>
 
             {/* Display success message after updating profile */}
-            {successMessage && <div className="alert alert-success">{successMessage}</div>}
+            {successMessage && <div className="alert alert-success w-50 w-md-100 text-center">{successMessage}</div>}
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="w-50 w-md-100">
                 <div className="form-group text-center">
                     {/* Display profile image preview if available */}
                     {imagePreview && (
@@ -196,59 +202,57 @@ const UserProfile = () => {
                 </div>
 
                 {/* Form fields to update profile data */}
-                <div className="d-flex flex-column align-items-center mt-4">
-                    <div className="form-group w-50">
-                        <label>Username</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="username"
-                            value={userData.username}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-group w-50">
-                        <label>Email</label>
-                        <input
-                            type="email"
-                            className="form-control"
-                            name="email"
-                            value={userData.email}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-group w-50">
-                        <label>First Name</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="first_name"
-                            value={userData.first_name}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-group w-50">
-                        <label>Last Name</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="last_name"
-                            value={userData.last_name}
-                            onChange={handleChange}
-                        />
-                    </div>
+                <div className="form-group">
+                    <label>Username</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        name="username"
+                        value={userData.username}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Email</label>
+                    <input
+                        type="email"
+                        className="form-control"
+                        name="email"
+                        value={userData.email}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>First Name</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        name="first_name"
+                        value={userData.first_name}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Last Name</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        name="last_name"
+                        value={userData.last_name}
+                        onChange={handleChange}
+                    />
+                </div>
 
-                    {/* Textarea for biography input */}
-                    <div className="form-group w-50 mt-3">
-                        <label>Biography</label>
-                        <textarea
-                            className="form-control"
-                            name="biography"
-                            rows="4"
-                            value={userData.biography}
-                            onChange={handleChange}
-                        />
-                    </div>
+                {/* Textarea for biography input */}
+                <div className="form-group mt-3">
+                    <label>Biography</label>
+                    <textarea
+                        className="form-control"
+                        name="biography"
+                        rows="4"
+                        value={userData.biography}
+                        onChange={handleChange}
+                    />
                 </div>
 
                 {/* Save changes button */}
@@ -256,14 +260,16 @@ const UserProfile = () => {
                     <button type="submit" className="btn btn-primary mt-3">Save Changes</button>
                 </div>
             </form>
-            
+
             {/* Password change form */}
-            <h2 className="text-center mt-5">Change Password</h2>
-            {passwordSuccessMessage && <div className="alert alert-success">{passwordSuccessMessage}</div>}
-            {passwordError && <div className="alert alert-danger">{passwordError}</div>}
-            <form onSubmit={handlePasswordSubmit}>
-                <div className="d-flex flex-column align-items-center mt-4">
-                    <div className="form-group w-50">
+            <div className="w-50 w-md-100 mt-5">
+                <h2 className="text-center mt-5">Change Password</h2>
+                {passwordSuccessMessage && <div className="alert alert-success mt-3 text-center">{passwordSuccessMessage}</div>}
+                {passwordError && <div className="alert alert-danger mt-3 text-center">{passwordError}</div>}
+            </div>
+            <form onSubmit={handlePasswordSubmit} className="w-50 w-md-100">
+                <div className="mt-4">
+                    <div className="form-group">
                         <label>Current Password</label>
                         <input
                             type="password"
@@ -273,7 +279,7 @@ const UserProfile = () => {
                             onChange={handlePasswordChange}
                         />
                     </div>
-                    <div className="form-group w-50">
+                    <div className="form-group">
                         <label>New Password</label>
                         <input
                             type="password"
@@ -283,7 +289,7 @@ const UserProfile = () => {
                             onChange={handlePasswordChange}
                         />
                     </div>
-                    <div className="form-group w-50">
+                    <div className="form-group">
                         <label>Confirm New Password</label>
                         <input
                             type="password"
