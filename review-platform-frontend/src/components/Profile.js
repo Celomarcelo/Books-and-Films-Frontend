@@ -17,6 +17,13 @@ const UserProfile = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
+    const [passwordData, setPasswordData] = useState({
+        current_password: '',
+        new_password: '',
+        confirm_new_password: ''
+    });
+    const [passwordError, setPasswordError] = useState(null);
+    const [passwordSuccessMessage, setPasswordSuccessMessage] = useState('');
     const navigate = useNavigate();
 
     // Fetch user profile data on component mount
@@ -110,6 +117,40 @@ const UserProfile = () => {
             // Handle errors during profile update
             setError('Failed to update profile.');
             console.error("Error updating profile", error);
+        }
+    };
+
+    // Handle password change input
+    const handlePasswordChange = (e) => {
+        setPasswordData({
+            ...passwordData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    // Handle password change form submission
+    const handlePasswordSubmit = async (e) => {
+        e.preventDefault();
+        if (passwordData.new_password !== passwordData.confirm_new_password) {
+            setPasswordError('New passwords do not match.');
+            return;
+        }
+
+        try {
+            const token = localStorage.getItem('token');
+            await axios.post('/api/user/change-password/', {
+                current_password: passwordData.current_password,
+                new_password: passwordData.new_password
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            setPasswordSuccessMessage('Password changed successfully!');
+            setPasswordError(null); // Clear any previous errors
+        } catch (error) {
+            setPasswordError('Failed to change password.');
         }
     };
 
