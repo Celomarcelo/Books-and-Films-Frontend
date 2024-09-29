@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import '../assets/css/login_style.css';
 
 
 const Login = () => {
@@ -21,8 +22,10 @@ const Login = () => {
                 localStorage.setItem('token', response.data.access);
                 navigate('/profile/');
             })
-            .catch(error => console.error("Login Error:", error));
-            setError('Enter with a valid ID or password.');
+            .catch(error => {
+                console.error("Login Error:", error);
+                setError('Enter with a valid ID or password.');
+            });
     };
 
     return (
@@ -32,7 +35,7 @@ const Login = () => {
                 <p>Share ideas about books and films!</p>
             </div>
             <form className="p-3" onSubmit={handleSubmit}>
-                <div className="w-100 bg-secondary rounded p-4">
+                <div className="w-100 custom_bg rounded p-4">
                     <div className="text-center mb-4">
                         <h2 className="fs-1">Login</h2>
                         {passwordError && <div className="alert alert-danger mt-3 text-center">{passwordError}</div>}
@@ -62,7 +65,7 @@ const Login = () => {
                     </div>
                     <div className="text-center m-4">
                         <p>
-                            Don't have an account yet? You can register <Link  className="text-primary" to="/Register">here</Link>
+                            Don't have an account yet? You can register <Link className="text-primary" to="/Register">here</Link>
                         </p>
                     </div>
                 </div>

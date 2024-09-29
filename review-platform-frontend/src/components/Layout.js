@@ -10,7 +10,7 @@ import Profile from './Profile';
 
 function Layout() {
     const location = useLocation();
-    const isAuthPage = location.pathname === '/Register' || location.pathname === '/api/login/';
+    const isAuthPage = location.pathname === '/register' || location.pathname === '/api/login/';
 
     const stickyColumnStyle = {
         position: 'sticky',
