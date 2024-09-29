@@ -25,7 +25,7 @@ const Login = () => {
 
     return (
         <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-            <form className="w-50 p-3" onSubmit={handleSubmit}>
+            <form className="p-3" onSubmit={handleSubmit}>
                 <div className="w-100 bg-secondary rounded p-4">
                     <div className="text-center mb-4">
                         <h2 className="fs-1">Login</h2>
