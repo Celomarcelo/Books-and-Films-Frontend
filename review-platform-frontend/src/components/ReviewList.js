@@ -26,7 +26,7 @@ const ReviewList = () => {
     }, []);
 
     return (
-        <div className="d-flex flex-column align-items-center mt-4">
+        <div className="d-flex flex-column align-items-center my-5">
             <h1>Resenhas de Livros e Filmes</h1>
             {error && <p className="text-danger">{error}</p>}
             <ul>
