@@ -41,6 +41,28 @@ const CreateReview = () => {
       });
   };
 
-
+  return (
+    <div className="container mt-5">
+      <h2>Create a New Review</h2>
+      
+      {error && <div className="alert alert-danger">{error}</div>}
+      {success && <div className="alert alert-success">{success}</div>}
+      
+      <form onSubmit={handleSubmit} className="p-4 bg-light rounded">
+        <div className="mb-3">
+          <label htmlFor="title" className="form-label">Title</label>
+          <input
+            type="text"
+            className="form-control"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default CreateReview;
