@@ -60,6 +60,43 @@ const CreateReview = () => {
             required
           />
         </div>
+        <div className="mb-3">
+          <label htmlFor="author_director" className="form-label">Author/Director</label>
+          <input
+            type="text"
+            className="form-control"
+            id="author_director"
+            value={authorDirector}
+            onChange={(e) => setAuthorDirector(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="content" className="form-label">Review</label>
+          <textarea
+            className="form-control"
+            id="content"
+            rows="4"
+            value={reviewText}
+            onChange={(e) => setReviewText(e.target.value)}
+            required
+          ></textarea>
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="img" className="form-label">Upload an Image (optional)</label>
+          <input
+            type="file"
+            className="form-control"
+            id="img"
+            onChange={(e) => setImg(e.target.files[0])}
+          />
+        </div>
+
+        <div className="d-grid">
+          <button type="submit" className="btn btn-primary">Submit Review</button>
+        </div>
       </form>
     </div>
   );
