@@ -20,7 +20,7 @@ const Login = () => {
             .then(response => {
                 console.log("Login Response:", response.data);
                 localStorage.setItem('token', response.data.access);
-                navigate('/profile/');
+                navigate('/');
             })
             .catch(error => {
                 console.error("Login Error:", error);
@@ -65,7 +65,7 @@ const Login = () => {
                     </div>
                     <div className="text-center m-4">
                         <p>
-                            Don't have an account yet? You can register <Link className="text-primary" to="/Register">here</Link>
+                            Don't have an account yet? You can register <Link className="text-primary" to="/register">here</Link>
                         </p>
                     </div>
                 </div>
