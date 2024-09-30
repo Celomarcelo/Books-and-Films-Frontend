@@ -14,8 +14,8 @@ function Layout() {
 
     const stickyColumnStyle = {
         position: 'sticky',
-        top: '80px',
-        height: 'calc(100vh - 80px)',
+        top: '150px',
+        height: 'calc(100vh - 150px)',
     };
 
     const navbarStyle = {
