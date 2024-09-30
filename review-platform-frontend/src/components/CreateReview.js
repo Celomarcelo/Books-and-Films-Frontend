@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../assets/css/CreateReview_style.css';
 
 const CreateReview = () => {
   const [title, setTitle] = useState('');
@@ -12,7 +13,7 @@ const CreateReview = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     
-    if (!title || !authorDirector || !reviewText) {
+    if (!title || !authorDirector || !content) {
       setError('Please fill in all required fields.');
       return;
     }
@@ -42,13 +43,13 @@ const CreateReview = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 pt-5 text-center">
       <h2>Create a New Review</h2>
       
       {error && <div className="alert alert-danger">{error}</div>}
       {success && <div className="alert alert-success">{success}</div>}
       
-      <form onSubmit={handleSubmit} className="p-4 bg-light rounded">
+      <form onSubmit={handleSubmit} className="p-4 bg-light rounded mt-3">
         <div className="mb-3">
           <label htmlFor="title" className="form-label">Title</label>
           <input
@@ -78,20 +79,22 @@ const CreateReview = () => {
             className="form-control"
             id="content"
             rows="4"
-            value={reviewText}
-            onChange={(e) => setReviewText(e.target.value)}
+            value={content}
+            onChange={(e) => setReviewContent(e.target.value)}
             required
           ></textarea>
         </div>
 
         <div className="mb-3">
-          <label htmlFor="img" className="form-label">Upload an Image (optional)</label>
+          <label htmlFor="img" className="btn btn-primary">Upload an Image (optional)</label>
+          <div className="custom-file-upload">
           <input
             type="file"
-            className="form-control"
+            className="file-input"
             id="img"
             onChange={(e) => setImg(e.target.files[0])}
           />
+          </div>
         </div>
 
         <div className="d-grid">

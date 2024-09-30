@@ -7,6 +7,7 @@ import Register from './Register';
 import Favorites from './Favorites';
 import Login from './Login';
 import Profile from './Profile';
+import CreateReview from './CreateReview';
 
 function Layout() {
     const location = useLocation();
@@ -14,8 +15,8 @@ function Layout() {
 
     const stickyColumnStyle = {
         position: 'sticky',
-        top: '150px',
-        height: 'calc(100vh - 150px)',
+        top: '100px',
+        height: 'calc(100vh - 100px)',
     };
 
     const navbarStyle = {
@@ -44,6 +45,7 @@ function Layout() {
                             <Route path="/register" element={<Register />} />
                             <Route path="/api/login/" element={<Login />} />
                             <Route path="/profile/" element={<Profile />} />
+                            <Route path="/reviews/create/" element={<CreateReview />} />
                         </Routes>
                     </div>
                     {!isAuthPage && (
