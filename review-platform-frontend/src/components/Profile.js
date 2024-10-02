@@ -35,7 +35,7 @@ const UserProfile = () => {
 
                 // If no token, redirect to register page
                 if (!token) {
-                    navigate('Register/');
+                    navigate('register/');
                     return;
                 }
 
