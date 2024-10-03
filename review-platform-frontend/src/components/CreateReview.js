@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../assets/css/CreateReview_style.css';
 import { useNavigate } from 'react-router-dom';
@@ -14,18 +14,24 @@ const CreateReview = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const navigate = useNavigate();
-    const token = localStorage.getItem('token');
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/api/login/');
+        }
+    }, [navigate]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        const token = localStorage.getItem('token');
+        if (!token) {
+            setError('You must be logged in to create a review.');
+            return;
+        }
+
         try {
-
-            if (!token) {
-                navigate('/api/login/');
-                return;
-            }
-
             if (!title || !authorDirector || !content) {
                 setError('Please fill in all required fields.');
                 return;
@@ -41,7 +47,7 @@ const CreateReview = () => {
                 formData.append('img', img);
             }
 
-            await axios.post('/reviews/create/', formData, {
+            await axios.post('/api/reviews/create/', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',
@@ -56,22 +62,19 @@ const CreateReview = () => {
             setGenre('');
             setRating('');
             setImg(null);
+            navigate('/');
 
         } catch (error) {
             setError('An error occurred while creating the review.');
             setSuccess('');
 
-
             if (error.response) {
-
                 console.error('Response data:', error.response.data);
                 console.error('Response status:', error.response.status);
                 console.error('Response headers:', error.response.headers);
             } else if (error.request) {
-
                 console.error('Request data:', error.request);
             } else {
-
                 console.error('Error message:', error.message);
             }
 
