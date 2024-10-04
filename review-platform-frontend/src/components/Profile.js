@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import '../assets/css/profile_style.css';
 
 const UserReviews = () => {
+    const [user, setUser] = useState({});
     const [reviews, setReviews] = useState([]);
     const [error, setError] = useState('');
     const [editMode, setEditMode] = useState(null);
@@ -12,11 +13,23 @@ const UserReviews = () => {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
+
+        if (!token) {
+            navigate('/login');
+            return;
+        }
+
+        axios.get('/api/user/profile/', {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+        .then(response => {
+            setUser(response.data);  
+        })
+        .catch(error => {
+            console.error('Error fetching user data:', error);
+        })
+
         const fetchUserReviews = async () => {
-            if (!token) {
-                navigate('/login');
-                return;
-            }
 
             try {
                 const response = await axios.get('/reviews/user/', {
