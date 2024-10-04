@@ -8,6 +8,7 @@ import Favorites from './Favorites';
 import Login from './Login';
 import Profile from './Profile';
 import CreateReview from './CreateReview';
+import UserProfile from './EditProfile';
 
 function Layout() {
     const location = useLocation();
@@ -45,6 +46,7 @@ function Layout() {
                             <Route path="/register" element={<Register />} />
                             <Route path="/api/login/" element={<Login />} />
                             <Route path="/profile/" element={<Profile />} />
+                            <Route path="/edit_profile/" element={<UserProfile />} />
                             <Route path="/reviews/create/" element={<CreateReview />} />
                         </Routes>
                     </div>

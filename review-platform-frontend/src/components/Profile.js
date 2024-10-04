@@ -22,12 +22,12 @@ const UserReviews = () => {
         axios.get('/api/user/profile/', {
             headers: { Authorization: `Bearer ${token}` },
         })
-        .then(response => {
-            setUser(response.data);  
-        })
-        .catch(error => {
-            console.error('Error fetching user data:', error);
-        })
+            .then(response => {
+                setUser(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            })
 
         const fetchUserReviews = async () => {
 
@@ -47,6 +47,10 @@ const UserReviews = () => {
 
         fetchUserReviews();
     }, [token, navigate]);
+
+    const handleEditProfile = () => {
+        navigate('/edit_profile/');
+    };
 
     const deleteReview = async (reviewId) => {
         try {
@@ -96,4 +100,26 @@ const UserReviews = () => {
         setEditForm({ title: '', content: '', rating: '', genre: '' });
     };
 
-    return 
+    return (
+        <div className="d-flex flex-column align-items-center my-5">
+            <div className="d-flex align-items-center mb-4">
+                {user.profile_image && (
+                    <img
+                        src={user.profile_image}
+                        alt="User Profile"
+                        className="rounded-circle"
+                        style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '15px' }}
+                    />
+                )}
+                <button
+                    className="btn btn-outline-primary"
+                    onClick={handleEditProfile}
+                >
+                    Edit Profile
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default UserReviews;
