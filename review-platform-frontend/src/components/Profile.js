@@ -33,9 +33,9 @@ const UserProfile = () => {
                 // Retrieve token from local storage to authenticate the request
                 const token = localStorage.getItem('token');
 
-                // If no token, redirect to register page
+                // If no token, redirect to login page
                 if (!token) {
-                    navigate('register/');
+                    navigate('/api/login/');
                     return;
                 }
 
