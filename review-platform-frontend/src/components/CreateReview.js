@@ -47,7 +47,7 @@ const CreateReview = () => {
                 formData.append('img', img);
             }
 
-            await axios.post('/api/reviews/create/', formData, {
+            await axios.post('/reviews/create/', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',
@@ -157,6 +157,11 @@ const CreateReview = () => {
                             onChange={(e) => setImg(e.target.files[0])}
                         />
                     </div>
+                    {img && (
+                        <div className="mt-2">
+                            <small><strong>Selected file:</strong> {img.name}</small>
+                        </div>
+                    )}
                 </div>
 
                 <div className="d-grid">
