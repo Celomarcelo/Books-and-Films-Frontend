@@ -8,7 +8,7 @@ const UserReviews = () => {
     const [reviews, setReviews] = useState([]);
     const [error, setError] = useState('');
     const [editMode, setEditMode] = useState(null);
-    const [editForm, setEditForm] = useState({ title: '', content: '', rating: '', genre: '' });
+    const [editForm, setEditForm] = useState({});
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
@@ -68,12 +68,7 @@ const UserReviews = () => {
 
     const handleEdit = (review) => {
         setEditMode(review.id);
-        setEditForm({
-            title: review.title,
-            content: review.content,
-            rating: review.rating,
-            genre: review.genre,
-        });
+        setEditForm(review);
     };
 
     const saveEdit = async (reviewId) => {
@@ -102,7 +97,7 @@ const UserReviews = () => {
 
     return (
         <div className="d-flex flex-column align-items-center my-5">
-            <div className="d-flex align-items-center mb-4">
+            <div className="d-flex align-items-center mb-4 mt-5">
                 {user.profile_image && (
                     <img
                         src={user.profile_image}
@@ -118,6 +113,87 @@ const UserReviews = () => {
                     Edit Profile
                 </button>
             </div>
+            <h1>Hello {user.username},Welcome to your reviews!</h1>
+            {error && <p className="text-danger">{error}</p>}
+
+            <ul className="list-unstyled">
+                {reviews.length > 0 ? (
+                    reviews.map((review) => (
+                        <li key={review.id} className="mb-4">
+                            {editMode === review.id ? (
+                                <div className="text-center">
+                                    <h4>Editando: {review.title}</h4>
+                                    <input
+                                        type="text"
+                                        value={editForm.title}
+                                        onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
+                                        className="form-control my-2"
+                                    />
+                                    <textarea
+                                        value={editForm.content}
+                                        onChange={(e) => setEditForm({ ...editForm, content: e.target.value })}
+                                        className="form-control my-2"
+                                    ></textarea>
+                                    <input
+                                        type="text"
+                                        value={editForm.genre}
+                                        onChange={(e) => setEditForm({ ...editForm, genre: e.target.value })}
+                                        className="form-control my-2"
+                                    />
+                                    <input
+                                        type="number"
+                                        value={editForm.rating}
+                                        onChange={(e) => setEditForm({ ...editForm, rating: e.target.value })}
+                                        className="form-control my-2"
+                                    />
+                                    <div>
+                                        <button className="btn btn-success me-2" onClick={() => saveEdit(review.id)}>
+                                            Save
+                                        </button>
+                                        <button className="btn btn-danger" onClick={cancelEdit}>
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div>
+                                    {review.img && (
+                                        <div className="d-flex justify-content-center mb-2">
+                                            <img
+                                                src={review.img}
+                                                alt={review.title}
+                                                className="img-fluid"
+                                                style={{ maxWidth: '200px', height: 'auto' }}
+                                            />
+                                        </div>
+                                    )}
+                                    <div className="text-center">
+                                        <h4>{review.title}</h4>
+                                        <p><strong>Autor/Diretor:</strong> {review.author_director}</p>
+                                        <p>{review.content}</p>
+                                        <p><strong>Gênero:</strong> {review.genre}</p>
+                                        <p><strong>Avaliação:</strong> {review.rating}/10</p>
+                                        <button
+                                            className="btn btn-primary me-2"
+                                            onClick={() => handleEdit(review)}
+                                        >
+                                            Editar
+                                        </button>
+                                        <button
+                                            className="btn btn-danger"
+                                            onClick={() => deleteReview(review.id)}
+                                        >
+                                            Deletar
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </li>
+                    ))
+                ) : (
+                    <p>No reviews found.</p>
+                )}
+            </ul>
         </div>
     );
 };
