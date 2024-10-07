@@ -33,7 +33,8 @@ const UserReviews = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-
+                
+                console.log("Reviews Response:", response.data);
                 setReviews(response.data);
             } catch (error) {
                 setError('An error occurred while fetching the reviews.');
@@ -63,6 +64,7 @@ const UserReviews = () => {
     };
 
     const handleEdit = (reviewId) => {
+        console.log('Edit review with ID:', reviewId);
         navigate(`/reviews/edit/${reviewId}`);
     };
 
