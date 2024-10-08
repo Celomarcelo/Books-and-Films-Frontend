@@ -85,58 +85,60 @@ const EditReview = () => {
     };
 
     return (
-        <div className="container my-5">
-            <h1>{review.title}</h1>
-            {error && <p className="text-danger">{error}</p>}
-            <div className="mb-3">
-                <label>Title</label>
-                <input
-                    type="text"
-                    name="title"
-                    value={form.title}
-                    onChange={handleInputChange}
-                    className="form-control"
-                />
+        <div className="d-flex flex-column align-items-center my-5">
+            <div className="container my-5 text-center">
+                <h1>{review.title}</h1>
+                {error && <p className="text-danger">{error}</p>}
+                <div className="mb-3">
+                    <label>Title</label>
+                    <input
+                        type="text"
+                        name="title"
+                        value={form.title}
+                        onChange={handleInputChange}
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-3">
+                    <label>Content</label>
+                    <textarea
+                        name="content"
+                        value={form.content}
+                        onChange={handleInputChange}
+                        className="form-control"
+                    ></textarea>
+                </div>
+                <div className="mb-3">
+                    <label>Genre</label>
+                    <input
+                        type="text"
+                        name="genre"
+                        value={form.genre}
+                        onChange={handleInputChange}
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-3">
+                    <label>Rating</label>
+                    <input
+                        type="number"
+                        name="rating"
+                        value={form.rating}
+                        onChange={handleInputChange}
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-3">
+                    <label>Image</label>
+                    <input
+                        type="file"
+                        onChange={handleImageChange}
+                        className="form-control"
+                    />
+                </div>
+                <button className="btn btn-success me-2" onClick={handleSave}>Save</button>
+                <button className="btn btn-danger" onClick={handleCancel}>Cancel</button>
             </div>
-            <div className="mb-3">
-                <label>Content</label>
-                <textarea
-                    name="content"
-                    value={form.content}
-                    onChange={handleInputChange}
-                    className="form-control"
-                ></textarea>
-            </div>
-            <div className="mb-3">
-                <label>Genre</label>
-                <input
-                    type="text"
-                    name="genre"
-                    value={form.genre}
-                    onChange={handleInputChange}
-                    className="form-control"
-                />
-            </div>
-            <div className="mb-3">
-                <label>Rating</label>
-                <input
-                    type="number"
-                    name="rating"
-                    value={form.rating}
-                    onChange={handleInputChange}
-                    className="form-control"
-                />
-            </div>
-            <div className="mb-3">
-                <label>Image</label>
-                <input
-                    type="file"
-                    onChange={handleImageChange}
-                    className="form-control"
-                />
-            </div>
-            <button className="btn btn-success me-2" onClick={handleSave}>Save</button>
-            <button className="btn btn-danger" onClick={handleCancel}>Cancel</button>
         </div>
     );
 };

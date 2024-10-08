@@ -11,7 +11,7 @@ const UserReviews = () => {
 
     useEffect(() => {
         if (!token) {
-            navigate('/login');
+            navigate('/api/login/');
             return;
         }
 
@@ -33,7 +33,7 @@ const UserReviews = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                
+
                 console.log("Reviews Response:", response.data);
                 setReviews(response.data);
             } catch (error) {
@@ -92,9 +92,9 @@ const UserReviews = () => {
             <ul className="list-unstyled">
                 {reviews.length > 0 ? (
                     reviews.map((review) => (
-                        <li key={review.id} className="mb-4">
+                        <li key={review.id} className="mb-4 mt-5">
                             {review.img && (
-                                <div className="d-flex justify-content-center mb-2">
+                                <div className="d-flex justify-content-center mb-2 mt-5">
                                     <img
                                         src={review.img}
                                         alt={review.title}

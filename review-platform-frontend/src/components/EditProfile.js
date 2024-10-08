@@ -171,7 +171,7 @@ const UserProfile = () => {
     }
 
     return (
-        <div className="d-flex flex-column align-items-center">
+        <div className="d-flex flex-column align-items-center mt-5">
             <h1 className="text-center my-5">Welcome {userData.username}</h1>
 
             {/* Display success message after updating profile */}
@@ -190,7 +190,7 @@ const UserProfile = () => {
                     )}
 
                     {/* Custom file upload button */}
-                    <div className="custom-file-upload">
+                    <div className="custom-file-upload mb-5">
                         <input
                             type="file"
                             id="fileInput"
