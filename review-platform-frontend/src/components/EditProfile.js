@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/profile_style.css';
+import { isTokenValid } from './Auth';
 
 const UserProfile = () => {
     // State to hold user profile data, including biography and profile image
@@ -34,7 +35,7 @@ const UserProfile = () => {
                 const token = localStorage.getItem('token');
 
                 // If no token, redirect to login page
-                if (!token) {
+                if (!isTokenValid()) {
                     navigate('/api/login/');
                     return;
                 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { isTokenValid } from './Auth';
 
 const EditReview = () => {
     const { reviewId } = useParams();
@@ -17,6 +18,11 @@ const EditReview = () => {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
+
+        if (!isTokenValid()) {
+            navigate('/api/login/');
+            return;
+        }
         const fetchReview = async () => {
             try {
                 const response = await axios.get(`/reviews/${reviewId}/`, {
@@ -37,7 +43,7 @@ const EditReview = () => {
         };
 
         fetchReview();
-    }, [reviewId, token]);
+    }, [reviewId, token, navigate]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

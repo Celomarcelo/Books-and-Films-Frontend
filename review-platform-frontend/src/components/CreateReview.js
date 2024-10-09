@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../assets/css/CreateReview_style.css';
 import { useNavigate } from 'react-router-dom';
+import { isTokenValid } from './Auth';
 
 
 const CreateReview = () => {
@@ -16,21 +17,17 @@ const CreateReview = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (!token) {
+
+        if (!isTokenValid()) {
             navigate('/api/login/');
+            return;
         }
     }, [navigate]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         const token = localStorage.getItem('token');
-        if (!token) {
-            setError('You must be logged in to create a review.');
-            return;
-        }
-
+    
         try {
             if (!title || !authorDirector || !content) {
                 setError('Please fill in all required fields.');

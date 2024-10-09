@@ -16,7 +16,7 @@ export const isTokenValid = () => {
         }
         return true;
     } catch (error) {
-        console.error('Erro ao decodificar o token:', error);
+        console.error('Error decoding token:', error);
         localStorage.removeItem('token');
         return false;
     }
