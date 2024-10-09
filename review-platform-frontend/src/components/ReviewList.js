@@ -21,7 +21,10 @@ const ReviewList = () => {
                 'Authorization': `Bearer ${token}`
             }
         })
-        .then(response => setReviews(response.data))
+        .then(response => {
+            const sortedReviews = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            setReviews(sortedReviews);
+        })
         .catch(error => {
             setError('Failed to fetch reviews. Please login again.'); 
             console.error(error);
