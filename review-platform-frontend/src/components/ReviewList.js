@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { isTokenValid } from './Auth';
 
 const ReviewList = () => {
     const [reviews, setReviews] = useState([]);
@@ -10,7 +11,7 @@ const ReviewList = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
 
-        if (!token) {
+        if (!isTokenValid()) {
             navigate('/api/login/');
             return;
         }
