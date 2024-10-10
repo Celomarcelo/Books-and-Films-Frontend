@@ -3,6 +3,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
 
+/**
+ * UserReviews Component
+ * 
+ * This component fetches and displays the current user's profile and their reviews.
+ * It also allows the user to edit or delete their reviews and update their profile.
+ */
 const UserReviews = () => {
     const [user, setUser] = useState({});
     const [reviews, setReviews] = useState([]);
@@ -10,12 +16,14 @@ const UserReviews = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
+    // If token is invalid, redirect to the login page
     useEffect(() => {
         if (!isTokenValid()) {
             navigate('/api/login/');
             return;
         }
 
+        // Fetch user profile data
         axios.get('/api/user/profile/', {
             headers: { Authorization: `Bearer ${token}` },
         })
@@ -26,6 +34,7 @@ const UserReviews = () => {
                 console.error('Error fetching user data:', error);
             });
 
+            // Fetch the user's reviews
         const fetchUserReviews = async () => {
 
             try {
@@ -46,10 +55,12 @@ const UserReviews = () => {
         fetchUserReviews();
     }, [token, navigate]);
 
+    // Navigates to the profile editing page
     const handleEditProfile = () => {
         navigate('/edit_profile/');
     };
 
+    // Deletes a review by ID and updates the review list in the UI
     const deleteReview = async (reviewId) => {
         try {
             await axios.delete(`/reviews/${reviewId}/delete/`, {
@@ -64,6 +75,7 @@ const UserReviews = () => {
         }
     };
 
+    // Navigates to the review editing page with the selected review ID
     const handleEdit = (reviewId) => {
         console.log('Edit review with ID:', reviewId);
         navigate(`/reviews/edit/${reviewId}`);
@@ -71,10 +83,11 @@ const UserReviews = () => {
 
     return (
         <div className="d-flex flex-column align-items-center my-5">
+            {/* User Profile Section */}
             <div className="d-flex align-items-center mb-4 mt-5">
                 {user.profile_image && (
                     <img
-                        src={user.profile_image}
+                        src={user.profile_image} // Displays the user's profile image if available
                         alt="User Profile"
                         className="rounded-circle"
                         style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '15px' }}
@@ -82,18 +95,21 @@ const UserReviews = () => {
                 )}
                 <button
                     className="btn btn-outline-primary"
-                    onClick={handleEditProfile}
+                    onClick={handleEditProfile} // Button to edit user profile
                 >
                     Edit Profile
                 </button>
             </div>
+            {/* Greeting message for the user */}
             <h1>Hello {user.username}, Welcome to your reviews!</h1>
-            {error && <p className="text-danger">{error}</p>}
+            {error && <p className="text-danger">{error}</p>} {/* Displays error messages, if any */}
 
+            {/* Reviews List */}
             <ul className="list-unstyled">
                 {reviews.length > 0 ? (
                     reviews.map((review) => (
                         <li key={review.id} className="mb-4 mt-5">
+                            {/* Displays review image if available */}
                             {review.img && (
                                 <div className="d-flex justify-content-center mb-2 mt-5">
                                     <img
@@ -104,12 +120,14 @@ const UserReviews = () => {
                                     />
                                 </div>
                             )}
+                            {/* Review Details */}
                             <div className="text-center">
                                 <h4>{review.title}</h4>
                                 <p><strong>Author/Director:</strong> {review.author_director}</p>
                                 <p>{review.content}</p>
                                 <p><strong>Genre:</strong> {review.genre}</p>
                                 <p><strong>Rating:</strong> {review.rating}/10</p>
+                                {/* Buttons to edit or delete the review */}
                                 <button
                                     className="btn btn-primary me-2"
                                     onClick={() => handleEdit(review.id)}
@@ -126,7 +144,7 @@ const UserReviews = () => {
                         </li>
                     ))
                 ) : (
-                    <p>No reviews found.</p>
+                    <p>No reviews found.</p> 
                 )}
             </ul>
         </div>

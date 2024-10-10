@@ -4,8 +4,14 @@ import '../assets/css/CreateReview_style.css';
 import { useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
 
-
+/**
+ * CreateReview Component
+ * 
+ * This component allows users to create a new review. It includes form input for title, author/director,
+ * content, genre, rating, and an optional image upload. It also validates the token and manages errors.
+ */
 const CreateReview = () => {
+    // State variables for form inputs
     const [title, setTitle] = useState('');
     const [authorDirector, setAuthorDirector] = useState('');
     const [content, setReviewContent] = useState('');
@@ -16,24 +22,32 @@ const CreateReview = () => {
     const [success, setSuccess] = useState('');
     const navigate = useNavigate();
 
+    // useEffect to check if the token is valid on component mount
     useEffect(() => {
-
         if (!isTokenValid()) {
             navigate('/api/login/');
             return;
         }
     }, [navigate]);
 
+    /**
+     * handleSubmit function
+     * 
+     * This function is triggered when the form is submitted. It gathers the form data,
+     * performs validation, and sends a POST request to create a new review.
+     */
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        const token = localStorage.getItem('token');
-    
+        event.preventDefault();  // Prevent default form submission behavior
+        const token = localStorage.getItem('token');  // Retrieve the stored user token
+
         try {
+            // Check if required fields are filled
             if (!title || !authorDirector || !content) {
                 setError('Please fill in all required fields.');
                 return;
             }
 
+            // Prepare form data including optional image file
             const formData = new FormData();
             formData.append('title', title);
             formData.append('author_director', authorDirector);
@@ -44,15 +58,18 @@ const CreateReview = () => {
                 formData.append('img', img);
             }
 
+            // Send POST request to create the review
             await axios.post('/reviews/create/', formData, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`,  // Add Authorization header with Bearer token
                     'Content-Type': 'multipart/form-data',
                 },
             });
 
+            // If the review is successfully created
             setSuccess('Review created successfully!');
-            setError('');
+            setError('');  // Clear any error messages
+            // Reset form fields after successful submission
             setTitle('');
             setAuthorDirector('');
             setReviewContent('');
@@ -62,9 +79,11 @@ const CreateReview = () => {
             navigate('/');
 
         } catch (error) {
+            // Handle errors during the review creation process
             setError('An error occurred while creating the review.');
             setSuccess('');
 
+            // Log different error details based on where the error occurred
             if (error.response) {
                 console.error('Response data:', error.response.data);
                 console.error('Response status:', error.response.status);
@@ -83,10 +102,12 @@ const CreateReview = () => {
         <div className="container mt-5 pt-5 text-center">
             <h2>Create a New Review</h2>
 
-            {error && <div className="alert alert-danger">{error}</div>}
-            {success && <div className="alert alert-success">{success}</div>}
+            {error && <div className="alert alert-danger">{error}</div>}  // Display error message if any
+            {success && <div className="alert alert-success">{success}</div>}  // Display success message if any
 
+            {/* Form for creating a new review */}
             <form onSubmit={handleSubmit} className="p-4 bg-light rounded mt-3">
+                {/* Title input field */}
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>
                     <input
@@ -98,6 +119,8 @@ const CreateReview = () => {
                         required
                     />
                 </div>
+
+                {/* Author/Director input field */}
                 <div className="mb-3">
                     <label htmlFor="author_director" className="form-label">Author/Director</label>
                     <input
@@ -110,6 +133,7 @@ const CreateReview = () => {
                     />
                 </div>
 
+                {/* Review content (textarea) */}
                 <div className="mb-3">
                     <label htmlFor="content" className="form-label">Review</label>
                     <textarea
@@ -122,6 +146,7 @@ const CreateReview = () => {
                     ></textarea>
                 </div>
 
+                {/* Genre input field */}
                 <div className="mb-3">
                     <label htmlFor="genre" className="form-label">Genre</label>
                     <input
@@ -133,6 +158,7 @@ const CreateReview = () => {
                     />
                 </div>
 
+                {/* Rating input field */}
                 <div className="mb-3">
                     <label htmlFor="rating" className="form-label">Rating</label>
                     <input
@@ -144,6 +170,7 @@ const CreateReview = () => {
                     />
                 </div>
 
+                {/* Image upload field (optional) */}
                 <div className="mb-3">
                     <label htmlFor="img" className="btn btn-primary">Upload an Image (optional)</label>
                     <div className="custom-file-upload">
@@ -161,6 +188,7 @@ const CreateReview = () => {
                     )}
                 </div>
 
+                {/* Submit button */}
                 <div className="d-grid">
                     <button type="submit" className="btn btn-primary">Submit Review</button>
                 </div>
