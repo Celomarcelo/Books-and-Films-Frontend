@@ -102,8 +102,8 @@ const CreateReview = () => {
         <div className="container mt-5 pt-5 text-center">
             <h2>Create a New Review</h2>
 
-            {error && <div className="alert alert-danger">{error}</div>}  // Display error message if any
-            {success && <div className="alert alert-success">{success}</div>}  // Display success message if any
+            {error && <div className="alert alert-danger">{error}</div>}  {/* Display error message if any */}
+            {success && <div className="alert alert-success">{success}</div>}  {/* Display success message if any */}
 
             {/* Form for creating a new review */}
             <form onSubmit={handleSubmit} className="p-4 bg-light rounded mt-3">
