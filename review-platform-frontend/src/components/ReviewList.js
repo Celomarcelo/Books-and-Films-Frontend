@@ -73,21 +73,24 @@ const ReviewList = () => {
 
                             {/* Display the user profile picture at the bottom-right corner of the review image */}
                             {review.user && review.user.profile_image && (
-                                <img
-                                    src={review.user.profile_image}
-                                    alt={review.user.username}
-                                    className="profile-image"
-                                    style={{
-                                        position: 'absolute',
-                                        bottom: '5px',
-                                        right: '70px',
-                                        width: '70px',
-                                        height: '70px',
-                                        borderRadius: '50%',
-                                        border: '2px solid white',
-                                        objectFit: 'cover'
-                                    }}
-                                />
+                                <Link to={`/user/${review.user.id}/profile`}>
+                                    <img
+                                        src={review.user.profile_image}
+                                        alt={review.user.username}
+                                        className="profile-image"
+                                        style={{
+                                            position: 'absolute',
+                                            bottom: '5px',
+                                            right: '70px',
+                                            width: '70px',
+                                            height: '70px',
+                                            borderRadius: '50%',
+                                            border: '2px solid white',
+                                            objectFit: 'cover',
+                                            cursor: 'pointer'
+                                        }}
+                                    />
+                                </Link>
                             )}
                         </div>
                         <div>
