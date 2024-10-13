@@ -73,7 +73,7 @@ const ReviewList = () => {
 
                             {/* Display the user profile picture at the bottom-right corner of the review image */}
                             {review.user && review.user.profile_image && (
-                                <Link to={`/user/${review.user.id}/profile`}>
+                                <Link to={`/user/${review.user.id}/reviewsList`}>
                                     <img
                                         src={review.user.profile_image}
                                         alt={review.user.username}

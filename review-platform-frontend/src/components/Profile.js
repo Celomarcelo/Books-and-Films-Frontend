@@ -126,7 +126,7 @@ const UserReviews = () => {
                                 <p><strong>Author/Director:</strong> {review.author_director}</p>
                                 <p>{review.content}</p>
                                 <p><strong>Genre:</strong> {review.genre}</p>
-                                <p><strong>Rating:</strong> {review.rating}/10</p>
+                                <p><strong>Rating:</strong> {review.rating}/5</p>
                                 {/* Buttons to edit or delete the review */}
                                 <button
                                     className="btn btn-primary me-2"

@@ -10,6 +10,7 @@ import Profile from './Profile';
 import CreateReview from './CreateReview';
 import UserProfile from './EditProfile';
 import EditReview from './EditReview';
+import UserReviewsList from './UserReviewsList';
 
 function Layout() {
     const location = useLocation();
@@ -50,6 +51,7 @@ function Layout() {
                             <Route path="/edit_profile/" element={<UserProfile />} />
                             <Route path="/reviews/create/" element={<CreateReview />} />
                             <Route path="/reviews/edit/:reviewId/" element={<EditReview />} />
+                            <Route path="/user/:userId/reviewsList" element={<UserReviewsList />} />
                         </Routes>
                     </div>
                     {!isAuthPage && (
