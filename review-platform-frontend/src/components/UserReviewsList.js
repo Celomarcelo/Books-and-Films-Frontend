@@ -6,8 +6,11 @@ const UserReviewsList = () => {
     const { userId } = useParams();
     const [user, setUser] = useState(null);
     const [reviews, setReviews] = useState([]);
+    const [favorites, setFavorites] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -27,10 +30,17 @@ const UserReviewsList = () => {
                 });
                 setReviews(reviewsResponse.data);
 
+                const favoritesResponse = await axios.get(`/user/favorites/`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                setFavorites(favoritesResponse.data);
+
                 setLoading(false);
             } catch (error) {
-                console.error('Error fetching user data:', error);
-                setError('Failed to load user data.');
+                console.error('Error fetching data:', error);
+                setError('Failed to load data.');
                 setLoading(false);
             }
         };
@@ -38,16 +48,33 @@ const UserReviewsList = () => {
         fetchUserData();
     }, [userId]);
 
+    const toggleFavorite = async (favoriteUserId) => {
+        try {
+            const response = await axios.post(`/user/${favoriteUserId}/favorite/`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            alert(response.data.message);
+
+            const favoritesResponse = await axios.get(`/user/favorites/`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            setFavorites(favoritesResponse.data);
+        } catch (error) {
+            console.error('Error favoriting user:', error);
+            setError('Failed to update favorites.');
+        }
+    };
+
     if (error) {
         return <div>{error}</div>;
     }
 
     if (loading) {
         return <div>Loading...</div>;
-    }
-
-    if (!user) {
-        return <div>No user data found.</div>;
     }
 
     return (
@@ -64,6 +91,11 @@ const UserReviewsList = () => {
             </div>
             <h1>{user.username}</h1>
             <p>{user.biography}</p>
+
+            <button className="btn btn-primary btn-lg mt-3" onClick={() => toggleFavorite(userId)}>
+                {favorites.some(fav => fav.id === user.id) ? 'Unfavorite' : 'Favorite'}
+            </button>
+
             <h2 className="mt-5">Reviews</h2>
             {/* Reviews List */}
             <ul className="list-unstyled">
@@ -95,7 +127,7 @@ const UserReviewsList = () => {
                     <p>No reviews found.</p>
                 )}
             </ul>
-        </div >
+        </div>
     );
 };
 
