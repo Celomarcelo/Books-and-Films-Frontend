@@ -40,6 +40,9 @@ const Login = () => {
                 // Store the authentication token in localStorage
                 localStorage.setItem('token', response.data.access);
 
+                // Stores the user ID in localStorage
+                localStorage.setItem('userId', response.data.user.id);
+
                 // Redirect the user to the homepage after successful login
                 navigate('/');
             })
