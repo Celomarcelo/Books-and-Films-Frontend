@@ -6,7 +6,7 @@ const UserReviewsList = () => {
     const { userId } = useParams();
     const [user, setUser] = useState(null);
     const [reviews, setReviews] = useState([]);
-    const [favorites, setFavorites] = useState([]);
+    const [isFavorite, setIsFavorite] = useState(false);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -15,7 +15,6 @@ const UserReviewsList = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const token = localStorage.getItem('token');
                 const userResponse = await axios.get(`/user/${userId}/`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -35,7 +34,8 @@ const UserReviewsList = () => {
                         Authorization: `Bearer ${token}`,
                     }
                 });
-                setFavorites(favoritesResponse.data);
+                const favoritesList = favoritesResponse.data;
+                setIsFavorite(favoritesList.some(fav => fav.id.toString() === userId));
 
                 setLoading(false);
             } catch (error) {
@@ -46,23 +46,26 @@ const UserReviewsList = () => {
         };
 
         fetchUserData();
-    }, [userId]);
+    }, [userId, token]);
 
-    const toggleFavorite = async (favoriteUserId) => {
+    const toggleFavorite = async () => {
+        const loggedUserId = localStorage.getItem('userId');
+        
+        if (loggedUserId === userId) {
+            alert('You cannot favorite yourself.');
+            return;
+        }
+    
         try {
-            const response = await axios.post(`/user/${favoriteUserId}/favorite/`, {}, {
+            const response = await axios.post(`/user/${userId}/toggle-favorite/`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
             });
+    
             alert(response.data.message);
-
-            const favoritesResponse = await axios.get(`/user/favorites/`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            });
-            setFavorites(favoritesResponse.data);
+            setIsFavorite(!isFavorite);
+            window.location.reload();
         } catch (error) {
             console.error('Error favoriting user:', error);
             setError('Failed to update favorites.');
@@ -92,8 +95,8 @@ const UserReviewsList = () => {
             <h1>{user.username}</h1>
             <p>{user.biography}</p>
 
-            <button className="btn btn-primary btn-lg mt-3" onClick={() => toggleFavorite(userId)}>
-                {favorites.some(fav => fav.id === user.id) ? 'Unfavorite' : 'Favorite'}
+            <button className="btn btn-primary btn-lg mt-3" onClick={toggleFavorite}>
+                {isFavorite ? 'Unfavorite' : 'Favorite'}
             </button>
 
             <h2 className="mt-5">Reviews</h2>
