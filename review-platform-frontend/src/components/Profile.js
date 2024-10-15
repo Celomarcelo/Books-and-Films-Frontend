@@ -42,10 +42,13 @@ const UserReviews = () => {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
+                    
                 });
 
+                const sortedReviews = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
                 console.log("Reviews Response:", response.data);
-                setReviews(response.data);
+                setReviews(sortedReviews);
             } catch (error) {
                 setError('An error occurred while fetching the reviews.');
                 console.error(error);
