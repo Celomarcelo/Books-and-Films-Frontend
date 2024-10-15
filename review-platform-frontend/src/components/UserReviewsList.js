@@ -51,7 +51,12 @@ const UserReviewsList = () => {
     const toggleFavorite = async () => {
         const loggedUserId = localStorage.getItem('userId');
         
-        if (loggedUserId === userId) {
+        if (!loggedUserId || !userId) {
+            alert('Error.');
+            return;
+        }
+
+        if (loggedUserId.toString() === userId.toString()) {
             alert('You cannot favorite yourself.');
             return;
         }
