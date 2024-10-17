@@ -24,8 +24,20 @@ function ReviewDetails() {
     useEffect(() => {
         const fetchReviewDetails = async () => {
             try {
+                const token = localStorage.getItem('token');
+
+                if (!token) {
+                    setError('Token not found.');
+                    setLoading(false);
+                    return;
+                }
+
                 // Fetch review data from the API
-                const response = await axios.get(`api/reviews-details/${reviewId}`);
+                const response = await axios.get(`/reviews-details/${reviewId}/`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
                 setReview(response.data);
                 setLoading(false);
             } catch (err) {
@@ -47,7 +59,7 @@ function ReviewDetails() {
     }
 
     return (
-        <div className="container my-5">
+        <div className="d-flex flex-column align-items-center pt-5 mt-5">
             {/* Check if review data is available */}
             {review ? (
                 <>

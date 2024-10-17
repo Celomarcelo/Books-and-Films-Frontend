@@ -53,7 +53,7 @@ const ReviewList = () => {
     return (
         // Render the list of reviews
         <div className="d-flex flex-column align-items-center pt-5 mt-5">
-            <h1>Reviews Feed</h1>
+            <h1>Reviews</h1>
             {/* Display error message if there's an error */}
             {error && <p className="text-danger">{error}</p>}
             <ul>
