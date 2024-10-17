@@ -15,11 +15,14 @@ const CreateReview = () => {
     const [title, setTitle] = useState('');
     const [authorDirector, setAuthorDirector] = useState('');
     const [content, setReviewContent] = useState('');
+    const [category, setCategory] = useState('');
+    const [genres, setGenres] = useState([]);
     const [genre, setGenre] = useState('');
     const [rating, setRating] = useState('');
     const [img, setImg] = useState(null);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [categories, setCategories] = useState([]);
     const navigate = useNavigate();
 
     // useEffect to check if the token is valid on component mount
@@ -28,7 +31,45 @@ const CreateReview = () => {
             navigate('/api/login/');
             return;
         }
+        // Fetch categories and genres when the component mounts
+        const fetchCategories = async () => {
+            const token = localStorage.getItem('token');
+            try {
+                const response = await axios.get('/categories/', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+                setCategories(response.data);
+                console.log(response.data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+
+        fetchCategories();
     }, [navigate]);
+
+    // Fetch genres based on the selected category
+    useEffect(() => {
+        if (category) {
+            const fetchGenres = async () => {
+                const token = localStorage.getItem('token');
+                try {
+                    const response = await axios.get(`/categories/${category}/genres/`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    });
+                    setGenres(response.data);
+                } catch (error) {
+                    console.error('Error fetching genres:', error);
+                }
+            };
+
+            fetchGenres();
+        }
+    }, [category]);
 
     /**
      * handleSubmit function
@@ -42,7 +83,7 @@ const CreateReview = () => {
 
         try {
             // Check if required fields are filled
-            if (!title || !authorDirector || !content) {
+            if (!title || !authorDirector || !content || !genre) {
                 setError('Please fill in all required fields.');
                 return;
             }
@@ -73,6 +114,7 @@ const CreateReview = () => {
             setTitle('');
             setAuthorDirector('');
             setReviewContent('');
+            setCategory('');
             setGenre('');
             setRating('');
             setImg(null);
@@ -146,16 +188,42 @@ const CreateReview = () => {
                     ></textarea>
                 </div>
 
-                {/* Genre input field */}
+                {/* Select Category */}
+                <div className="mb-3">
+                    <label htmlFor="category" className="form-label">Category</label>
+                    <select
+                        className="form-control"
+                        id="category"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                        required
+                    >
+                        <option value="">Select a category</option>
+                        {categories.map((cat) => (
+                            <option key={cat.id} value={cat.id}>
+                                {cat.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* Select Genre */}
                 <div className="mb-3">
                     <label htmlFor="genre" className="form-label">Genre</label>
-                    <input
-                        type="text"
-                        placeholder="Genre"
+                    <select
+                        className="form-control"
+                        id="genre"
                         value={genre}
                         onChange={(e) => setGenre(e.target.value)}
                         required
-                    />
+                    >
+                        <option value="">Select a genre</option>
+                        {genres.map((gen) => (
+                            <option key={gen.id} value={gen.id}>
+                                {gen.name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 {/* Rating input field */}
