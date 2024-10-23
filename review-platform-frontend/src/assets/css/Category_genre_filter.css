@@ -1,0 +1,21 @@
+.category-link, .genre-link {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 5px 0;
+    display: block;
+  }
+  
+  .category-link:hover, .genre-link:hover {
+    text-decoration: underline;
+  }
+  
+  .genre-list {
+    list-style-type: none;
+    padding-left: 20px;
+    margin-top: 10px;
+  }
+  
+  .genre-link {
+    margin-left: 10px;
+  }

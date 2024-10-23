@@ -128,7 +128,7 @@ const UserReviews = () => {
                                 <h4>{review.title}</h4>
                                 <p><strong>Author/Director:</strong> {review.author_director}</p>
                                 <p>{review.content}</p>
-                                <p><strong>Genre:</strong> {review.genre}</p>
+                                <p><strong>Genre:</strong> {review.genre.name}</p>
                                 <p><strong>Rating:</strong> {review.rating}/5</p>
                                 {/* Buttons to edit or delete the review */}
                                 <button
