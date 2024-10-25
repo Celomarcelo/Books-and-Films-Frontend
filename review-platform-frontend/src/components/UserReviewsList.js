@@ -101,7 +101,7 @@ const UserReviewsList = () => {
             <p>{user.biography}</p>
 
             <button className="btn btn-primary btn-lg mt-3" onClick={toggleFavorite}>
-                {isFavorite ? 'Unfavorite' : 'Favorite'}
+                {isFavorite ? 'Not favorite' : 'Favorite'}
             </button>
 
             <h2 className="mt-5">Reviews</h2>

@@ -76,7 +76,7 @@ function ReviewDetails() {
                     )}
                     <h1>{review.title}</h1>
                     <p><strong>Author/Director:</strong> {review.author_director}</p>
-                    <p><strong>Genre:</strong> {review.genre.name}</p>
+                    <p><strong>Genre:</strong> {review.genre_name}</p>
                     <p><strong>Rating:</strong> {review.rating}/5</p>
                     <p>{review.content}</p>
 

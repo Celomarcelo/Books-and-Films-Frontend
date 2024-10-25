@@ -12,6 +12,7 @@ import UserProfile from './EditProfile';
 import EditReview from './EditReview';
 import UserReviewsList from './UserReviewsList';
 import ReviewDetails from './ReviewDetails';
+import FilteredReviews from './FilteredResults';
 
 function Layout() {
     const location = useLocation();
@@ -36,7 +37,7 @@ function Layout() {
             <div style={navbarStyle}>
                 <Navbar />
             </div>
-            <div className="container">
+            <div className="container mt-5">
                 <div className="row">
                     {!isAuthPage && (
                         <div className="col-md-2" style={stickyColumnStyle}>
@@ -54,6 +55,8 @@ function Layout() {
                             <Route path="/reviews/edit/:reviewId/" element={<EditReview />} />
                             <Route path="/user/:userId/reviewsList" element={<UserReviewsList />} />
                             <Route path="/reviews/:reviewId" element={<ReviewDetails />} />
+                            <Route path="/reviews/category/:categoryId" element={<FilteredReviews />} />
+                            <Route path="/reviews/genre/:genreId" element={<FilteredReviews />} />
                         </Routes>
                     </div>
                     {!isAuthPage && (
@@ -66,6 +69,5 @@ function Layout() {
         </div>
     );
 }
-
 
 export default Layout;
