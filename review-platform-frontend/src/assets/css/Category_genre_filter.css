@@ -2,8 +2,9 @@
     color: #007bff;
     text-decoration: none;
     cursor: pointer;
-    padding: 5px 0;
     display: block;
+    width: 100%;
+    text-align: center;
   }
   
   .category-link:hover, .genre-link:hover {
@@ -12,10 +13,9 @@
   
   .genre-list {
     list-style-type: none;
-    padding-left: 20px;
     margin-top: 10px;
   }
   
   .genre-link {
-    margin-left: 10px;
+    margin-left: 0;
   }

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import "../assets/css/Category_genre_filter.css"
+import "../assets/css/Category_genre_filter.css";
 
-const FilterReviews = ({ onFilterChange }) => {
+const FilterReviews = () => {
   const [categories, setCategories] = useState([]);
   const [genresByCategory, setGenresByCategory] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    
+
     const fetchCategoriesAndGenres = async () => {
       try {
         const categoriesResponse = await axios.get('/categories/', {
@@ -18,7 +20,6 @@ const FilterReviews = ({ onFilterChange }) => {
         });
         const categoriesData = categoriesResponse.data;
         setCategories(categoriesData);
-
 
         const genresData = {};
         for (const category of categoriesData) {
@@ -38,12 +39,11 @@ const FilterReviews = ({ onFilterChange }) => {
   }, []);
 
   const handleCategoryClick = (categoryId) => {
-    onFilterChange(categoryId, null);
+    navigate(`/reviews/category/${categoryId}`);
   };
 
-
   const handleGenreClick = (categoryId, genreId) => {
-    onFilterChange(categoryId, genreId);
+    navigate(`/reviews/genre/${genreId}`);
   };
 
   return (
@@ -52,31 +52,23 @@ const FilterReviews = ({ onFilterChange }) => {
       <ul className="category-list">
         {categories.map((category) => (
           <li key={category.id}>
-            <a
-              href="#"
+            <button
               className="category-link"
-              onClick={(e) => {
-                e.preventDefault();
-                handleCategoryClick(category.id);
-              }}
+              onClick={() => handleCategoryClick(category.id)}
             >
               {category.name}
-            </a>
+            </button>
 
             {genresByCategory[category.id] && (
               <ul className="genre-list">
                 {genresByCategory[category.id].map((genre) => (
                   <li key={genre.id}>
-                    <a
-                      href="#"
+                    <button
                       className="genre-link"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleGenreClick(category.id, genre.id);
-                      }}
+                      onClick={() => handleGenreClick(category.id, genre.id)}
                     >
                       {genre.name}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -89,3 +81,4 @@ const FilterReviews = ({ onFilterChange }) => {
 };
 
 export default FilterReviews;
+

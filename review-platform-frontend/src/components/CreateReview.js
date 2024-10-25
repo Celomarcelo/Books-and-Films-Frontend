@@ -98,6 +98,9 @@ const CreateReview = () => {
             if (img) {
                 formData.append('img', img);
             }
+            for (const pair of formData.entries()) {
+                console.log(`${pair[0]}: ${pair[1]}`);
+            }
 
             // Send POST request to create the review
             await axios.post('/reviews/create/', formData, {
@@ -214,7 +217,7 @@ const CreateReview = () => {
                         className="form-control"
                         id="genre"
                         value={genre}
-                        onChange={(e) => setGenre(e.target.value)}
+                        onChange={(e) => setGenre(parseInt(e.target.value, 10))}
                         required
                     >
                         <option value="">Select a genre</option>
