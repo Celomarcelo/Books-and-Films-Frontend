@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
 
 /**
  * Navbar Component
@@ -9,10 +11,35 @@ import { Link, useNavigate } from 'react-router-dom';
  * It also includes a search bar. The navbar is responsive and collapses on 
  * smaller screens, with a toggle button to expand it.
  */
-function Navbar() {
+function Navbar({ onSearch, clearSearch }) {
     // Retrieve the authentication token from localStorage
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const handleSearchSubmit = async (e) => {
+        e.preventDefault();
+
+
+        try {
+            const response = await axios.get('/reviews/search', {
+                params: { q: searchTerm },
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            onSearch(response.data);
+        } catch (error) {
+            console.error('Error searching:', error);
+        }
+    };
+
+    const handleClearSearch = () => {
+        setSearchTerm('');
+        clearSearch();
+    };
 
     /**
      * handleLogout
@@ -84,14 +111,19 @@ function Navbar() {
                     {/* Search bar form */}
                     {/* Search bar, visible only when the user is logged in */}
                     {token && (
-                        <form className="d-flex">
-                            <input 
-                                className="form-control me-2" 
-                                type="search" 
-                                placeholder="Search" 
-                                aria-label="Search" 
+                        <form className="d-flex" onSubmit={handleSearchSubmit}>
+                            <input
+                                className="form-control me-2"
+                                type="search"
+                                placeholder="Search"
+                                aria-label="Search"
+                                value={searchTerm}
+                                onChange={handleSearchChange}
                             />
                             <button className="btn btn-outline-success" type="submit">Search</button>
+                            <button className="btn btn-outline-secondary ms-2" type="button" onClick={handleClearSearch}>
+                                Clear
+                            </button>
                         </form>
                     )}
                 </div>
