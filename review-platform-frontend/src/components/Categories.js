@@ -7,6 +7,7 @@ const FilterReviews = () => {
   const [categories, setCategories] = useState([]);
   const [genresByCategory, setGenresByCategory] = useState({});
   const navigate = useNavigate();
+  const [dropdownOpen, setDropdownOpen] = useState({});
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -42,8 +43,15 @@ const FilterReviews = () => {
     navigate(`/reviews/category/${categoryId}`);
   };
 
-  const handleGenreClick = (categoryId, genreId) => {
+  const handleGenreClick = (genreId) => {
     navigate(`/reviews/genre/${genreId}`);
+  };
+
+  const toggleDropdown = (categoryId) => {
+    setDropdownOpen((prev) => ({
+      ...prev,
+      [categoryId]: !prev[categoryId]
+    }));
   };
 
   return (
@@ -52,20 +60,30 @@ const FilterReviews = () => {
       <ul className="category-list">
         {categories.map((category) => (
           <li key={category.id}>
+            {/* Button to toggle dropdown for genres */}
             <button
               className="category-link"
-              onClick={() => handleCategoryClick(category.id)}
+              onClick={() => toggleDropdown(category.id)}
             >
               {category.name}
             </button>
 
-            {genresByCategory[category.id] && (
-              <ul className="genre-list">
+            {/* Dropdown menu for genres */}
+            {dropdownOpen[category.id] && genresByCategory[category.id] && (
+              <ul className="dropdown-menu show">
+                <li>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => handleCategoryClick(category.id)}
+                  >
+                    All {category.name}
+                  </button>
+                </li>
                 {genresByCategory[category.id].map((genre) => (
                   <li key={genre.id}>
                     <button
-                      className="genre-link"
-                      onClick={() => handleGenreClick(category.id, genre.id)}
+                      className="dropdown-item"
+                      onClick={() => handleGenreClick(genre.id)}
                     >
                       {genre.name}
                     </button>
@@ -81,4 +99,5 @@ const FilterReviews = () => {
 };
 
 export default FilterReviews;
+
 
