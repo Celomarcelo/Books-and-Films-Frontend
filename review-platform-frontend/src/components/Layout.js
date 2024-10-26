@@ -1,5 +1,6 @@
 import React from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import Navbar from './NavBar';
 import Categories from './Categories';
 import ReviewList from './ReviewList';
@@ -13,10 +14,13 @@ import EditReview from './EditReview';
 import UserReviewsList from './UserReviewsList';
 import ReviewDetails from './ReviewDetails';
 import FilteredReviews from './FilteredResults';
+import SearchResults from './SearchResults';
 
 function Layout() {
     const location = useLocation();
+    const navigate = useNavigate();
     const isAuthPage = location.pathname === '/register' || location.pathname === '/api/login/';
+    const [searchResults, setSearchResults] = useState([]);
 
     const stickyColumnStyle = {
         position: 'sticky',
@@ -32,10 +36,20 @@ function Layout() {
         zIndex: 1000,
     };
 
+    const handleSearchResults = (results) => {
+        setSearchResults(results);
+        navigate('/search-results');
+    };
+
+    const clearSearch = () => {
+        setSearchResults([]);
+        navigate('/');
+    };
+
     return (
         <div>
             <div style={navbarStyle}>
-                <Navbar />
+                <Navbar onSearch={handleSearchResults} clearSearch={clearSearch} />
             </div>
             <div className="container mt-5">
                 <div className="row">
@@ -57,6 +71,7 @@ function Layout() {
                             <Route path="/reviews/:reviewId" element={<ReviewDetails />} />
                             <Route path="/reviews/category/:categoryId" element={<FilteredReviews />} />
                             <Route path="/reviews/genre/:genreId" element={<FilteredReviews />} />
+                            <Route path="/search-results" element={<SearchResults results={searchResults} />} />
                         </Routes>
                     </div>
                     {!isAuthPage && (
@@ -66,7 +81,7 @@ function Layout() {
                     )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

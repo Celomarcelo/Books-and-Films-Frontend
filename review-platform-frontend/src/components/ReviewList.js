@@ -39,6 +39,7 @@ const ReviewList = () => {
         })
             .then(response => {
                 // Sort the reviews by creation date in descending order (newest first)
+                console.log(response.data);
                 const sortedReviews = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
                 setReviews(sortedReviews);
             })
@@ -81,7 +82,7 @@ const ReviewList = () => {
                                         style={{
                                             position: 'absolute',
                                             bottom: '5px',
-                                            right: '70px',
+                                            right: '-40px',
                                             width: '70px',
                                             height: '70px',
                                             borderRadius: '50%',

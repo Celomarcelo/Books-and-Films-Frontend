@@ -30,6 +30,7 @@ const FilteredReviews = () => {
             },
         })
         .then(response => {
+            console.log(response.data);
             setReviews(response.data);
         })
         .catch(error => {
@@ -39,7 +40,7 @@ const FilteredReviews = () => {
     }, [categoryId, genreId, navigate]);
 
     return (
-        <div className="d-flex flex-column align-items-center pt-5 mt-5">
+        <div className="d-flex flex-column align-items-center">
             <h2>Reviews</h2>
             {error && <p>{error}</p>}
             <ul>
@@ -67,7 +68,7 @@ const FilteredReviews = () => {
                                         style={{
                                             position: 'absolute',
                                             bottom: '5px',
-                                            right: '70px',
+                                            right: '-40px',
                                             width: '70px',
                                             height: '70px',
                                             borderRadius: '50%',
