@@ -19,6 +19,7 @@ function ReviewDetails() {
     const [likes, setLikes] = useState(0);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
+    const userId = localStorage.getItem('userId');
 
     /**
      * useEffect Hook
@@ -87,6 +88,20 @@ function ReviewDetails() {
         }
     };
 
+    const handleDeleteComment = async (commentId) => {
+        try {
+            const token = localStorage.getItem('token');
+            await axios.delete(`/comments/${commentId}/delete/`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            setComments(comments.filter(comment => comment.id !== commentId));
+        } catch (error) {
+            console.error("Error deleting comment:", error);
+        }
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -130,8 +145,20 @@ function ReviewDetails() {
                         <ul className="comment-list">
                             {comments.length > 0 ? (
                                 comments.map((comment, index) => (
-                                    <li key={index}>
-                                        <strong>{comment.user.username}:</strong> {comment.content}
+                                    <li key={comment.id}>
+                                        <strong>{comment.user_name}:</strong> {comment.content}
+                                        {comment.user_id === parseInt(userId) && (
+                                            <button
+                                                onClick={() => handleDeleteComment(comment.id)}
+                                                style={{
+                                                    marginLeft: '40px',
+                                                    color: 'red',
+                                                    borderRadius: '8px'
+                                                }}
+                                            >
+                                                Delete
+                                            </button>
+                                        )}
                                     </li>
                                 ))
                             ) : (
