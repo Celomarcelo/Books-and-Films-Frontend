@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import '../assets/css/ReviewDetails_style.css'
 
 /**
  * ReviewDetails Component
@@ -15,6 +16,9 @@ function ReviewDetails() {
     const [review, setReview] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [likes, setLikes] = useState(0);
+    const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState('');
 
     /**
      * useEffect Hook
@@ -37,8 +41,10 @@ function ReviewDetails() {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
-                })
+                });
                 setReview(response.data);
+                setLikes(response.data.likes || 0); // Initialize likes count
+                setComments(response.data.comments || []); // Initialize comments
                 setLoading(false);
             } catch (err) {
                 console.error("Error fetching review details:", err);
@@ -50,6 +56,37 @@ function ReviewDetails() {
         fetchReviewDetails();
     }, [reviewId]);
 
+    const handleLike = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await axios.post(`/reviews/${reviewId}/like/`, {}, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            setLikes(response.data.likes); // Update likes count from response
+        } catch (error) {
+            console.error("Error liking review:", error);
+        }
+    };
+
+    const handleCommentSubmit = async (e) => {
+        e.preventDefault();
+        const token = localStorage.getItem('token');
+        if (!newComment.trim()) return;
+
+        try {
+            const response = await axios.post(`/reviews/${reviewId}/comments/`,
+                { content: newComment },
+                { headers: { 'Authorization': `Bearer ${token}` } }
+            );
+            setComments([...comments, response.data]); // Add new comment to the list
+            setNewComment(''); // Clear comment input
+        } catch (error) {
+            console.error("Error adding comment:", error);
+        }
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -59,7 +96,7 @@ function ReviewDetails() {
     }
 
     return (
-        <div className="d-flex flex-column align-items-center pt-5 mt-5">
+        <div className="d-flex flex-column align-items-center pt-5 mt-5 mb-5">
             {/* Check if review data is available */}
             {review ? (
                 <>
@@ -80,6 +117,40 @@ function ReviewDetails() {
                     <p><strong>Rating:</strong> {review.rating}/5</p>
                     <p>{review.content}</p>
 
+                    {/* Like Button */}
+                    <div>
+                        <button onClick={handleLike} className="btn btn-primary">
+                            👍 Like {likes}
+                        </button>
+                    </div>
+
+                    {/* Comments Section */}
+                    <div className="mt-4">
+                        <h3>Comments</h3>
+                        <ul className="comment-list">
+                            {comments.length > 0 ? (
+                                comments.map((comment, index) => (
+                                    <li key={index}>
+                                        <strong>{comment.user.username}:</strong> {comment.content}
+                                    </li>
+                                ))
+                            ) : (
+                                <p>No comments yet.</p>
+                            )}
+                        </ul>
+
+
+                        {/* Add new comment */}
+                        <form onSubmit={handleCommentSubmit} className="mt-3">
+                            <textarea
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                                className="form-control"
+                                placeholder="Add a comment..."
+                            />
+                            <button type="submit" className="btn btn-secondary mt-2">Post Comment</button>
+                        </form>
+                    </div>
                 </>
             ) : (
                 <p>Review not found.</p>
@@ -89,3 +160,5 @@ function ReviewDetails() {
 }
 
 export default ReviewDetails;
+
+
