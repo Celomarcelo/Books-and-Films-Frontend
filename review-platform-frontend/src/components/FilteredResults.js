@@ -3,13 +3,24 @@ import axios from 'axios';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { isTokenValid } from './Auth';
 
+/**
+ * FilteredReviews Component
+ * 
+ * This component displays a filtered list of reviews based on a selected category or genre.
+ * It retrieves category and genre IDs from the URL parameters, makes an API request to 
+ * fetch the filtered reviews, and displays them on the page.
+ *
+ */
+
 const FilteredReviews = () => {
-    const [reviews, setReviews] = useState([]);
-    const [error, setError] = useState(null);
-    const { categoryId, genreId } = useParams();
+    const [reviews, setReviews] = useState([]);  // State to store filtered reviews
+    const [error, setError] = useState(null);  // State for error messages
+    const { categoryId, genreId } = useParams();  // Retrieve category and genre IDs from URL parameters
     const navigate = useNavigate();
 
+    // Fetch reviews based on category or genre when component mounts or URL parameters change
     useEffect(() => {
+        // Check if token is valid; if not, redirect to login
         if (!isTokenValid()) {
             navigate('/api/login/');
             return;
@@ -18,30 +29,32 @@ const FilteredReviews = () => {
         const token = localStorage.getItem('token');
         let apiUrl = '/reviews/';
 
+        // Build the API endpoint based on whether category or genre is provided
         if (genreId) {
             apiUrl += `?genre=${genreId}`;
         } else if (categoryId) {
             apiUrl += `?category=${categoryId}`;
         }
 
+        // Fetch filtered reviews from the API
         axios.get(apiUrl, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
         })
-        .then(response => {
-            console.log(response.data);
-            setReviews(response.data);
-        })
-        .catch(error => {
-            setError('Failed to load reviews.');
-            console.error(error);
-        });
+            .then(response => {
+                setReviews(response.data);  // Update state with fetched reviews
+            })
+            .catch(error => {
+                setError('Failed to load reviews.');  // Set error message if request fails
+                console.error(error);
+            });
     }, [categoryId, genreId, navigate]);
 
     return (
         <div className="d-flex flex-column align-items-center">
             <h2>Reviews</h2>
+            {/* Display error message if there was an error during data fetching */}
             {error && <p>{error}</p>}
             <ul>
                 {/* Map through the reviews array and render each review */}
