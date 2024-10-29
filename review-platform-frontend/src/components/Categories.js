@@ -10,13 +10,12 @@ import { isTokenValid } from './Auth';
  * 
  * This component displays a list of categories and their associated genres, allowing users to filter reviews by category or genre.
  * It includes functionality to toggle genre dropdown menus for each category and navigate to filtered review pages.
- *
  */
 const FilterReviews = () => {
   const [categories, setCategories] = useState([]); // Stores category data
   const [genresByCategory, setGenresByCategory] = useState({}); // Stores genres organized by category
   const navigate = useNavigate();
-  const [dropdownOpen, setDropdownOpen] = useState({}); // Tracks open/closed state of dropdown menus
+  const [dropdownOpen, setDropdownOpen] = useState(null); // Stores the ID of the currently open dropdown or null if none
 
   // Fetch categories and genres on component mount
   useEffect(() => {
@@ -71,10 +70,7 @@ const FilterReviews = () => {
 
   // Toggle dropdown for genre list visibility
   const toggleDropdown = (categoryId) => {
-    setDropdownOpen((prev) => ({
-      ...prev,
-      [categoryId]: !prev[categoryId]
-    }));
+    setDropdownOpen((prevOpenId) => (prevOpenId === categoryId ? null : categoryId));
   };
 
   return (
@@ -92,7 +88,7 @@ const FilterReviews = () => {
             </button>
 
             {/* Dropdown menu for genres */}
-            {dropdownOpen[category.id] && genresByCategory[category.id] && (
+            {dropdownOpen === category.id && genresByCategory[category.id] && (
               <ul className="dropdown-menu show">
                 <li>
                   <button

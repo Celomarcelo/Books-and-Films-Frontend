@@ -56,6 +56,12 @@ const FilteredReviews = () => {
             <h2>Reviews</h2>
             {/* Display error message if there was an error during data fetching */}
             {error && <p>{error}</p>}
+
+            {/* Display a message if no reviews are found */}
+            {!error && reviews.length === 0 && (
+                <p>No reviews found for the selected category or genre.</p>
+            )}
+
             <ul>
                 {/* Map through the reviews array and render each review */}
                 {reviews.map(review => (
@@ -105,5 +111,6 @@ const FilteredReviews = () => {
 };
 
 export default FilteredReviews;
+
 
 
