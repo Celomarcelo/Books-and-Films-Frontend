@@ -4,6 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import '../assets/css/profile_style.css';
 import { isTokenValid } from './Auth';
 
+
+/**
+ * UserProfile Component
+ * 
+ * This component displays and allows users to update their profile information, including 
+ * username, email, name, biography, and profile picture. Additionally, it provides a form 
+ * to change the user's password.
+ *
+ */
+
 const UserProfile = () => {
     // State to hold user profile data, including biography and profile image
     const [userData, setUserData] = useState({
