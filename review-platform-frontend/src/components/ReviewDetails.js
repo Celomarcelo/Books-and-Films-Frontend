@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../assets/css/ReviewDetails_style.css'
+import { isTokenValid } from './Auth';
 
 /**
  * ReviewDetails Component
@@ -20,6 +21,7 @@ function ReviewDetails() {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const userId = localStorage.getItem('userId');
+    const navigate = useNavigate();
 
     /**
      * useEffect Hook
@@ -27,16 +29,14 @@ function ReviewDetails() {
      * This hook is used to fetch the review details when the component mounts.
      */
     useEffect(() => {
+        // Redirect to login if the token is invalid
+        if (!isTokenValid()) {
+            navigate('/api/login/');
+            return;
+        }
         const fetchReviewDetails = async () => {
             try {
                 const token = localStorage.getItem('token');
-
-                if (!token) {
-                    setError('Token not found.');
-                    setLoading(false);
-                    return;
-                }
-
                 // Fetch review data from the API
                 const response = await axios.get(`/reviews-details/${reviewId}/`, {
                     headers: {
@@ -56,7 +56,7 @@ function ReviewDetails() {
         };
 
         fetchReviewDetails();
-    }, [reviewId]);
+    }, [reviewId, navigate]);
 
     const handleLike = async () => {
         const token = localStorage.getItem('token');

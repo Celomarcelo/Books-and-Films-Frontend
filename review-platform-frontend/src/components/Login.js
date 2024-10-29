@@ -35,7 +35,6 @@ const Login = () => {
             password,  // Send password from the form input
         })
             .then(response => {
-                console.log("Login Response:", response.data);
 
                 // Store the authentication token in localStorage
                 localStorage.setItem('token', response.data.access);

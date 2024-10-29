@@ -39,7 +39,6 @@ const ReviewList = () => {
         })
             .then(response => {
                 // Sort the reviews by creation date in descending order (newest first)
-                console.log(response.data);
                 const sortedReviews = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
                 setReviews(sortedReviews);
             })

@@ -16,18 +16,28 @@ import ReviewDetails from './ReviewDetails';
 import FilteredReviews from './FilteredResults';
 import SearchResults from './SearchResults';
 
-function Layout() {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const isAuthPage = location.pathname === '/register' || location.pathname === '/api/login/';
-    const [searchResults, setSearchResults] = useState([]);
+/**
+ * Layout Component
+ * 
+ * This component serves as the main layout for the application, managing navigation and structure.
+ * It includes the Navbar, main content area, and sidebars for categories and favorites.
+ * 
+ */
 
+function Layout() {
+    const location = useLocation();  // Access the current URL location
+    const navigate = useNavigate();  // Navigate between routes
+    const isAuthPage = location.pathname === '/register' || location.pathname === '/api/login/';  // Check if current page is an auth page
+    const [searchResults, setSearchResults] = useState([]);  // State to store search results
+
+    // Styling for a sticky sidebar
     const stickyColumnStyle = {
         position: 'sticky',
         top: '100px',
         height: 'calc(100vh - 100px)',
     };
 
+    // Styling for a fixed navbar
     const navbarStyle = {
         position: 'fixed',
         top: 0,
@@ -36,11 +46,13 @@ function Layout() {
         zIndex: 1000,
     };
 
+    // Handle search results and redirect to the search results page
     const handleSearchResults = (results) => {
         setSearchResults(results);
         navigate('/search-results');
     };
 
+    // Clear search results and navigate back to the homepage
     const clearSearch = () => {
         setSearchResults([]);
         navigate('/');
@@ -48,16 +60,19 @@ function Layout() {
 
     return (
         <div>
+            {/* Navbar with fixed positioning */}
             <div style={navbarStyle}>
                 <Navbar onSearch={handleSearchResults} clearSearch={clearSearch} />
             </div>
             <div className="container mt-5">
                 <div className="row">
+                    {/* Sidebar for Categories - only displayed on non-auth pages */}
                     {!isAuthPage && (
                         <div className="col-md-2" style={stickyColumnStyle}>
                             <Categories />
                         </div>
                     )}
+                    {/* Main content area, adjusts width based on auth page or not */}
                     <div className={isAuthPage ? 'col-md-12' : 'col-md-8'}>
                         <Routes>
                             <Route path="/" element={<ReviewList />} />
@@ -74,6 +89,7 @@ function Layout() {
                             <Route path="/search-results" element={<SearchResults results={searchResults} />} />
                         </Routes>
                     </div>
+                    {/* Sidebar for Favorites - only displayed on non-auth pages */}
                     {!isAuthPage && (
                         <div className="col-md-2" style={stickyColumnStyle}>
                             <Favorites />

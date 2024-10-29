@@ -47,7 +47,6 @@ const UserReviews = () => {
 
                 const sortedReviews = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-                console.log("Reviews Response:", response.data);
                 setReviews(sortedReviews);
             } catch (error) {
                 setError('An error occurred while fetching the reviews.');
@@ -80,7 +79,6 @@ const UserReviews = () => {
 
     // Navigates to the review editing page with the selected review ID
     const handleEdit = (reviewId) => {
-        console.log('Edit review with ID:', reviewId);
         navigate(`/reviews/edit/${reviewId}`);
     };
 
