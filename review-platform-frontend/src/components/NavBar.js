@@ -48,9 +48,12 @@ function Navbar({ onSearch, clearSearch }) {
      * It also redirects the user to the login page after logging out.
      */
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('userId');
-        navigate('/api/login/');
+        const confirmLogout = window.confirm("Are you sure you want to log out?");
+        if (confirmLogout) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            navigate('/api/login/');
+        }
     };
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

@@ -52,7 +52,7 @@ const FilteredReviews = () => {
     }, [categoryId, genreId, navigate]);
 
     return (
-        <div className="d-flex flex-column align-items-center">
+        <div className="d-flex flex-column align-items-center mt-5">
             <h2>Reviews</h2>
             {/* Display error message if there was an error during data fetching */}
             {error && <p>{error}</p>}
