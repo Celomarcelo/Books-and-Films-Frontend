@@ -43,6 +43,7 @@ function ReviewDetails() {
                         'Authorization': `Bearer ${token}`
                     }
                 });
+                console.log("Review data:", response.data);
                 setReview(response.data);
                 setLikes(response.data.likes || 0); // Initialize likes count
                 setComments(response.data.comments || []); // Initialize comments
@@ -66,6 +67,7 @@ function ReviewDetails() {
                 }
             });
             setLikes(response.data.likes); // Update likes count from response
+            console.log("Likes:", likes);
         } catch (error) {
             console.error("Error liking review:", error);
         }

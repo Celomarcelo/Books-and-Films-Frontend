@@ -2,18 +2,36 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../assets/css/Category_genre_filter.css";
+import { isTokenValid } from './Auth';
 
+
+/**
+ * FilterReviews Component
+ * 
+ * This component displays a list of categories and their associated genres, allowing users to filter reviews by category or genre.
+ * It includes functionality to toggle genre dropdown menus for each category and navigate to filtered review pages.
+ *
+ */
 const FilterReviews = () => {
-  const [categories, setCategories] = useState([]);
-  const [genresByCategory, setGenresByCategory] = useState({});
+  const [categories, setCategories] = useState([]); // Stores category data
+  const [genresByCategory, setGenresByCategory] = useState({}); // Stores genres organized by category
   const navigate = useNavigate();
-  const [dropdownOpen, setDropdownOpen] = useState({});
+  const [dropdownOpen, setDropdownOpen] = useState({}); // Tracks open/closed state of dropdown menus
 
+  // Fetch categories and genres on component mount
   useEffect(() => {
+    // Redirect to login if the token is invalid
+    if (!isTokenValid()) {
+      navigate('/api/login/');
+      return;
+    }
+
     const token = localStorage.getItem('token');
 
+    // Async function to fetch categories and associated genres
     const fetchCategoriesAndGenres = async () => {
       try {
+        // Fetch categories
         const categoriesResponse = await axios.get('/categories/', {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -22,6 +40,7 @@ const FilterReviews = () => {
         const categoriesData = categoriesResponse.data;
         setCategories(categoriesData);
 
+        // Fetch genres for each category
         const genresData = {};
         for (const category of categoriesData) {
           const genresResponse = await axios.get(`/categories/${category.id}/genres/`, {
@@ -33,20 +52,24 @@ const FilterReviews = () => {
         }
         setGenresByCategory(genresData);
       } catch (error) {
-        console.error('Error fetching categories and genres:', error);
+        console.error('Error fetching categories and genres:', error); // Log errors for debugging
       }
     };
-    fetchCategoriesAndGenres();
-  }, []);
 
+    fetchCategoriesAndGenres();
+  }, [navigate]);
+
+  // Navigate to the category page
   const handleCategoryClick = (categoryId) => {
     navigate(`/reviews/category/${categoryId}`);
   };
 
+  // Navigate to the genre page
   const handleGenreClick = (genreId) => {
     navigate(`/reviews/genre/${genreId}`);
   };
 
+  // Toggle dropdown for genre list visibility
   const toggleDropdown = (categoryId) => {
     setDropdownOpen((prev) => ({
       ...prev,
