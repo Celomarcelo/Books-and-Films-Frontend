@@ -87,7 +87,7 @@ const FilteredReviews = () => {
                                         style={{
                                             position: 'absolute',
                                             bottom: '5px',
-                                            right: '-40px',
+                                            right: '40px',
                                             width: '70px',
                                             height: '70px',
                                             borderRadius: '50%',
@@ -99,7 +99,7 @@ const FilteredReviews = () => {
                                 </Link>
                             )}
                         </div>
-                        <div>
+                        <div className='mt-3'>
                             {/* Link to the detailed review page */}
                             <Link to={`/reviews/${review.id}`}>{review.title}</Link> - {review.author_director}
                         </div>

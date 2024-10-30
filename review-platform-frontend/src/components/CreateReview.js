@@ -140,7 +140,7 @@ const CreateReview = () => {
     };
 
     return (
-        <div className="container mt-5 text-center">
+        <div className="container mt-5 pt-3 text-center">
             <h2>Create a New Review</h2>
 
             {error && <div className="alert alert-danger">{error}</div>}  {/* Display error message if any */}
@@ -230,9 +230,11 @@ const CreateReview = () => {
                     <label htmlFor="rating" className="form-label">Rating</label>
                     <input
                         type="number"
-                        placeholder="Rating"
+                        placeholder="0"
                         value={rating}
                         onChange={(e) => setRating(e.target.value)}
+                        min="0"
+                        max="5"
                         required
                     />
                 </div>

@@ -15,6 +15,9 @@ import UserReviewsList from './UserReviewsList';
 import ReviewDetails from './ReviewDetails';
 import FilteredReviews from './FilteredResults';
 import SearchResults from './SearchResults';
+import PasswordResetRequest from './PasswordResetRequest';
+import PasswordResetConfirm from './PasswordResetConfirm';
+import '../assets/css/Layout_style.css'
 
 /**
  * Layout Component
@@ -35,6 +38,7 @@ function Layout() {
         position: 'sticky',
         top: '100px',
         height: 'calc(100vh - 100px)',
+        marginTop: '50px',
     };
 
     // Styling for a fixed navbar
@@ -59,7 +63,7 @@ function Layout() {
     };
 
     return (
-        <div>
+        <div className='background-container'>
             {/* Navbar with fixed positioning */}
             <div style={navbarStyle}>
                 <Navbar onSearch={handleSearchResults} clearSearch={clearSearch} />
@@ -87,6 +91,8 @@ function Layout() {
                             <Route path="/reviews/category/:categoryId" element={<FilteredReviews />} />
                             <Route path="/reviews/genre/:genreId" element={<FilteredReviews />} />
                             <Route path="/search-results" element={<SearchResults results={searchResults} />} />
+                            <Route path="/password_reset" element={<PasswordResetRequest />} />
+                            <Route path="/reset/:uidb64/:token" element={<PasswordResetConfirm />} />
                         </Routes>
                     </div>
                     {/* Sidebar for Favorites - only displayed on non-auth pages */}

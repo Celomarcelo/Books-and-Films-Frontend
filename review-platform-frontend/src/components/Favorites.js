@@ -63,7 +63,7 @@ const FavoritesList = () => {
   }
 
   return (
-    <div className="border border-secondary rounded p-3 text-center">
+    <div className="border border-secondary rounded p-3 text-center bk-color">
       <h2>Favorites</h2>
       {/* If there are favorites, display them in a grid; otherwise, show a message */}
       {favorites.length > 0 ? (

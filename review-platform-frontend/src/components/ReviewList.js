@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
+import '../assets/css/ReviewList_style.css';
 
 /**
  * ReviewList Component
@@ -59,7 +60,7 @@ const ReviewList = () => {
             <ul>
                 {/* Map through the reviews array and render each review */}
                 {reviews.map(review => (
-                    <li key={review.id} className="mt-5">
+                    <li key={review.id} className="mt-5 genre-list">
                         <div className="review-container" style={{ position: 'relative', margin: 'auto' }}>
                             {/* If the review has an image, display it */}
                             {review.img && (
@@ -81,7 +82,7 @@ const ReviewList = () => {
                                         style={{
                                             position: 'absolute',
                                             bottom: '5px',
-                                            right: '-40px',
+                                            right: '40px',
                                             width: '70px',
                                             height: '70px',
                                             borderRadius: '50%',
@@ -93,7 +94,7 @@ const ReviewList = () => {
                                 </Link>
                             )}
                         </div>
-                        <div>
+                        <div className='mt-2'>
                             {/* Link to the detailed review page */}
                             <Link to={`/reviews/${review.id}`}>{review.title}</Link> - {review.author_director}
                         </div>

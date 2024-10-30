@@ -74,14 +74,14 @@ const FilterReviews = () => {
   };
 
   return (
-    <div className="border border-secondary rounded p-3 text-center">
+    <div className="border border-secondary rounded p-3 text-center bk-color">
       <h3>Categories</h3>
-      <ul className="category-list">
+      <ul className="dropdown-list mt-3">
         {categories.map((category) => (
           <li key={category.id}>
             {/* Button to toggle dropdown for genres */}
             <button
-              className="category-link"
+              className="category-link mb-3"
               onClick={() => toggleDropdown(category.id)}
             >
               {category.name}
