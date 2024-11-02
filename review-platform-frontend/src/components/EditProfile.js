@@ -261,7 +261,7 @@ const UserProfile = () => {
                         className="form-control"
                         name="biography"
                         rows="4"
-                        value={userData.biography}
+                        value={userData.biography || ""}
                         onChange={handleChange}
                     />
                 </div>
