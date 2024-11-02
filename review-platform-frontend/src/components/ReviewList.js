@@ -82,7 +82,7 @@ const ReviewList = () => {
                                         style={{
                                             position: 'absolute',
                                             bottom: '5px',
-                                            right: '40px',
+                                            right: '70px',
                                             width: '70px',
                                             height: '70px',
                                             borderRadius: '50%',
