@@ -108,7 +108,7 @@ const UserReviewsList = () => {
                 )}
             </div>
             <h1>{user.username}</h1>
-            <p>{user.biography}</p>
+            <p>{user.biography ? user.biography : "Biography not available"}</p>
 
             {/* Favorite/Unfavorite button */}
             <button className="btn btn-primary btn-lg mt-3" onClick={toggleFavorite}>
@@ -137,7 +137,7 @@ const UserReviewsList = () => {
                                 <h4>{review.title}</h4>
                                 <p><strong>Author/Director:</strong> {review.author_director}</p>
                                 <p>{review.content}</p>
-                                <p><strong>Genre:</strong> {review.genre}</p>
+                                <p><strong>Genre:</strong> {review.genre_name}</p>
                                 <p><strong>Rating:</strong> {review.rating}/5</p>
                             </div>
                         </li>

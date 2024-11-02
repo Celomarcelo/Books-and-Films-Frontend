@@ -64,6 +64,9 @@ const UserReviews = () => {
 
     // Deletes a review by ID and updates the review list in the UI
     const deleteReview = async (reviewId) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this review?");
+        if (!confirmDelete) return;
+
         try {
             await axios.delete(`/reviews/${reviewId}/delete/`, {
                 headers: {
@@ -126,7 +129,7 @@ const UserReviews = () => {
                                 <h4>{review.title}</h4>
                                 <p><strong>Author/Director:</strong> {review.author_director}</p>
                                 <p>{review.content}</p>
-                                <p><strong>Genre:</strong> {review.genre.name}</p>
+                                <p><strong>Genre:</strong> {review.genre_name}</p>
                                 <p><strong>Rating:</strong> {review.rating}/5</p>
                                 {/* Buttons to edit or delete the review */}
                                 <button

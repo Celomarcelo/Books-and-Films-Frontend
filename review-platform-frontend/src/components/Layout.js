@@ -17,6 +17,7 @@ import FilteredReviews from './FilteredResults';
 import SearchResults from './SearchResults';
 import PasswordResetRequest from './PasswordResetRequest';
 import PasswordResetConfirm from './PasswordResetConfirm';
+import Footer from './Footer';
 import '../assets/css/Layout_style.css'
 
 /**
@@ -103,6 +104,7 @@ function Layout() {
                     )}
                 </div>
             </div>
+            <Footer />
         </div >
     );
 }
