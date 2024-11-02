@@ -34,7 +34,7 @@ const UserReviews = () => {
                 console.error('Error fetching user data:', error);
             });
 
-            // Fetch the user's reviews
+        // Fetch the user's reviews
         const fetchUserReviews = async () => {
 
             try {
@@ -42,7 +42,7 @@ const UserReviews = () => {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
-                    
+
                 });
 
                 const sortedReviews = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -104,6 +104,17 @@ const UserReviews = () => {
                     Edit Profile
                 </button>
             </div>
+            <div>
+                {/* Button to navigate to Django admin panel, visible only to superusers */}
+                {user.is_superuser && (
+                    <button
+                        className="btn btn-outline-primary mt-3"
+                        onClick={() => window.open('http://localhost:8000/admin/', '_blank')}   // Redirect to Django admin
+                    >
+                        Admin Panel
+                    </button>
+                )}
+            </div>
             {/* Greeting message for the user */}
             <h1>Hello {user.username}, Welcome to your reviews!</h1>
             {error && <p className="text-danger">{error}</p>} {/* Displays error messages, if any */}
@@ -148,7 +159,7 @@ const UserReviews = () => {
                         </li>
                     ))
                 ) : (
-                    <p>No reviews found.</p> 
+                    <p>No reviews found.</p>
                 )}
             </ul>
         </div>
