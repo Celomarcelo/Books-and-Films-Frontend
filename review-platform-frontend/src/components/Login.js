@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import api from '../api/api';
+import api from '../components/Api';
 import '../assets/css/login_style.css';
 
 /**
