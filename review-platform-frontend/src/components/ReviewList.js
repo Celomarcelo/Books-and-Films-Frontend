@@ -42,6 +42,7 @@ const ReviewList = () => {
                 // Sort the reviews by creation date in descending order (newest first)
                 const sortedReviews = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
                 setReviews(sortedReviews);
+                setError(null);
             })
             .catch(error => {
                 // Handle any errors by setting an error message and redirecting to login
