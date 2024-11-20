@@ -83,6 +83,8 @@ const FilterReviews = () => {
             <button
               className="category-link mb-3"
               onClick={() => toggleDropdown(category.id)}
+              aria-label={`Toggle ${category.name} genres`}
+              
             >
               {category.name}
             </button>
@@ -94,6 +96,7 @@ const FilterReviews = () => {
                   <button
                     className="dropdown-item"
                     onClick={() => handleCategoryClick(category.id)}
+                    aria-label={`View all reviews in ${category.name}`}
                   >
                     All {category.name}
                   </button>
@@ -103,6 +106,7 @@ const FilterReviews = () => {
                     <button
                       className="dropdown-item"
                       onClick={() => handleGenreClick(genre.id)}
+                      aria-label={`View reviews in genre ${genre.name}`}
                     >
                       {genre.name}
                     </button>
