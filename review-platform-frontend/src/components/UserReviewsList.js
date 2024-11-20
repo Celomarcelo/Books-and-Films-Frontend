@@ -76,8 +76,7 @@ const UserReviewsList = () => {
             });
 
             alert(response.data.message);  // Display success message
-            setIsFavorite(!isFavorite);  // Toggle favorite status
-            window.location.reload();  // Refresh page to update favorite status
+            setIsFavorite((prev) => !prev);  // Toggle favorite status
         } catch (error) {
             console.error('Error favoriting user:', error);
             setError('Failed to update favorites.');
