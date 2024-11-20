@@ -17,7 +17,19 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const [passwordError, setError] = useState(null);
+    const [passwordError, setPasswordError] = useState(null);
+
+    /**
+    * Validate form inputs before submitting.
+    */
+    const validateForm = () => {
+        if (!username || !password) {
+            setPasswordError('Both fields are required.');
+            return false;
+        }
+        setPasswordError(null);
+        return true;
+    };
 
     /**
      * handleSubmit
@@ -26,30 +38,36 @@ const Login = () => {
      * default form submission behavior, sends a POST request to the server with 
      * the username and password, and handles the server response.
      */
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();  // Prevents default form submission
 
+        if (!validateForm()) return;
+
         // Send POST request to the login endpoint
-        axios.post('/api/login/', {
-            username,  // Send username from the form input
-            password,  // Send password from the form input
-        })
-            .then(response => {
-
-                // Store the authentication token in localStorage
-                localStorage.setItem('token', response.data.access);
-
-                // Stores the user ID in localStorage
-                localStorage.setItem('userId', response.data.user.id);
-
-                // Redirect the user to the homepage after successful login
-                navigate('/');
-            })
-            .catch(error => {
-                // Handle login failure by displaying an error message
-                console.error("Login Error:", error);
-                setError('Enter with a valid ID or password.');
+        try {
+            const response = await axios.post('/api/login/', {
+                username,  // Send username from the form input
+                password,  // Send password from the form input
             });
+
+            // Store the authentication token in localStorage
+            localStorage.setItem('token', response.data.access);
+
+            // Stores the user ID in localStorage
+            localStorage.setItem('userId', response.data.user.id);
+
+            // Redirect the user to the homepage after successful login
+            navigate('/');
+
+        } catch (error) {
+            // Handle login failure by displaying an error message
+            console.error("Login Error:", error);
+            if (error.response && error.response.data.detail) {
+                setPasswordError(error.response.data.detail);
+            } else {
+                setPasswordError('An error occurred. Please try again.');
+            }
+        };
     };
 
     return (
@@ -83,6 +101,8 @@ const Login = () => {
                             placeholder="Username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
+                            aria-label="Username"
+                            required
                         />
                     </div>
 
@@ -94,6 +114,8 @@ const Login = () => {
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            aria-label="Password"
+                            required
                         />
                     </div>
 
