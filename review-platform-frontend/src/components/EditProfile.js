@@ -207,6 +207,7 @@ const UserProfile = () => {
                             id="fileInput"
                             className="file-input"
                             onChange={handleImageChange}
+                            aria-label="Button to select another profile image"
                         />
                         <label htmlFor="fileInput" className="btn btn-primary">Upload File</label>
                     </div>
@@ -221,6 +222,7 @@ const UserProfile = () => {
                         name="username"
                         value={userData.username}
                         onChange={handleChange}
+                        aria-label="Edit username"
                     />
                 </div>
                 <div className="form-group">
@@ -231,6 +233,7 @@ const UserProfile = () => {
                         name="email"
                         value={userData.email}
                         onChange={handleChange}
+                        aria-label="Edit email"
                     />
                 </div>
                 <div className="form-group">
@@ -241,6 +244,7 @@ const UserProfile = () => {
                         name="first_name"
                         value={userData.first_name}
                         onChange={handleChange}
+                        aria-label="Edit first name"
                     />
                 </div>
                 <div className="form-group">
@@ -251,6 +255,7 @@ const UserProfile = () => {
                         name="last_name"
                         value={userData.last_name}
                         onChange={handleChange}
+                        aria-label="Edit last name"
                     />
                 </div>
 
@@ -263,6 +268,7 @@ const UserProfile = () => {
                         rows="4"
                         value={userData.biography || ""}
                         onChange={handleChange}
+                        aria-label="Field to add or edit biography"
                     />
                 </div>
 
@@ -288,6 +294,7 @@ const UserProfile = () => {
                             name="current_password"
                             value={passwordData.current_password}
                             onChange={handlePasswordChange}
+                            aria-label="Filed for current password"
                         />
                     </div>
                     <div className="form-group">
@@ -298,6 +305,7 @@ const UserProfile = () => {
                             name="new_password"
                             value={passwordData.new_password}
                             onChange={handlePasswordChange}
+                            aria-label="Filed for new password"
                         />
                     </div>
                     <div className="form-group">
@@ -308,6 +316,7 @@ const UserProfile = () => {
                             name="confirm_new_password"
                             value={passwordData.confirm_new_password}
                             onChange={handlePasswordChange}
+                            aria-label="Filed for confirm new password"
                         />
                     </div>
                 </div>

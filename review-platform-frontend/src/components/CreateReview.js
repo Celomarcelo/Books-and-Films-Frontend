@@ -157,6 +157,7 @@ const CreateReview = () => {
                         id="title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        aria-label="Title for new review"
                         required
                     />
                 </div>
@@ -170,6 +171,7 @@ const CreateReview = () => {
                         id="author_director"
                         value={authorDirector}
                         onChange={(e) => setAuthorDirector(e.target.value)}
+                        aria-label="Author or Director of new review"
                         required
                     />
                 </div>
@@ -183,6 +185,7 @@ const CreateReview = () => {
                         rows="4"
                         value={content}
                         onChange={(e) => setReviewContent(e.target.value)}
+                        aria-label="Content for new review"
                         required
                     ></textarea>
                 </div>
@@ -195,6 +198,7 @@ const CreateReview = () => {
                         id="category"
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
+                        aria-label="Category of new review"
                         required
                     >
                         <option value="">Select a category</option>
@@ -214,6 +218,7 @@ const CreateReview = () => {
                         id="genre"
                         value={genre}
                         onChange={(e) => setGenre(parseInt(e.target.value, 10))}
+                        aria-label="Genre of new review"
                         required
                     >
                         <option value="">Select a genre</option>
@@ -233,6 +238,7 @@ const CreateReview = () => {
                         placeholder="0"
                         value={rating}
                         onChange={(e) => setRating(e.target.value)}
+                        aria-label="Rating for new review"
                         min="0"
                         max="5"
                         required
@@ -248,6 +254,7 @@ const CreateReview = () => {
                             className="file-input"
                             id="img"
                             onChange={(e) => setImg(e.target.files[0])}
+                            aria-label="Image for new review"
                         />
                     </div>
                     {img && (
