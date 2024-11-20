@@ -14,29 +14,62 @@ const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate();
+
+    /**
+     * Validates form inputs before submission.
+     */
+    const validateForm = () => {
+        if (!username || !password || !email) {
+            setErrorMessage('All fields are required.');
+            return false;
+        }
+
+        if (password.length < 8) {
+            setErrorMessage('Password must be at least 8 characters long.');
+            return false;
+        }
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setErrorMessage('Please enter a valid email address.');
+            return false;
+        }
+
+        setErrorMessage(null);
+        return true;
+    };
 
     /**
      * Handles form submission.
      * Prevents default form behavior, sends a POST request to the registration API,
      * and navigates the user to the home page on success.
      */
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (!validateForm()) return;
+
         // Sends POST request to the server to register a new user
-        axios.post('/api/register/', {
-            username,
-            password,
-            email,
-        })
-            .then(response => {
-                // On success, store the authentication token in local storage
-                localStorage.setItem('token', response.data.access);
-                // Navigate to the home page after successful registration
-                navigate('/');
-            })
-            .catch(error => console.error(error));  // Logs any errors encountered during the request
+        try {
+            const response = await axios.post('/api/register/', {
+                username,
+                password,
+                email,
+            });
+            // On success, store the authentication token in local storage
+            localStorage.setItem('token', response.data.access);
+            // Navigate to the home page after successful registration
+            navigate('/');
+        } catch (error) {
+            console.error(error);  // Logs any errors encountered during the request
+            if (error.response && error.response.data.detail) {
+                setErrorMessage(error.response.data.detail);
+            } else {
+                setErrorMessage('An error occurred during registration. Please try again.');
+            }
+        }
     };
 
     return (
@@ -48,7 +81,7 @@ const Register = () => {
                         <h2 className="fs-1">Create Your Account</h2>
                         <p className="text-muted">Fill in the form below to join our community</p>
                     </div>
-                    
+
                     {/* Username input field */}
                     <div className="mb-4">
                         <label className="form-label fw-semibold">Username</label>
@@ -58,6 +91,7 @@ const Register = () => {
                             placeholder="Choose a unique username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
+                            aria-label="Username"
                             required
                         />
                         <small className="form-text text-muted">
@@ -74,6 +108,7 @@ const Register = () => {
                             placeholder="Create a secure password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            aria-label="Password"
                             required
                         />
                         <small className="form-text text-muted">
@@ -90,6 +125,7 @@ const Register = () => {
                             placeholder="Enter a valid email address"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            aria-label="Email"
                             required
                         />
                         <small className="form-text text-muted">
