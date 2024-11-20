@@ -16,6 +16,7 @@ function Navbar({ onSearch, clearSearch }) {
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
+    const [searchError, setSearchError] = useState(null);
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
@@ -31,13 +32,16 @@ function Navbar({ onSearch, clearSearch }) {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             onSearch(response.data);
+            setSearchError(null);
         } catch (error) {
             console.error('Error searching:', error);
+            setSearchError('Unable to complete search. Please try again.');
         }
     };
 
     const handleClearSearch = () => {
         setSearchTerm('');
+        setSearchError(null);
         clearSearch();
     };
 
@@ -128,6 +132,11 @@ function Navbar({ onSearch, clearSearch }) {
                                 Clear
                             </button>
                         </form>
+                    )}
+                    {searchError && (
+                        <div className="alert alert-danger mt-2" role="alert">
+                            {searchError}
+                        </div>
                     )}
                 </div>
             </div>
