@@ -74,6 +74,7 @@ const UserReviews = () => {
                 },
             });
             setReviews(reviews.filter(review => review.id !== reviewId));
+            alert('Review deleted successfully.');
         } catch (error) {
             setError('An error occurred while deleting the review.');
             console.error(error);

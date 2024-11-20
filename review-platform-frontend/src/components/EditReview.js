@@ -158,6 +158,7 @@ const EditReview = () => {
                         value={form.title}
                         onChange={handleInputChange}
                         className="form-control"
+                        aria-label="Edit the review title"
                     />
                 </div>
 
@@ -170,6 +171,7 @@ const EditReview = () => {
                         onChange={handleInputChange}
                         className="form-control"
                         style={{ height: '200px' }}
+                        aria-label="Edit the review content"
                     ></textarea>
                 </div>
 
@@ -181,6 +183,7 @@ const EditReview = () => {
                         value={form.genre}
                         onChange={handleInputChange}
                         className="form-control"
+                        aria-label="Select a genre for the review"
                     >
                         <option value="">{review.genre_name || "Select a genre"}</option>
                         {genres.map((genre) => (
@@ -202,6 +205,7 @@ const EditReview = () => {
                         className="form-control"
                         min="0"
                         max="5"  // Limits rating input between 0 and 5
+                        aria-label="Rate the review between 0 and 5"
                     />
                 </div>
 
@@ -212,6 +216,7 @@ const EditReview = () => {
                         type="file"
                         onChange={handleImageChange}
                         className="form-control"
+                        aria-label="Upload an image for the review"
                     />
                 </div>
 
