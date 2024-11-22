@@ -49,6 +49,9 @@ const Login = () => {
                 username,  // Send username from the form input
                 password,  // Send password from the form input
             });
+            console.log("Resposta do backend:", response);
+            console.log("Resposta recebida:", t);
+
 
             // Store the authentication token in localStorage
             localStorage.setItem('token', response.data.access);
