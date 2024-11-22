@@ -50,8 +50,12 @@ const Login = () => {
                 password,  // Send password from the form input
             });
             console.log("Resposta do backend:", response);
-        
 
+            if (response.data.user && response.data.user.id) {
+                localStorage.setItem('userId', response.data.user.id);
+            } else {
+                console.warn("A resposta do backend não contém o objeto 'user' ou o 'id' do usuário.");
+            }
 
             // Store the authentication token in localStorage
             localStorage.setItem('token', response.data.access);
