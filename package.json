@@ -17,7 +17,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://new-books-backend-3c4d25dea9f8.herokuapp.com",
+  "proxy": "https://books-and-films-api-e4ea62133d4f.herokuapp.com",
   "engines": {
     "node": "16.x",
     "npm": "7.x"
