@@ -53,7 +53,10 @@ const Login = () => {
                 username,  // Send username from the form input
                 password,  // Send password from the form input
             });
-            console.log("Resposta do backend:", response);
+
+            checkBackendData();
+                console.log("Token received:", response.data.access);
+                console.log("Backend answer:", response.data);
 
             const token = response.data.access;
             if (token) {
