@@ -19,6 +19,10 @@ const Login = () => {
     const navigate = useNavigate();
     const [passwordError, setPasswordError] = useState(null);
 
+    const checkBackendData = () => {
+        console.log("Succes response backend!");
+    };
+
     /**
     * Validate form inputs before submitting.
     */
@@ -45,7 +49,7 @@ const Login = () => {
 
         // Send POST request to the login endpoint
         try {
-            const response = await axios.post('/api/login/', {
+            const response = await axios.post('https://books-and-films-api-e4ea62133d4f.herokuapp.com/api/login/', {
                 username,  // Send username from the form input
                 password,  // Send password from the form input
             });
