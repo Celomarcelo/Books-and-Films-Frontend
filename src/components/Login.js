@@ -51,10 +51,10 @@ const Login = () => {
             });
             console.log("Resposta do backend:", response);
 
-            if (response.data.user && response.data.user.id) {
-                localStorage.setItem('userId', response.data.user.id);
-            } else {
-                console.warn("A resposta do backend não contém o objeto 'user' ou o 'id' do usuário.");
+            const token = response.data.access;
+            if (token) {
+                localStorage.setItem('accessToken', token);
+                console.error('Token missing in response:', response.data);
             }
 
             // Store the authentication token in localStorage
