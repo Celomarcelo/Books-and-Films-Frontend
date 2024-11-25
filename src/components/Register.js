@@ -53,7 +53,7 @@ const Register = () => {
 
         // Sends POST request to the server to register a new user
         try {
-            const response = await axios.post('/api/register/', {
+            const response = await axios.post('https://books-and-films-api-e4ea62133d4f.herokuapp.com/api/register/', {
                 username,
                 password,
                 email,
