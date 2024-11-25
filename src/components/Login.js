@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../assets/css/login_style.css';
+import api from './Api';
 
 /**
  * Login Component
@@ -49,7 +50,7 @@ const Login = () => {
 
         // Send POST request to the login endpoint
         try {
-            const response = await axios.post('https://books-and-films-api-e4ea62133d4f.herokuapp.com/api/login/', {
+            const response = await api.post('/api/login/', {
                 username,  // Send username from the form input
                 password,  // Send password from the form input
             });
