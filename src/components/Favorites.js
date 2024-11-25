@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
 import '../assets/css/Favorites_style.css';
+import api from './Api';
 
 /**
  * FavoritesList Component
@@ -33,7 +34,7 @@ const FavoritesList = () => {
         const token = localStorage.getItem('token');
 
         // API call to get user's favorites
-        const response = await axios.get('/user/favorites/', {
+        const response = await api.get('/user/favorites/', {
           headers: {
             Authorization: `Bearer ${token}`,
           }

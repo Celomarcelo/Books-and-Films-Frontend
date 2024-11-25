@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../assets/css/Category_genre_filter.css";
 import { isTokenValid } from './Auth';
+import api from './Api';
 
 
 /**
@@ -31,7 +32,7 @@ const FilterReviews = () => {
     const fetchCategoriesAndGenres = async () => {
       try {
         // Fetch categories
-        const categoriesResponse = await axios.get('/categories/', {
+        const categoriesResponse = await api.get('/categories/', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -42,7 +43,7 @@ const FilterReviews = () => {
         // Fetch genres for each category
         const genresData = {};
         for (const category of categoriesData) {
-          const genresResponse = await axios.get(`/categories/${category.id}/genres/`, {
+          const genresResponse = await api.get(`/categories/${category.id}/genres/`, {
             headers: {
               'Authorization': `Bearer ${token}`,
             },

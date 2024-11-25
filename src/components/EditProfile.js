@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/profile_style.css';
 import { isTokenValid } from './Auth';
+import api from './Api';
 
 
 /**
@@ -51,7 +52,7 @@ const UserProfile = () => {
                 }
 
                 // API call to fetch user profile data
-                const response = await axios.get('/api/user/profile/', {
+                const response = await api.get('/api/user/profile/', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -115,7 +116,7 @@ const UserProfile = () => {
             const token = localStorage.getItem('token');
 
             // API call to update user profile
-            await axios.put('/api/user/profile/', formData, {
+            await api.put('/api/user/profile/', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data'
@@ -152,7 +153,7 @@ const UserProfile = () => {
 
         try {
             const token = localStorage.getItem('token');
-            await axios.post('/user/change-password/', {
+            await api.post('/user/change-password/', {
                 current_password: passwordData.current_password,
                 new_password: passwordData.new_password
             }, {

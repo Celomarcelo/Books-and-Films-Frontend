@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../assets/css/CreateReview_style.css';
 import { useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
+import api from './Api';
 
 /**
  * CreateReview Component
@@ -35,7 +36,7 @@ const CreateReview = () => {
         const fetchCategories = async () => {
             const token = localStorage.getItem('token');
             try {
-                const response = await axios.get('/categories/', {
+                const response = await api.get('/categories/', {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
@@ -55,7 +56,7 @@ const CreateReview = () => {
             const fetchGenres = async () => {
                 const token = localStorage.getItem('token');
                 try {
-                    const response = await axios.get(`/categories/${category}/genres/`, {
+                    const response = await api.get(`/categories/${category}/genres/`, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                         },
@@ -99,7 +100,7 @@ const CreateReview = () => {
             }
 
             // Send POST request to create the review
-            await axios.post('/reviews/create/', formData, {
+            await api.post('/reviews/create/', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,  // Add Authorization header with Bearer token
                     'Content-Type': 'multipart/form-data',

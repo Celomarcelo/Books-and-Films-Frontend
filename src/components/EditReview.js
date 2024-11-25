@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { isTokenValid } from './Auth';
+import api from './Api';
 
 /**
  * EditReview Component
@@ -41,7 +42,7 @@ const EditReview = () => {
         // Fetch the review data from the server
         const fetchReview = async () => {
             try {
-                const response = await axios.get(`/reviews/${reviewId}/`, {
+                const response = await api.get(`/reviews/${reviewId}/`, {
                     headers: { Authorization: `Bearer ${token}` },  // Include the token in the request header
                 });
                 const reviewData = response.data;
@@ -58,7 +59,7 @@ const EditReview = () => {
                 // Fetches genres based on category ID if present
                 const categoryId = reviewData.category_id;
                 if (categoryId) {
-                    const categoryResponse = await axios.get(`/categories/${categoryId}/genres/`, {
+                    const categoryResponse = await api.get(`/categories/${categoryId}/genres/`, {
                         headers: { Authorization: `Bearer ${token}` },
                     });
                     setGenres(categoryResponse.data);  // Updates genres in state
@@ -119,7 +120,7 @@ const EditReview = () => {
 
         try {
             // Send PUT request to update the review
-            await axios.put(`/reviews/${reviewId}/`, formData, {
+            await api.put(`/reviews/${reviewId}/`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',

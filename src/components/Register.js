@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import '../assets/css/register_style.css';
+import api from './Api';
 
 /**
  * Register Component
@@ -53,7 +54,7 @@ const Register = () => {
 
         // Sends POST request to the server to register a new user
         try {
-            const response = await axios.post('https://books-and-films-api-e4ea62133d4f.herokuapp.com/api/register/', {
+            const response = await api.post('/api/register/', {
                 username,
                 password,
                 email,

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
-
+import api from './Api';
 /**
  * UserReviews Component
  * 
@@ -24,7 +24,7 @@ const UserReviews = () => {
         }
 
         // Fetch user profile data
-        axios.get('/api/user/profile/', {
+        api.get('/api/user/profile/', {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then(response => {
@@ -38,7 +38,7 @@ const UserReviews = () => {
         const fetchUserReviews = async () => {
 
             try {
-                const response = await axios.get('/reviews/user/', {
+                const response = await api.get('/reviews/user/', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -68,7 +68,7 @@ const UserReviews = () => {
         if (!confirmDelete) return;
 
         try {
-            await axios.delete(`/reviews/${reviewId}/delete/`, {
+            await api.delete(`/reviews/${reviewId}/delete/`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
