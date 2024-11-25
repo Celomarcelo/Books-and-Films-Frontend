@@ -40,15 +40,19 @@ const ReviewList = () => {
         })
             .then(response => {
                 // Sort the reviews by creation date in descending order (newest first)
-                const sortedReviews = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-                setReviews(sortedReviews);
-                setError(null);
+                if (Array.isArray(response.data)) {
+                    const sortedReviews = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                    setReviews(sortedReviews);
+                } else {
+                    console.error('Expected an array but got:', response.data);
+                    setError('Invalid data format received from the server.');
+                }
             })
             .catch(error => {
                 // Handle any errors by setting an error message and redirecting to login
                 setError('Failed to fetch reviews. Please login again.');
                 console.error(error);
-                navigate('/api/login/');
+                navigate('/api/login');
             });
     }, [navigate]);
 
