@@ -28,12 +28,12 @@ const ReviewList = () => {
 
         // If the token is invalid, redirect to the login page
         if (!isTokenValid()) {
-            navigate('/api/login/');
+            navigate('https://books-and-films-api-e4ea62133d4f.herokuapp.com/api/login/');
             return;
         }
 
         // Fetch the reviews from the API
-        axios.get('/api/reviews/', {
+        axios.get('https://books-and-films-api-e4ea62133d4f.herokuapp.com/api/reviews/', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
