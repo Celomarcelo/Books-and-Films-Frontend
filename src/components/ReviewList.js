@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
 import '../assets/css/ReviewList_style.css';
+import api from './Api';
 
 /**
  * ReviewList Component
@@ -28,12 +29,12 @@ const ReviewList = () => {
 
         // If the token is invalid, redirect to the login page
         if (!isTokenValid()) {
-            navigate('https://books-and-films-api-e4ea62133d4f.herokuapp.com/api/login/');
+            navigate('/api/login/');
             return;
         }
 
         // Fetch the reviews from the API
-        axios.get('https://books-and-films-api-e4ea62133d4f.herokuapp.com/api/reviews/', {
+        api.get('/api/reviews/', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -79,7 +80,7 @@ const ReviewList = () => {
 
                             {/* Display the user profile picture at the bottom-right corner of the review image */}
                             {review.user && review.user.profile_image && (
-                                <Link to={`/user/${review.user.id}/reviewsList`}>
+                                <Link to={`https://books-and-films-api-e4ea62133d4f.herokuapp.com/user/${review.user.id}/reviewsList`}>
                                     <img
                                         src={review.user.profile_image}
                                         alt={review.user.username}
