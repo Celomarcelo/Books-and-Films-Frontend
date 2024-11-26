@@ -110,7 +110,7 @@ const UserReviews = () => {
                 {user.is_superuser && (
                     <button
                         className="btn btn-outline-primary mt-3"
-                        onClick={() => window.open('http://localhost:8000/admin/', '_blank')}   // Redirect to Django admin
+                        onClick={() => window.open('https://books-and-films-api-e4ea62133d4f.herokuapp.com/admin/', '_blank')}   // Redirect to Django admin
                     >
                         Admin Panel
                     </button>
