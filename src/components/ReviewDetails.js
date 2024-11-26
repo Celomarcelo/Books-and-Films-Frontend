@@ -39,7 +39,7 @@ function ReviewDetails() {
             try {
                 const token = localStorage.getItem('token');
                 // Fetch review data from the API
-                const response = await api.get(`/api/reviews/`, {
+                const response = await api.get(`/reviews-details/${reviewId}/`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -130,9 +130,6 @@ function ReviewDetails() {
                         </div>
                     )}
                     <h1>{review.title}</h1>
-                    <div className='w-200'>
-                    <h1 style={{ width : 200, fontSize : 10}}>{JSON.stringify(review)}</h1>
-                    </div>
                     <p><strong>Author/Director:</strong> {review.author_director}</p>
                     <p><strong>Genre:</strong> {review.genre_name}</p>
                     <p><strong>Rating:</strong> {review.rating}/5</p>
