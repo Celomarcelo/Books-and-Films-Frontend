@@ -80,7 +80,7 @@ const ReviewList = () => {
 
                             {/* Display the user profile picture at the bottom-right corner of the review image */}
                             {review.user && review.user.profile_image && (
-                                <Link to={`https://books-and-films-api-e4ea62133d4f.herokuapp.com/user/${review.user.id}/reviewsList`}>
+                                <Link to={`/user/${review.user.id}/reviewsList`}>
                                     <img
                                         src={review.user.profile_image}
                                         alt={review.user.username}
