@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../assets/css/ReviewDetails_style.css'
 import { isTokenValid } from './Auth';
+import api from './Api';
 
 /**
  * ReviewDetails Component
@@ -38,7 +39,7 @@ function ReviewDetails() {
             try {
                 const token = localStorage.getItem('token');
                 // Fetch review data from the API
-                const response = await axios.get(`/reviews-details/${reviewId}/`, {
+                const response = await api.get(`/api/reviews/`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -61,7 +62,7 @@ function ReviewDetails() {
     const handleLike = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.post(`/reviews/${reviewId}/like/`, {}, {
+            const response = await api.post(`/reviews/${reviewId}/like/`, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -79,7 +80,7 @@ function ReviewDetails() {
         if (!newComment.trim()) return;
 
         try {
-            const response = await axios.post(`/reviews/${reviewId}/comments/`,
+            const response = await api.post(`/reviews/${reviewId}/comments/`,
                 { content: newComment },
                 { headers: { 'Authorization': `Bearer ${token}` } }
             );
@@ -93,7 +94,7 @@ function ReviewDetails() {
     const handleDeleteComment = async (commentId) => {
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`/comments/${commentId}/delete/`, {
+            await api.delete(`/comments/${commentId}/delete/`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -129,6 +130,9 @@ function ReviewDetails() {
                         </div>
                     )}
                     <h1>{review.title}</h1>
+                    <div className='w-200'>
+                    <h1 style={{ width : 200, fontSize : 10}}>{JSON.stringify(review)}</h1>
+                    </div>
                     <p><strong>Author/Director:</strong> {review.author_director}</p>
                     <p><strong>Genre:</strong> {review.genre_name}</p>
                     <p><strong>Rating:</strong> {review.rating}/5</p>
