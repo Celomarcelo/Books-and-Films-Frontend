@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
+import api from './Api';
 
 /**
  * UserReviewsList Component
@@ -31,19 +32,19 @@ const UserReviewsList = () => {
         const fetchUserData = async () => {
             try {
                 // Fetch user profile data
-                const userResponse = await axios.get(`/user/${userId}/`, {
+                const userResponse = await api.get(`/user/${userId}/`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setUser(userResponse.data);
 
                 // Fetch reviews created by the user
-                const reviewsResponse = await axios.get(`/user/${userId}/reviews/`, {
+                const reviewsResponse = await api.get(`/user/${userId}/reviews/`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setReviews(reviewsResponse.data);
 
                 // Fetch current user's favorites list to check if this user is already a favorite
-                const favoritesResponse = await axios.get(`/user/favorites/`, {
+                const favoritesResponse = await api.get(`/user/favorites/`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 const favoritesList = favoritesResponse.data;
@@ -71,7 +72,7 @@ const UserReviewsList = () => {
         }
 
         try {
-            const response = await axios.post(`/user/${userId}/toggle-favorite/`, {}, {
+            const response = await api.post(`/user/${userId}/toggle-favorite/`, {}, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

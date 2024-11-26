@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
+import api from './Api';
 
 /**
  * Navbar Component
@@ -27,7 +28,7 @@ function Navbar({ onSearch, clearSearch }) {
 
 
         try {
-            const response = await axios.get('/reviews/search', {
+            const response = await api.get('/reviews/search', {
                 params: { q: searchTerm },
                 headers: { 'Authorization': `Bearer ${token}` }
             });
