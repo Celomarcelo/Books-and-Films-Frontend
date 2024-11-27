@@ -93,7 +93,7 @@ const UserReviews = () => {
             <div className="d-flex align-items-center mb-4 mt-5">
                 {user.profile_image && (
                     <img
-                        src={user.profile_image || defaultUserImage} // Displays the user's profile image if available
+                        src={user.profile_image} // Displays the user's profile image if available
                         alt="User Profile"
                         className="rounded-circle"
                         style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '15px' }}
