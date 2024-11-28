@@ -256,6 +256,7 @@ const CreateReview = () => {
                             id="img"
                             onChange={(e) => setImg(e.target.files[0])}
                             aria-label="Image for new review"
+                            required
                         />
                     </div>
                     {img && (

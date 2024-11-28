@@ -267,7 +267,7 @@ const UserProfile = () => {
                         className="form-control"
                         name="biography"
                         rows="4"
-                        value={userData.biography || ""}
+                        value={userData.biography || "No biography available"}
                         onChange={handleChange}
                         aria-label="Field to add or edit biography"
                     />

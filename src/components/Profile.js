@@ -15,7 +15,7 @@ const UserReviews = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
-    const defaultUserImage = "https://res.cloudinary.com/dr6m3xv0e/image/upload/v1723217421/default_profile_ztyuck.jpg";
+
 
     // If token is invalid, redirect to the login page
     useEffect(() => {
@@ -93,7 +93,7 @@ const UserReviews = () => {
             <div className="d-flex align-items-center mb-4 mt-5">
                 {user.profile_image && (
                     <img
-                        src={user.profile_image} // Displays the user's profile image if available
+                        src={user.profile_image || '../assets/images/default.jpg' } // Displays the user's profile image if available
                         alt="User Profile"
                         className="rounded-circle"
                         style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '15px' }}
