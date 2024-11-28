@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
 import api from './Api';
+import defaultUserImg from '../assets/images/default.jpg';
 /**
  * UserReviews Component
  * 
@@ -93,7 +94,7 @@ const UserReviews = () => {
             <div className="d-flex align-items-center mb-4 mt-5">
                 {user.profile_image && (
                     <img
-                        src={user.profile_image || '../assets/images/default.jpg' } // Displays the user's profile image if available
+                        src={user.profile_image || defaultUserImg } // Displays the user's profile image if available
                         alt="User Profile"
                         className="rounded-circle"
                         style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '15px' }}
