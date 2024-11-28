@@ -23,7 +23,7 @@ const UserProfile = () => {
         first_name: '',
         last_name: '',
         profile_image: null,
-        biography: ''
+        biography: "No biography available"
     });
     const [imagePreview, setImagePreview] = useState(null);
     const [loading, setLoading] = useState(true);
