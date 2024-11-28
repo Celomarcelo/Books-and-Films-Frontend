@@ -91,22 +91,7 @@ const UserReviews = () => {
     return (
         <div className="d-flex flex-column align-items-center my-5">
             {/* User Profile Section */}
-            <div className="d-flex align-items-center mb-4 mt-5">
-                {user.profile_image && (
-                    <img
-                        src={user.profile_image || defaultUserImg } // Displays the user's profile image if available
-                        alt="User Profile"
-                        className="rounded-circle"
-                        style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '15px' }}
-                    />
-                )}
-                <button
-                    className="btn btn-outline-primary"
-                    onClick={handleEditProfile} // Button to edit user profile
-                >
-                    Edit Profile
-                </button>
-            </div>
+            
             <div>
                 {/* Button to navigate to Django admin panel, visible only to superusers */}
                 {user.is_superuser && (
