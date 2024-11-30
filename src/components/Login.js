@@ -89,7 +89,7 @@ const Login = () => {
         <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
             {/* Left section with branding */}
             <div className="text-center" style={{ marginRight: '150px' }}>
-                <h1>Books&Films</h1>
+                {"Books&Films"}
                 <p>Share ideas about books and films!</p>
             </div>
 

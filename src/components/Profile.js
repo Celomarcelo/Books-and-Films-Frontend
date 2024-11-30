@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
 import api from './Api';
-import defaultUserImg from '../assets/images/default.jpg';
+import defaultImage from './src/assets/images/default.jpg';
 /**
  * UserReviews Component
  * 
@@ -16,6 +16,7 @@ const UserReviews = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
+    const [imageSrc, setImageSrc] = useState(userImage || defaultImage);
 
 
     // If token is invalid, redirect to the login page
@@ -88,14 +89,19 @@ const UserReviews = () => {
         navigate(`/reviews/edit/${reviewId}`);
     };
 
+    const handleImageError = () => {
+        setImageSrc(defaultImage);
+    };
+
     return (
         <div className="d-flex flex-column align-items-center my-5">
             {/* User Profile Section */}
             <div className="d-flex align-items-center mb-4 mt-5">
                 {user.profile_image && (
                     <img
-                        src={user.profile_image || defaultUserImg} // Displays the user's profile image if available
+                        src={imageSrc}
                         alt="User Profile"
+                        onError={handleImageError}
                         className="rounded-circle"
                         style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '15px' }}
                     />
