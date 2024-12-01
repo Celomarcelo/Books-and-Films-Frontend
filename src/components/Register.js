@@ -150,9 +150,10 @@ const Register = () => {
                             className="form-control form-control-lg"
                             accept="image/*"
                             onChange={(e) => setProfileImage(e.target.files[0])}
+                            required
                         />
                         <small className="form-text text-muted">
-                            Upload a profile image (optional).
+                            Upload a profile image.
                         </small>
                     </div>
 
