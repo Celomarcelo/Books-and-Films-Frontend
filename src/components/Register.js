@@ -15,6 +15,7 @@ const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [profileImage, setProfileImage] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate();
 
@@ -52,22 +53,26 @@ const Register = () => {
 
         if (!validateForm()) return;
 
-        const defaultProfileImage = 'https://res.cloudinary.com/hj5u1bqkt/image/upload/v1733059605/default_zkod4m.jpg';
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
+        formData.append('email', email);
 
-        // Sends POST request to the server to register a new user
+        if (profileImage) {
+            formData.append('profile_image', profileImage);
+        }
+
         try {
-            const response = await api.post('/api/register/', {
-                username,
-                password,
-                email,
-                profile_image: defaultProfileImage,
+            const response = await api.post('/api/register/', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             });
-            // On success, store the authentication token in local storage
+
             localStorage.setItem('token', response.data.access);
-            // Navigate to the home page after successful registration
             navigate('/');
         } catch (error) {
-            console.error(error);  // Logs any errors encountered during the request
+            console.error(error);
             if (error.response && error.response.data.detail) {
                 setErrorMessage(error.response.data.detail);
             } else {
@@ -134,6 +139,20 @@ const Register = () => {
                         />
                         <small className="form-text text-muted">
                             We’ll never share your email with anyone else.
+                        </small>
+                    </div>
+
+                    {/* Image input field */}
+                    <div className="mb-4">
+                        <label className="form-label fw-semibold">Profile Image</label>
+                        <input
+                            type="file"
+                            className="form-control form-control-lg"
+                            accept="image/*"
+                            onChange={(e) => setProfileImage(e.target.files[0])}
+                        />
+                        <small className="form-text text-muted">
+                            Upload a profile image (optional).
                         </small>
                     </div>
 
