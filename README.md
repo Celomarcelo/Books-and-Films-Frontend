@@ -41,7 +41,7 @@ Books and Films isn’t just a platform; it’s a hub for creativity, connection
 - Provides seamless navigation across the website for all users.
 - Consistent design to enhance user experience.
 
-  ![Navigation Bar](static/images/navbar.png)
+  ![Navigation Bar](src/assets/images/navbar.jpeg)
 
 #### **Home Page**
 
@@ -49,14 +49,14 @@ Books and Films isn’t just a platform; it’s a hub for creativity, connection
 - Features category filters and thumbnails for each review.
 - Engages users with dynamic and visually appealing content.
 
-  ![Home Page](static/images/homepage.png)
+  ![Home Page](src/assets/images/home.jpeg)
 
 #### **Review Creation**
 
 - Users can create a review with a title, author/director, content, genre, and optional image.
 - Provides validation to ensure required fields are filled before submission.
 
-  ![Create Review](static/images/create_review.png)
+  ![Create Review](src/assets/images/create_review.jpeg)
 
 #### **Categories and Genres**
 
@@ -64,7 +64,7 @@ Books and Films isn’t just a platform; it’s a hub for creativity, connection
 - Dropdown menus for genres within each category make navigation intuitive.
 - Each genre links to a filtered view displaying relevant reviews.
 
-  ![Categories](static/images/categories.png)
+  ![Categories](src/assets/images/categories.jpeg)
 
 #### **Review Details**
 
@@ -72,7 +72,7 @@ Books and Films isn’t just a platform; it’s a hub for creativity, connection
 - Allows users to like reviews and post comments.
 - Includes options to edit or delete reviews if they are the author.
 
-  ![Review Details](static/images/review_details.png)
+  ![Review Details](src/assets/images/review_details.jpeg)
 
 #### **User Profile**
 
@@ -80,20 +80,20 @@ Books and Films isn’t just a platform; it’s a hub for creativity, connection
 - Displays all reviews created by the user with options to edit or delete.
 - Provides access to change the user’s password.
 
-  ![User Profile](static/images/user_profile.png)
+  ![User Profile](src/assets/images/profile.jpeg)
+  ![User Edit Profile](src/assets/images/edit_profile.jpeg)
 
 #### **Favorites**
 
 - Users can mark profiles as favorites for quick access.
 - Displays a grid of favorite profiles with links to their review lists.
 
-  ![Favorites](static/images/favorites.png)
+  ![Favorites](src/assets/images/favorites.jpeg)
 
 ---
 
 ### Features Left to Implement
 
-- Search by title or keywords.
 - User feedback survey form.
 - Enhanced statistics for user reviews (e.g., most liked or commented).
 - Integration of a recommendation engine based on user preferences.
@@ -107,12 +107,29 @@ Books and Films isn’t just a platform; it’s a hub for creativity, connection
 - **HTML Validation**  
   No major errors were found using the [W3C Validator](https://validator.w3.org).
 
-  ![HTML Validator](static/images/html_validator.png)
+  ![HTML Validator](src/assets/images/test_login.jpeg)
+  ![HTML Validator](src/assets/images/test_register.jpeg)
+  ![HTML Validator](src/assets/images/test_home.jpeg)
+  ![HTML Validator](src/assets/images/test_create.png)
+  ![HTML Validator](src/assets/images/test_review_details.jpeg)
+  ![HTML Validator](src/assets/images/test_edit_review.jpeg)
+  ![HTML Validator](src/assets/images/test_profile.jpeg)
+  ![HTML Validator](src/assets/images/test_edit_profile.jpeg)
 
 - **CSS Validation**  
   Passed the [Jigsaw CSS Validator](https://jigsaw.w3.org/css-validator/).
 
-  ![CSS Validator](static/images/css_validator.png)
+  ![CSS Validator](src/assets/images/css_register.jpeg)
+  ![CSS Validator](src/assets/images/css_login.jpeg)
+  ![CSS Validator](src/assets/images/css_home.jpeg)
+  ![CSS Validator](src/assets/images/css_reviews_create.jpeg)
+  ![CSS Validator](src/assets/images/css_reviews_det.jpeg)
+  ![CSS Validator](src/assets/images/css_reviews_edit.jpeg)
+  ![CSS Validator](src/assets/images/css_profile.jpeg)
+  ![CSS Validator](src/assets/images/css_edit_profile.jpeg)
+  
+ 
+
 
 ---
 
@@ -210,18 +227,13 @@ The deployment process ensures that your Books and Films application is live and
 ## Content
 
 - The textual content was sourced from:
-  - [Goodreads](https://www.goodreads.com)
-  - [Rotten Tomatoes](https://www.rottentomatoes.com)
+  - [Common Sense Media](https://www.commonsensemedia.org)
 
 - Images were sourced from:
-  - [Unsplash](https://unsplash.com)
+  - [Common Sense Media](https://www.commonsensemedia.org)
   - [Pexels](https://pexels.com)
 
 ---
 
-## Acknowledgments
-
-- Icons and logos were generated using [Canva](https://www.canva.com).
-- Inspired by platforms such as Goodreads and IMDb.
 
 

@@ -23,7 +23,7 @@ const UserProfile = () => {
         first_name: '',
         last_name: '',
         profile_image: null,
-        biography: "No biography available"
+        biography: ''
     });
     const [imagePreview, setImagePreview] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -267,7 +267,7 @@ const UserProfile = () => {
                         className="form-control"
                         name="biography"
                         rows="4"
-                        value={userData.biography || "No biography available"}
+                        value={userData.biography || ""}
                         onChange={handleChange}
                         aria-label="Field to add or edit biography"
                     />

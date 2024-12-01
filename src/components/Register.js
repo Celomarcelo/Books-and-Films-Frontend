@@ -52,12 +52,15 @@ const Register = () => {
 
         if (!validateForm()) return;
 
+        const defaultProfileImage = 'https://res.cloudinary.com/hj5u1bqkt/image/upload/v1733059605/default_zkod4m.jpg';
+
         // Sends POST request to the server to register a new user
         try {
             const response = await api.post('/api/register/', {
                 username,
                 password,
                 email,
+                profile_image: defaultProfileImage,
             });
             // On success, store the authentication token in local storage
             localStorage.setItem('token', response.data.access);
