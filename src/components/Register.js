@@ -32,7 +32,7 @@ const Register = () => {
             setErrorMessage('Password must be at least 8 characters long.');
             return false;
         }
-        
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             setErrorMessage('Please enter a valid email address.');
@@ -90,6 +90,13 @@ const Register = () => {
                         <h2 className="fs-1">Create Your Account</h2>
                         <p className="text-muted">Fill in the form below to join our community</p>
                     </div>
+
+                    {/* Error message display */}
+                    {errorMessage && (
+                        <div className="alert alert-danger" role="alert">
+                            {errorMessage}
+                        </div>
+                    )}
 
                     {/* Username input field */}
                     <div className="mb-4">
