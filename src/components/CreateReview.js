@@ -133,6 +133,9 @@ const CreateReview = () => {
             setGenre('');
             setRating('');
             setImg(null);
+            setTimeout(() => {
+                setSuccess('');
+            }, 1000);
             navigate('/');
 
         } catch (error) {
