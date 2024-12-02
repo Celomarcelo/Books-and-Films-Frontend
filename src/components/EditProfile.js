@@ -60,10 +60,10 @@ const UserProfile = () => {
                 });
                 console.log(response.data);
 
-                const user = { 
-                    ...response.data, 
-                    biography: response.data.biography && response.data.biography.trim() !== "null" && response.data.biography.trim() !== "" 
-                        ? response.data.biography 
+                const user = {
+                    ...response.data,
+                    biography: response.data.biography && response.data.biography.trim() !== "null" && response.data.biography.trim() !== ""
+                        ? response.data.biography
                         : "No biography available"
                 };
 
@@ -282,8 +282,13 @@ const UserProfile = () => {
                         className="form-control"
                         name="biography"
                         rows="4"
-                        value={userData.biography || "No biography available"}
-                        onChange={handleChange}
+                        value={userData.biography || ""}
+                        onChange={(e) =>
+                            setUserData((prevState) => ({
+                                ...prevState,
+                                biography: e.target.value,
+                            }))
+                        }
                         aria-label="Field to add or edit biography"
                     />
                 </div>
