@@ -79,22 +79,22 @@ const EditReview = () => {
             setError("Title must be between 3 and 100 characters.");
             return false;
         }
-    
+
         if (form.content.length < 20 || form.content.length > 20000) {
             setError("Content must be between 20 and 20000 characters.");
             return false;
         }
-    
+
         if (!form.genre) {
             setError("Please select a genre.");
             return false;
         }
-    
+
         if (form.rating < 0 || form.rating > 5) {
             setError("Rating must be between 0 and 5.");
             return false;
         }
-    
+
         setError("");
         return true;
     };
@@ -175,13 +175,12 @@ const EditReview = () => {
 
     return (
         <div className="d-flex flex-column align-items-center my-5">
-            {successMessage && <div className="alert alert-success w-50 w-md-100 text-center">{successMessage}</div>}
-            {error && <div className="alert alert-danger w-50 w-md-100 text-center">{error}</div>}
             <div className="container my-5 text-center">
                 {/* Display the current review title */}
                 <h1>{review.title}</h1>
                 {/* Display error message if there is one */}
-                {error && <p className="text-danger">{error}</p>}
+                {successMessage && <div className="alert alert-success w-50 w-md-100 text-center">{successMessage}</div>}
+                {error && <div className="alert alert-danger w-50 w-md-100 text-center">{error}</div>}
 
                 {/* Title input field */}
                 <div className="mb-3">

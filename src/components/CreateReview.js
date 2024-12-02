@@ -91,8 +91,8 @@ const CreateReview = () => {
             return;
         }
 
-        if (content.length < 20 || content.length > 1000) {
-            setError('The review content must be between 20 and 1000 characters.');
+        if (content.length < 20 || content.length > 20000) {
+            setError('The review content must be between 20 and 20000 characters.');
             return;
         }
 
