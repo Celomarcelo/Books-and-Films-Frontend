@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/profile_style.css';
 import { isTokenValid } from './Auth';
@@ -36,7 +35,6 @@ const UserProfile = () => {
     });
     const [passwordError, setPasswordError] = useState(null);
     const [passwordSuccessMessage, setPasswordSuccessMessage] = useState('');
-    const [refresh, setRefresh] = useState(false);
     const navigate = useNavigate();
 
     // Fetch user profile data on component mount
@@ -58,7 +56,6 @@ const UserProfile = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                console.log(response.data);
 
                 const user = {
                     ...response.data,

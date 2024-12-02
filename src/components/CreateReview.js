@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import '../assets/css/CreateReview_style.css';
 import { useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
@@ -81,6 +80,22 @@ const CreateReview = () => {
         event.preventDefault();  // Prevent default form submission behavior
         const token = localStorage.getItem('token');  // Retrieve the stored user token
 
+        // Validation checks
+        if (title.length < 3 || title.length > 100) {
+            setError('The title must be between 5 and 100 characters.');
+            return;
+        }
+
+        if (authorDirector.length < 3 || authorDirector.length > 50) {
+            setError('The author/director name must be between 3 and 50 characters.');
+            return;
+        }
+
+        if (content.length < 20 || content.length > 1000) {
+            setError('The review content must be between 20 and 1000 characters.');
+            return;
+        }
+
         try {
             // Check if required fields are filled
             if (!title || !authorDirector || !content || !genre) {
@@ -124,19 +139,6 @@ const CreateReview = () => {
             // Handle errors during the review creation process
             setError('An error occurred while creating the review.');
             setSuccess('');
-
-            // Log different error details based on where the error occurred
-            if (error.response) {
-                console.error('Response data:', error.response.data);
-                console.error('Response status:', error.response.status);
-                console.error('Response headers:', error.response.headers);
-            } else if (error.request) {
-                console.error('Request data:', error.request);
-            } else {
-                console.error('Error message:', error.message);
-            }
-
-            console.error('Full error object:', error);
         }
     };
 
