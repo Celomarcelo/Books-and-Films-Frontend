@@ -11,6 +11,7 @@ import api from './Api';
 const UserReviews = () => {
     const [user, setUser] = useState({});
     const [reviews, setReviews] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
@@ -50,8 +51,13 @@ const UserReviews = () => {
             } catch (error) {
                 setError('An error occurred while fetching the reviews.');
                 console.error(error);
+            } finally {
+                setTimeout(() => {
+                    setLoading(false);
+                }, 500);
             }
-        };
+        } 
+        
 
         fetchUserReviews();
     }, [token, navigate]);
@@ -84,6 +90,14 @@ const UserReviews = () => {
     const handleEdit = (reviewId) => {
         navigate(`/reviews/edit/${reviewId}`);
     };
+
+    if (loading) {
+        return (
+            <div className="d-flex justify-content-center align-items-center mt-5">
+                <h2>Loading...</h2>
+            </div>
+        );
+    }
 
     return (
         <div className="d-flex flex-column align-items-center my-5">
