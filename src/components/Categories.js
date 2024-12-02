@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import "../assets/css/Category_genre_filter.css";
 import { isTokenValid } from './Auth';
 import api from './Api';
@@ -22,7 +21,7 @@ const FilterReviews = () => {
   useEffect(() => {
     // Redirect to login if the token is invalid
     if (!isTokenValid()) {
-      navigate('/api/login/');
+      navigate('/login/');
       return;
     }
 
