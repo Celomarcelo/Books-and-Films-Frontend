@@ -82,7 +82,7 @@ const CreateReview = () => {
 
         // Validation checks
         if (title.length < 3 || title.length > 100) {
-            setError('The title must be between 5 and 100 characters.');
+            setError('The title must be between 3 and 100 characters.');
             return;
         }
 
@@ -136,7 +136,9 @@ const CreateReview = () => {
             setTimeout(() => {
                 setSuccess('');
             }, 1000);
-            navigate('/');
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
 
         } catch (error) {
             // Handle errors during the review creation process
