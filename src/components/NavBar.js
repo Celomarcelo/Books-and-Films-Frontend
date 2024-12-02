@@ -27,7 +27,7 @@ function Navbar({ onSearch, clearSearch }) {
 
 
         try {
-            const response = await api.get('/reviews/search', {
+            const response = await api.get('/reviews/search/', {
                 params: { q: searchTerm },
                 headers: { 'Authorization': `Bearer ${token}` }
             });
