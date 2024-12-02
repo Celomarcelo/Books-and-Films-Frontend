@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
 import '../assets/css/ReviewList_style.css';
@@ -14,6 +13,7 @@ import api from './Api';
  */
 const ReviewList = () => {
     const [reviews, setReviews] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -45,7 +45,6 @@ const ReviewList = () => {
                     const sortedReviews = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
                     setReviews(sortedReviews);
                 } else {
-                    console.error('Expected an array but got:', response.data);
                     setError('Invalid data format received from the server.');
                 }
             })
@@ -54,8 +53,19 @@ const ReviewList = () => {
                 setError('Failed to fetch reviews. Please login again.');
                 console.error(error);
                 navigate('/login');
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }, [navigate]);
+
+    if (loading) {
+        return (
+            <div className="d-flex justify-content-center align-items-center mt-5">
+                <h2>Loading...</h2>
+            </div>
+        );
+    }
 
     return (
         // Render the list of reviews
