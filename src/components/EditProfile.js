@@ -58,6 +58,7 @@ const UserProfile = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
+                console.log(response.data);
 
                 const user = { 
                     ...response.data, 
@@ -67,6 +68,7 @@ const UserProfile = () => {
 
                 setUserData(user);
                 setImagePreview(response.data.profile_image);
+                console.log(userData);
             } catch (error) {
                 // Handle errors during data fetch and log them
                 setError('Failed to fetch user data.');
@@ -80,10 +82,6 @@ const UserProfile = () => {
         };
 
         // Call the function to fetch user data
-        console.log(userData);
-        console.log(response.data);
-
-
         fetchUserData();
     }, [navigate, refresh]);
 
