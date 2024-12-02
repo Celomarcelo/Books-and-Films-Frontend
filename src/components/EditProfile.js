@@ -81,7 +81,7 @@ const UserProfile = () => {
 
         // Call the function to fetch user data
         fetchUserData();
-    }, [navigate, refresh]);
+    }, [navigate]);
 
     // Handle changes in input fields (e.g., username, email, biography, etc.)
     const handleChange = (e) => {
