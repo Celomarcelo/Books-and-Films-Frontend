@@ -73,8 +73,8 @@ const Register = () => {
             navigate('/');
         } catch (error) {
             console.error(error);
-            if (error.response && error.response.data.detail) {
-                setErrorMessage(error.response.data.detail);
+            if (error.response && error.response.data.error) {
+                setErrorMessage(error.response.data.error);
             } else {
                 setErrorMessage('An error occurred during registration. Please try again.');
             }
