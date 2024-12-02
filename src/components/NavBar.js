@@ -31,6 +31,7 @@ function Navbar({ onSearch, clearSearch }) {
                 params: { q: searchTerm },
                 headers: { 'Authorization': `Bearer ${token}` }
             });
+            console.log('Search Results:', response.data);
             onSearch(response.data);
             setSearchError(null);
         } catch (error) {
