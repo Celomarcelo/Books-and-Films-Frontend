@@ -65,7 +65,7 @@ const UserProfile = () => {
                 };
 
 
-                setUserData(response.data);
+                setUserData(user);
                 setImagePreview(response.data.profile_image);
             } catch (error) {
                 // Handle errors during data fetch and log them
