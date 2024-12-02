@@ -62,7 +62,8 @@ const UserProfile = () => {
 
                 const user = { 
                     ...response.data, 
-                    biography: response.data.biography || "No biography available" 
+                    biography: response.data.biography?.trim() ? response.data.biography : "No biography available"
+
                 };
 
 
