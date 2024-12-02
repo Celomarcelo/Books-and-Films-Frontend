@@ -165,6 +165,12 @@ const UserProfile = () => {
             return;
         }
 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!userData.email || !emailRegex.test(userData.email)) {
+            setError("Please provide a valid email address.");
+            return false;
+        }
+
         try {
             const token = localStorage.getItem('token');
             await api.post('/user/change-password/', {
@@ -185,6 +191,29 @@ const UserProfile = () => {
             setPasswordError('Failed to change password.');
         }
     };
+
+    const handleDeleteProfile = async () => {
+        const confirmDelete = window.confirm("Are you sure you want to delete your profile?");
+        if (!confirmDelete) return;
+
+        try {
+            const token = localStorage.getItem('token');
+
+            await api.delete('/user/profile/delete/', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            alert("Profile deleted successfully.");
+            localStorage.removeItem('token'); // Remove token after deletion
+            navigate('/login'); // Redirect to login page
+        } catch (error) {
+            setError("Failed to delete profile.");
+            console.error("Error deleting profile", error);
+        }
+    };
+
 
     // If loading, display a loading message
     if (loading) {
@@ -341,6 +370,11 @@ const UserProfile = () => {
 
                 <div className="d-flex justify-content-center align-items-center m-5">
                     <button type="submit" className="btn btn-primary mt-3">Change Password</button>
+                </div>
+                <div className="text-center mt-4">
+                    <button className="btn btn-danger" onClick={handleDeleteProfile}>
+                        Delete Profile
+                    </button>
                 </div>
             </form>
         </div>
