@@ -28,14 +28,14 @@ const CreateReview = () => {
     // useEffect to check if the token is valid on component mount
     useEffect(() => {
         if (!isTokenValid()) {
-            navigate('/api/login/');
+            navigate('/login/');
             return;
         }
         // Fetch categories and genres when the component mounts
         const fetchCategories = async () => {
             const token = localStorage.getItem('token');
             try {
-                const response = await api.get('api/categories/', {
+                const response = await api.get('/categories/', {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
@@ -55,7 +55,7 @@ const CreateReview = () => {
             const fetchGenres = async () => {
                 const token = localStorage.getItem('token');
                 try {
-                    const response = await api.get(`api/categories/${category}/genres/`, {
+                    const response = await api.get(`/categories/${category}/genres/`, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                         },
@@ -115,7 +115,7 @@ const CreateReview = () => {
             }
 
             // Send POST request to create the review
-            await api.post('api/reviews/create/', formData, {
+            await api.post('/reviews/create/', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,  // Add Authorization header with Bearer token
                     'Content-Type': 'multipart/form-data',

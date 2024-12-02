@@ -22,7 +22,7 @@ const FilteredReviews = () => {
     useEffect(() => {
         // Check if token is valid; if not, redirect to login
         if (!isTokenValid()) {
-            navigate('/api/login/');
+            navigate('/login/');
             return;
         }
 

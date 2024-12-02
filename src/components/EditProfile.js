@@ -46,7 +46,7 @@ const UserProfile = () => {
 
                 // If no token, redirect to login page
                 if (!isTokenValid()) {
-                    navigate('/api/login/');
+                    navigate('/login/');
                     return;
                 }
 
