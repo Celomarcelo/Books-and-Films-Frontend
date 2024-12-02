@@ -62,14 +62,14 @@ const UserProfile = () => {
 
                 const user = { 
                     ...response.data, 
-                    biography: response.data.biography?.trim() ? response.data.biography : "No biography available"
-
+                    biography: response.data.biography && response.data.biography.trim() !== "null" && response.data.biography.trim() !== "" 
+                        ? response.data.biography 
+                        : "No biography available"
                 };
 
 
                 setUserData(user);
                 setImagePreview(response.data.profile_image);
-                console.log(userData);
             } catch (error) {
                 // Handle errors during data fetch and log them
                 setError('Failed to fetch user data.');
