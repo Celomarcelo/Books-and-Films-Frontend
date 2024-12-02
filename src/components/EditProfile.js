@@ -36,6 +36,7 @@ const UserProfile = () => {
     });
     const [passwordError, setPasswordError] = useState(null);
     const [passwordSuccessMessage, setPasswordSuccessMessage] = useState('');
+    const [refresh, setRefresh] = useState(false);
     const navigate = useNavigate();
 
     // Fetch user profile data on component mount
