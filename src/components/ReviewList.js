@@ -41,11 +41,11 @@ const ReviewList = () => {
         })
             .then(response => {
                 // Sort the reviews by creation date in descending order (newest first)
-                if (Array.isArray(response.data)) {
+                if (Array.isArray(response.data) && response.data.length > 0) {
                     const sortedReviews = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
                     setReviews(sortedReviews);
                 } else {
-                    setError('Invalid data format received from the server.');
+                    setError('There is no review at the moment.');
                 }
             })
             .catch(error => {
