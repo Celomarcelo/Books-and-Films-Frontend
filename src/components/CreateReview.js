@@ -255,7 +255,7 @@ const CreateReview = () => {
 
                 {/* Image upload field (optional) */}
                 <div className="mb-3">
-                    <label htmlFor="img" className="btn btn-primary">Upload an Image (optional)</label>
+                    <label htmlFor="img" className="btn btn-primary">Upload an Image (required)</label>
                     <div className="custom-file-upload">
                         <input
                             type="file"
