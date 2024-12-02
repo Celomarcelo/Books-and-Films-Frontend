@@ -59,10 +59,10 @@ const UserProfile = () => {
                     },
                 });
 
-                const user = response.data;
-                if (!user.biography) {
-                    user.biography = "No biography available";
-                }
+                const user = { 
+                    ...response.data, 
+                    biography: response.data.biography || "No biography available" 
+                };
 
 
                 setUserData(response.data);
