@@ -146,6 +146,12 @@ const UserProfile = () => {
     // Handle password change form submission
     const handlePasswordSubmit = async (e) => {
         e.preventDefault();
+
+        if (passwordData.new_password.length < 8) {
+            setPasswordError('New password must be at least 8 characters long.');
+            return;
+        }
+
         if (passwordData.new_password !== passwordData.confirm_new_password) {
             setPasswordError('New passwords do not match.');
             return;
@@ -174,20 +180,16 @@ const UserProfile = () => {
 
     // If loading, display a loading message
     if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    // If an error occurs, display the error message
-    if (error) {
-        return <div>{error}</div>;
+        return <div className="d-flex flex-column align-items-center mt-5">Loading...</div>;
     }
 
     return (
         <div className="d-flex flex-column align-items-center mt-5">
             <h1 className="text-center my-5">Welcome {userData.username}</h1>
 
-            {/* Display success message after updating profile */}
+            {/* Display success or error message after updating profile */}
             {successMessage && <div className="alert alert-success w-50 w-md-100 text-center">{successMessage}</div>}
+            {error && <div className="alert alert-danger w-50 w-md-100 text-center">{error}</div>}
 
             <form onSubmit={handleSubmit} className="w-50 w-md-100">
                 <div className="form-group text-center">
