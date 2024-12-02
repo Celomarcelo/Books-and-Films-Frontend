@@ -18,67 +18,65 @@ import SearchResults from './SearchResults';
 import PasswordResetRequest from './PasswordResetRequest';
 import PasswordResetConfirm from './PasswordResetConfirm';
 import Footer from './Footer';
-import '../assets/css/Layout_style.css'
-
-/**
- * Layout Component
- * 
- * This component serves as the main layout for the application, managing navigation and structure.
- * It includes the Navbar, main content area, and sidebars for categories and favorites.
- * 
- */
+import '../assets/css/Layout_style.css';
 
 function Layout() {
-    const location = useLocation();  // Access the current URL location
-    const navigate = useNavigate();  // Navigate between routes
-    const isAuthPage = location.pathname === '/register' || location.pathname === '/login/';  // Check if current page is an auth page
-    const [searchResults, setSearchResults] = useState([]);  // State to store search results
+    const location = useLocation();
+    const navigate = useNavigate();
+    const isAuthPage = location.pathname === '/register' || location.pathname === '/login/';
+    const [searchResults, setSearchResults] = useState([]);
 
-    // Styling for a sticky sidebar
-    const stickyColumnStyle = {
-        position: 'sticky',
-        top: '100px',
-        height: 'calc(100vh - 100px)',
-        marginTop: '50px',
-    };
-
-    // Styling for a fixed navbar
-    const navbarStyle = {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        zIndex: 1000,
-    };
-
-    // Handle search results and redirect to the search results page
+    // Handle search results
     const handleSearchResults = (results) => {
         setSearchResults(results);
         navigate('/search-results');
     };
 
-    // Clear search results and navigate back to the homepage
+    // Clear search results
     const clearSearch = () => {
         setSearchResults([]);
         navigate('/');
     };
 
     return (
-        <div className='background-container'>
-            {/* Navbar with fixed positioning */}
-            <div style={navbarStyle}>
-                <Navbar onSearch={handleSearchResults} clearSearch={clearSearch} />
-            </div>
-            <div className="container mt-5">
+        <div className="layout-container">
+            {/* Navbar */}
+            <Navbar onSearch={handleSearchResults} clearSearch={clearSearch} />
+
+            <div className="content-container">
+                {!isAuthPage && (
+                    <>
+                        {/* Mobile-First Buttons */}
+                        <div className="mobile-sidebar-buttons d-lg-none d-flex justify-content-between my-3">
+                            <button
+                                className="btn btn-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#categoriesModal"
+                            >
+                                Categories
+                            </button>
+                            <button
+                                className="btn btn-secondary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#favoritesModal"
+                            >
+                                Favorites
+                            </button>
+                        </div>
+                    </>
+                )}
+
+                {/* Main Content */}
                 <div className="row">
-                    {/* Sidebar for Categories - only displayed on non-auth pages */}
+                    {/* Categories Sidebar for Larger Screens */}
                     {!isAuthPage && (
-                        <div className="col-md-2" style={stickyColumnStyle}>
+                        <div className="col-lg-2 d-none d-lg-block">
                             <Categories />
                         </div>
                     )}
-                    {/* Main content area, adjusts width based on auth page or not */}
-                    <div className={isAuthPage ? 'col-md-12' : 'col-md-8'}>
+
+                    {/* Main Content Area */}
+                    <div className={isAuthPage ? 'col-12' : 'col-lg-8 col-md-12'}>
                         <Routes>
                             <Route path="/" element={<ReviewList />} />
                             <Route path="/register" element={<Register />} />
@@ -96,17 +94,50 @@ function Layout() {
                             <Route path="/reset/:uidb64/:token" element={<PasswordResetConfirm />} />
                         </Routes>
                     </div>
-                    {/* Sidebar for Favorites - only displayed on non-auth pages */}
+
+                    {/* Favorites Sidebar for Larger Screens */}
                     {!isAuthPage && (
-                        <div className="col-md-2" style={stickyColumnStyle}>
+                        <div className="col-lg-2 d-none d-lg-block">
                             <Favorites />
                         </div>
                     )}
                 </div>
             </div>
+
+            {/* Modals for Categories and Favorites on Mobile */}
+            <div className="modal fade" id="categoriesModal" tabIndex="-1" aria-labelledby="categoriesModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="categoriesModalLabel">Categories</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <Categories />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal fade" id="favoritesModal" tabIndex="-1" aria-labelledby="favoritesModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="favoritesModalLabel">Favorites</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <Favorites />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Footer */}
             <Footer />
-        </div >
+        </div>
     );
 }
 
 export default Layout;
+

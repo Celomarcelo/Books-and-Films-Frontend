@@ -23,31 +23,24 @@
 }
 
 
-@media (max-width: 768px) {
-    .background-container {
-        padding: 0;
-    }
-
-    .navbar {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
-
-    .sticky-sidebar {
-        display: none;
-    }
-
-    .col-md-12 {
-        padding: 1rem;
-    }
+.layout-container {
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-@media (min-width: 768px) {
-    .sticky-sidebar {
-        position: sticky;
-        top: 80px;
-    }
+.content-container {
+    flex-grow: 1;
+    padding: 1rem;
+}
+
+.mobile-sidebar-buttons {
+    padding: 1rem;
+}
+
+.modal-content {
+    padding: 1rem;
 }
 
 
