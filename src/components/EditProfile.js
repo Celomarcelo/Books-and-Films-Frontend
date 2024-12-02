@@ -80,12 +80,12 @@ const UserProfile = () => {
         };
 
         // Call the function to fetch user data
+        console.log(userData);
+        console.log(response.data);
+
+
         fetchUserData();
     }, [navigate, refresh]);
-
-    const handleRefresh = () => {
-        setRefresh((prev) => !prev); // Toggle the `refresh` state
-    };
 
     // Handle changes in input fields (e.g., username, email, biography, etc.)
     const handleChange = (e) => {
@@ -283,7 +283,7 @@ const UserProfile = () => {
                         className="form-control"
                         name="biography"
                         rows="4"
-                        value={userData.biography}
+                        value={userData.biography || "No biography available"}
                         onChange={handleChange}
                         aria-label="Field to add or edit biography"
                     />
