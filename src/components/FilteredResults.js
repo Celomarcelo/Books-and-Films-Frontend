@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { isTokenValid } from './Auth';
+import api from './Api';
 
 /**
  * FilteredReviews Component
@@ -37,7 +37,7 @@ const FilteredReviews = () => {
         }
 
         // Fetch filtered reviews from the API
-        axios.get(apiUrl, {
+        api.get(apiUrl, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },

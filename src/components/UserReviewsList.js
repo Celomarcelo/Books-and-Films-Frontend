@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
 import api from './Api';
@@ -26,7 +25,7 @@ const UserReviewsList = () => {
     useEffect(() => {
         // Redirect to login if the token is invalid
         if (!isTokenValid()) {
-            navigate('/api/login/');
+            navigate('/login/');
             return;
         }
         const fetchUserData = async () => {
@@ -78,6 +77,9 @@ const UserReviewsList = () => {
 
             alert(response.data.message);  // Display success message
             setIsFavorite((prev) => !prev);  // Toggle favorite status
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
         } catch (error) {
             console.error('Error favoriting user:', error);
             setError('Failed to update favorites.');
@@ -86,12 +88,14 @@ const UserReviewsList = () => {
 
     // Render loading indicator if data is being fetched
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className="d-flex flex-column align-items-center mt-5">
+            <h2 style={{ fontSize: '2rem', fontWeight: 'bold' }}>Loading...</h2>
+        </div>;
     }
 
     // Render error message if an error occurred
     if (error) {
-        return <div>{error}</div>;
+        return <div className="d-flex flex-column align-items-center mt-5">{error}</div>;
     }
 
     return (

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../assets/css/login_style.css';
@@ -19,10 +18,6 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const [passwordError, setPasswordError] = useState(null);
-
-    const checkBackendData = () => {
-        console.log("Succes response backend!");
-    };
 
     /**
     * Validate form inputs before submitting.
@@ -50,19 +45,14 @@ const Login = () => {
 
         // Send POST request to the login endpoint
         try {
-            const response = await api.post('/api/login/', {
+            const response = await api.post('/login/', {
                 username,  // Send username from the form input
                 password,  // Send password from the form input
             });
 
-            checkBackendData();
-                console.log("Token received:", response.data.access);
-                console.log("Backend answer:", response.data);
-
             const token = response.data.access;
             if (token) {
                 localStorage.setItem('accessToken', token);
-                console.error('Token missing in response:', response.data);
             }
 
             // Store the authentication token in localStorage

@@ -35,7 +35,7 @@ const CreateReview = () => {
         const fetchCategories = async () => {
             const token = localStorage.getItem('token');
             try {
-                const response = await api.get('/categories/', {
+                const response = await api.get('api/categories/', {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
@@ -55,7 +55,7 @@ const CreateReview = () => {
             const fetchGenres = async () => {
                 const token = localStorage.getItem('token');
                 try {
-                    const response = await api.get(`/categories/${category}/genres/`, {
+                    const response = await api.get(`api/categories/${category}/genres/`, {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                         },
@@ -115,7 +115,7 @@ const CreateReview = () => {
             }
 
             // Send POST request to create the review
-            await api.post('/reviews/create/', formData, {
+            await api.post('api/reviews/create/', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,  // Add Authorization header with Bearer token
                     'Content-Type': 'multipart/form-data',

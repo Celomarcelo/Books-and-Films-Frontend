@@ -29,12 +29,12 @@ const ReviewList = () => {
 
         // If the token is invalid, redirect to the login page
         if (!isTokenValid()) {
-            navigate('/api/login/');
+            navigate('/login/');
             return;
         }
 
         // Fetch the reviews from the API
-        api.get('/api/reviews/', {
+        api.get('/reviews/', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -53,7 +53,7 @@ const ReviewList = () => {
                 // Handle any errors by setting an error message and redirecting to login
                 setError('Failed to fetch reviews. Please login again.');
                 console.error(error);
-                navigate('/api/login');
+                navigate('/login');
             });
     }, [navigate]);
 

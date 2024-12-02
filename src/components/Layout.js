@@ -31,7 +31,7 @@ import '../assets/css/Layout_style.css'
 function Layout() {
     const location = useLocation();  // Access the current URL location
     const navigate = useNavigate();  // Navigate between routes
-    const isAuthPage = location.pathname === '/register' || location.pathname === '/api/login/';  // Check if current page is an auth page
+    const isAuthPage = location.pathname === '/register' || location.pathname === '/login/';  // Check if current page is an auth page
     const [searchResults, setSearchResults] = useState([]);  // State to store search results
 
     // Styling for a sticky sidebar
@@ -82,7 +82,7 @@ function Layout() {
                         <Routes>
                             <Route path="/" element={<ReviewList />} />
                             <Route path="/register" element={<Register />} />
-                            <Route path="/api/login/" element={<Login />} />
+                            <Route path="/login/" element={<Login />} />
                             <Route path="/profile/" element={<Profile />} />
                             <Route path="/edit_profile/" element={<UserProfile />} />
                             <Route path="/reviews/create/" element={<CreateReview />} />

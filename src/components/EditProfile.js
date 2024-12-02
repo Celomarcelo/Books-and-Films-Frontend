@@ -51,7 +51,7 @@ const UserProfile = () => {
                 }
 
                 // API call to fetch user profile data
-                const response = await api.get('/api/user/profile/', {
+                const response = await api.get('/user/profile/', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -124,7 +124,7 @@ const UserProfile = () => {
             const token = localStorage.getItem('token');
 
             // API call to update user profile
-            await api.put('/api/user/profile/', formData, {
+            await api.put('/user/profile/', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data'

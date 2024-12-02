@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import '../assets/css/ReviewDetails_style.css'
 import { isTokenValid } from './Auth';
 import api from './Api';
@@ -32,7 +31,7 @@ function ReviewDetails() {
     useEffect(() => {
         // Redirect to login if the token is invalid
         if (!isTokenValid()) {
-            navigate('/api/login/');
+            navigate('/login/');
             return;
         }
         const fetchReviewDetails = async () => {
@@ -44,15 +43,18 @@ function ReviewDetails() {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                console.log("Review data:", response.data);
                 setReview(response.data);
                 setLikes(response.data.likes || 0); // Initialize likes count
                 setComments(response.data.comments || []); // Initialize comments
-                setLoading(false);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 500);
             } catch (err) {
                 console.error("Error fetching review details:", err);
                 setError('Failed to load review details.');
-                setLoading(false);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 500);
             }
         };
 
@@ -106,11 +108,13 @@ function ReviewDetails() {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className="d-flex flex-column align-items-center mt-5">
+            <h2 style={{ fontSize: '2rem', fontWeight: 'bold' }}>Loading...</h2>
+        </div>;
     }
 
     if (error) {
-        return <div>{error}</div>;
+        return <div className="d-flex flex-column align-items-center mt-5">{error}</div>;
     }
 
     return (

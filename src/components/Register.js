@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import '../assets/css/register_style.css';
 import api from './Api';
@@ -63,7 +62,7 @@ const Register = () => {
         }
 
         try {
-            const response = await api.post('/api/register/', formData, {
+            const response = await api.post('/register/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -172,7 +171,7 @@ const Register = () => {
                     </div>
 
                     <div className="text-center mt-3">
-                        <p className="text-muted">Already have an account? <Link className="text-primary" to="/api/login/">login</Link></p>
+                        <p className="text-muted">Already have an account? <Link className="text-primary" to="/login/">login</Link></p>
                     </div>
                 </div>
             </form>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
 import '../assets/css/Favorites_style.css';
@@ -24,7 +23,7 @@ const FavoritesList = () => {
   useEffect(() => {
     // Check if the token is valid; if not, redirect to login page
     if (!isTokenValid()) {
-      navigate('/api/login/');
+      navigate('/login/');
       return;
     }
 

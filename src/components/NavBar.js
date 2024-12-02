@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
 import api from './Api';
 
 /**
@@ -57,7 +56,7 @@ function Navbar({ onSearch, clearSearch }) {
         if (confirmLogout) {
             localStorage.removeItem('token');
             localStorage.removeItem('userId');
-            navigate('/api/login/');
+            navigate('/login/');
         }
     };
     return (
@@ -111,7 +110,7 @@ function Navbar({ onSearch, clearSearch }) {
                         ) : (
                             // If no token (user is not logged in), only show the Login link
                             <li className="nav-item">
-                                <Link className="nav-link" to="/api/login/">Login</Link>
+                                <Link className="nav-link" to="/login/">Login</Link>
                             </li>
                         )}
                     </ul>

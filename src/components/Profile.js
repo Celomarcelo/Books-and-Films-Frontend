@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { isTokenValid } from './Auth';
 import api from './Api';
@@ -15,17 +14,16 @@ const UserReviews = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
-    const defaultProfileImage = 'public/images/default.jpg';
 
     // If token is invalid, redirect to the login page
     useEffect(() => {
         if (!isTokenValid()) {
-            navigate('/api/login/');
+            navigate('/login/');
             return;
         }
 
         // Fetch user profile data
-        api.get('/api/user/profile/', {
+        api.get('/user/profile/', {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then(response => {

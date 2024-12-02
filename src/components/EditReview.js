@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { isTokenValid } from './Auth';
 import api from './Api';
 
@@ -35,7 +34,7 @@ const EditReview = () => {
     useEffect(() => {
         // Check if the token is valid, if not, redirect to login page
         if (!isTokenValid()) {
-            navigate('/api/login/');
+            navigate('/login/');
             return;
         }
 
