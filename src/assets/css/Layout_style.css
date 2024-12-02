@@ -23,3 +23,31 @@
 }
 
 
+@media (max-width: 768px) {
+    .background-container {
+        padding: 0;
+    }
+
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .sticky-sidebar {
+        display: none;
+    }
+
+    .col-md-12 {
+        padding: 1rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .sticky-sidebar {
+        position: sticky;
+        top: 80px;
+    }
+}
+
+
