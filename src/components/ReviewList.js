@@ -55,7 +55,9 @@ const ReviewList = () => {
                 navigate('/login');
             })
             .finally(() => {
-                setLoading(false);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 1000);
             });
     }, [navigate]);
 
