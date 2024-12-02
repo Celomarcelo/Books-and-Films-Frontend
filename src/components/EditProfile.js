@@ -138,7 +138,7 @@ const UserProfile = () => {
             // Display success message after successful update
             setSuccessMessage('Profile updated successfully!');
             setTimeout(() => {
-                handleRefresh();
+                window.location.reload();
             }, 2000);
         } catch (error) {
             // Handle errors during profile update
@@ -183,7 +183,7 @@ const UserProfile = () => {
             setPasswordSuccessMessage('Password changed successfully!');
             setPasswordError(null); // Clear any previous errors
             setTimeout(() => {
-                handleRefresh();
+                window.location.reload();
             }, 2000);
         } catch (error) {
             setPasswordError('Failed to change password.');
