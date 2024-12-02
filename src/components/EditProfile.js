@@ -58,6 +58,11 @@ const UserProfile = () => {
                     },
                 });
 
+                const user = response.data;
+                if (!user.biography) {
+                    user.biography = "No biography available";
+                }
+
 
                 setUserData(response.data);
                 setImagePreview(response.data.profile_image);
@@ -67,13 +72,19 @@ const UserProfile = () => {
                 console.error("Error fetching user data", error);
                 navigate('/register');
             } finally {
-                setLoading(false);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 2000);
             }
         };
 
         // Call the function to fetch user data
         fetchUserData();
-    }, [navigate]);
+    }, [navigate, refresh]);
+
+    const handleRefresh = () => {
+        setRefresh((prev) => !prev); // Toggle the `refresh` state
+    };
 
     // Handle changes in input fields (e.g., username, email, biography, etc.)
     const handleChange = (e) => {
@@ -126,7 +137,7 @@ const UserProfile = () => {
             // Display success message after successful update
             setSuccessMessage('Profile updated successfully!');
             setTimeout(() => {
-                window.location.reload();
+                handleRefresh();
             }, 2000);
         } catch (error) {
             // Handle errors during profile update
@@ -171,7 +182,7 @@ const UserProfile = () => {
             setPasswordSuccessMessage('Password changed successfully!');
             setPasswordError(null); // Clear any previous errors
             setTimeout(() => {
-                window.location.reload();
+                handleRefresh();
             }, 2000);
         } catch (error) {
             setPasswordError('Failed to change password.');
@@ -180,7 +191,9 @@ const UserProfile = () => {
 
     // If loading, display a loading message
     if (loading) {
-        return <div className="d-flex flex-column align-items-center mt-5">Loading...</div>;
+        return <div className="d-flex flex-column align-items-center mt-5">
+            <h2 style={{ fontSize: '2rem', fontWeight: 'bold' }}>Loading...</h2>
+        </div>;
     }
 
     return (
@@ -269,7 +282,7 @@ const UserProfile = () => {
                         className="form-control"
                         name="biography"
                         rows="4"
-                        value={userData.biography || ""}
+                        value={userData.biography}
                         onChange={handleChange}
                         aria-label="Field to add or edit biography"
                     />
