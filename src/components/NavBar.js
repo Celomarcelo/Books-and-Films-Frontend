@@ -31,7 +31,6 @@ function Navbar({ onSearch, clearSearch }) {
                 params: { q: searchTerm },
                 headers: { 'Authorization': `Bearer ${token}` }
             });
-            console.log('Search Results:', response.data);
             onSearch(response.data);
             setSearchError(null);
         } catch (error) {
@@ -123,8 +122,8 @@ function Navbar({ onSearch, clearSearch }) {
                             <input
                                 className="form-control me-2"
                                 type="search"
-                                placeholder="Search"
-                                aria-label="Search"
+                                placeholder="Search for titles"
+                                aria-label="Search for titles"
                                 value={searchTerm}
                                 onChange={handleSearchChange}
                             />
