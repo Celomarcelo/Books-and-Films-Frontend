@@ -76,70 +76,74 @@ const Login = () => {
     };
 
     return (
-        <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-            {/* Left section with branding */}
-            <div className="text-center" style={{ marginRight: '150px' }}>
-                <h1>Books&Films</h1>
-                <p>Share ideas about books and films!</p>
-            </div>
-
-            {/* Login form */}
-            <form className="p-3" onSubmit={handleSubmit}>
-                <div className="w-100 custom_bg rounded p-4">
-                    {/* Header section with title */}
-                    <div className="text-center mb-4">
-                        <h2 className="fs-1">Login</h2>
-
-                        {/* Display error message if login fails */}
-                        {passwordError && (
-                            <div className="alert alert-danger mt-3 text-center">
-                                {passwordError}
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Username input field */}
-                    <div className="mb-3">
-                        <input
-                            type="text"
-                            className="form-control form-control-lg"
-                            placeholder="Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            aria-label="Username"
-                            required
-                        />
-                    </div>
-
-                    {/* Password input field */}
-                    <div className="mb-3">
-                        <input
-                            type="password"
-                            className="form-control form-control-lg"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            aria-label="Password"
-                            required
-                        />
-                    </div>
-
-                    {/* Submit button */}
-                    <div className="d-grid">
-                        <button type="submit" className="btn btn-primary btn-lg">
-                            Login
-                        </button>
-                    </div>
-
-                    {/* Registration link for users without an account */}
-                    <div className="text-center m-4">
-                        <p>
-                            Don't have an account yet? You can register
-                            <Link className="text-primary" to="/register"> here</Link>
-                        </p>
-                    </div>
+        <div className="container-fluid d-flex align-items-center justify-content-center" style={{ height: '100vh' }}>
+            <div className="row w-100">
+                {/* Branding section */}
+                <div className="col-12 col-md-6 text-center mb-4 mb-md-0 d-flex flex-column justify-content-center">
+                    <h1>Books&Films</h1>
+                    <p>Share ideas about books and films!</p>
                 </div>
-            </form>
+
+                {/* Login form section */}
+                <div className="col-12 col-md-6 d-flex justify-content-center">
+                    <form className="p-4 w-100" onSubmit={handleSubmit} style={{ maxWidth: '400px' }}>
+                        <div className="custom_bg rounded p-4">
+                            {/* Header section */}
+                            <div className="text-center mb-4">
+                                <h2 className="fs-1">Login</h2>
+
+                                {/* Display error message if login fails */}
+                                {passwordError && (
+                                    <div className="alert alert-danger mt-3 text-center">
+                                        {passwordError}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Username input */}
+                            <div className="mb-3">
+                                <input
+                                    type="text"
+                                    className="form-control form-control-lg"
+                                    placeholder="Username"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    aria-label="Username"
+                                    required
+                                />
+                            </div>
+
+                            {/* Password input */}
+                            <div className="mb-3">
+                                <input
+                                    type="password"
+                                    className="form-control form-control-lg"
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    aria-label="Password"
+                                    required
+                                />
+                            </div>
+
+                            {/* Submit button */}
+                            <div className="d-grid">
+                                <button type="submit" className="btn btn-primary btn-lg">
+                                    Login
+                                </button>
+                            </div>
+
+                            {/* Registration link for users without an account */}
+                            <div className="text-center m-4">
+                                <p>
+                                    Don't have an account yet? You can register
+                                    <Link className="text-primary" to="/register"> here</Link>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 };
