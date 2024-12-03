@@ -82,17 +82,20 @@ const Register = () => {
 
     return (
         // Renders the registration form and centers it on the screen
-        <div className="container-fluid d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
+        <div
+            className="container-fluid d-flex align-items-center justify-content-center"
+            style={{ minHeight: '100vh', padding: '20px' }}
+        >
             <div className="row w-100">
-                {/* Branding section */}
-                <div className="col-12 col-md-6 text-center d-flex flex-column justify-content-center mb-4 mb-md-0">
-                    <h1>Books&Films</h1>
-                    <p>Join our community to share your thoughts on books and films!</p>
-                </div>
-
                 {/* Registration form section */}
-                <div className="col-12 col-md-6 d-flex justify-content-center">
-                    <form className="p-4 w-100" onSubmit={handleSubmit} style={{ maxWidth: '400px' }}>
+                <div
+                    className="col-12 col-md-8 col-lg-6 col-xl-4 d-flex justify-content-center mx-auto"
+                >
+                    <form
+                        className="p-3 w-100"
+                        onSubmit={handleSubmit}
+                        style={{ maxWidth: '400px' }}
+                    >
                         <div className="custom_bg rounded p-4 shadow-lg">
                             {/* Header */}
                             <div className="text-center mb-4">
@@ -180,7 +183,9 @@ const Register = () => {
                             </div>
 
                             <div className="text-center mt-3">
-                                <p className="text-muted">Already have an account? <Link className="text-primary" to="/login/">Login</Link></p>
+                                <p className="text-muted">
+                                    Already have an account? <Link className="text-primary" to="/login/">Login</Link>
+                                </p>
                             </div>
                         </div>
                     </form>
