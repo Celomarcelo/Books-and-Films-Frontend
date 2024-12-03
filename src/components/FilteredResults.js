@@ -15,6 +15,7 @@ import api from './Api';
 const FilteredReviews = () => {
     const [reviews, setReviews] = useState([]);  // State to store filtered reviews
     const [error, setError] = useState(null);  // State for error messages
+    const [isLoading, setIsLoading] = useState(true);
     const { categoryId, genreId } = useParams();  // Retrieve category and genre IDs from URL parameters
     const navigate = useNavigate();
 
@@ -48,8 +49,21 @@ const FilteredReviews = () => {
             .catch(error => {
                 setError('Failed to load reviews.');  // Set error message if request fails
                 console.error(error);
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, 1000);
             });
     }, [categoryId, genreId, navigate]);
+
+    if (isLoading) {
+        return (
+            <div className="d-flex justify-content-center  mt-5" style={{ minHeight: '150vh' }}>
+                <h2>Loading...</h2>
+            </div>
+        );
+    }
 
     return (
         <div className="d-flex flex-column align-items-center mt-5">

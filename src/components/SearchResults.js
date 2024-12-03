@@ -1,16 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../assets/css/ReviewList_style.css';
 
 const SearchResults = ({ results }) => {
+
     return (
-        <div className="d-flex flex-column align-items-center pt-5 mt-5">
+        <div className="d-flex flex-column align-items-center pt-5 mt-5" style={{ minHeight: '150vh' }}>
             <h1>Search Results</h1>
             {results.length === 0 ? (
                 <p>No results found.</p>
             ) : (
                 <ul>
                     {results.map(result => (
-                        <li key={result.id} className="mt-5">
+                        <li key={result.id} className="mt-5 genre-list">
                             <div className="review-container" style={{ position: 'relative', margin: 'auto' }}>
                                 {/* If the review has an image, display it */}
                                 {result.img && (
@@ -44,7 +46,7 @@ const SearchResults = ({ results }) => {
                                     </Link>
                                 )}
                             </div>
-                            <div>
+                            <div className='mt-2 text-center'>
                                 <Link to={`/reviews/${result.id}`}>{result.title}</Link> - {result.author_director}
                             </div>
                         </li>

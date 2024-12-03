@@ -93,7 +93,7 @@ const UserReviews = () => {
 
     if (loading) {
         return (
-            <div className="d-flex justify-content-center align-items-center mt-5">
+            <div className="d-flex justify-content-center  mt-5" style={{ minHeight: '150vh' }}>
                 <h2>Loading...</h2>
             </div>
         );

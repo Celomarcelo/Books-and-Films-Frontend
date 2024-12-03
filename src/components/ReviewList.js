@@ -63,7 +63,7 @@ const ReviewList = () => {
 
     if (loading) {
         return (
-            <div className="d-flex justify-content-center align-items-center mt-5">
+            <div className="d-flex justify-content-center  mt-5" style={{ minHeight: '150vh' }}>
                 <h2>Loading...</h2>
             </div>
         );
@@ -112,7 +112,7 @@ const ReviewList = () => {
                                 </Link>
                             )}
                         </div>
-                        <div className='mt-2'>
+                        <div className='mt-2 text-center'>
                             {/* Link to the detailed review page */}
                             <Link to={`/reviews/${review.id}`}>{review.title}</Link> - {review.author_director}
                         </div>
