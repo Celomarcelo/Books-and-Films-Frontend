@@ -26,7 +26,7 @@ Why Users Would Choose Books and Films:
 
 Books and Films isn’t just a platform; it’s a hub for creativity, connection, and discovery, designed to elevate the experience of every literature and movie enthusiast. Whether you’re a casual fan or a dedicated critic, the site offers tools and opportunities to deepen your appreciation for the stories you love.
 
-![Responsive Mockup](static/images/responsive_mockup.jpg)
+![Responsive Mockup](src/assets/images/all-devices-white.png)
 
 ---
 
@@ -94,6 +94,8 @@ Books and Films isn’t just a platform; it’s a hub for creativity, connection
 
 ### Features Left to Implement
 
+- Password recovery through email service.
+- Email validation.
 - User feedback survey form.
 - Enhanced statistics for user reviews (e.g., most liked or commented).
 - Integration of a recommendation engine based on user preferences.
@@ -160,6 +162,19 @@ Books and Films isn’t just a platform; it’s a hub for creativity, connection
 
 ---
 
+## Issues: Determining a Default Image for User Profiles
+
+### **Problem:**
+Initially, we attempted to assign a default profile image for users who did not upload their own image. This approach presented several challenges:
+1. **Static Default Image:** Using a static URL for the default image introduced maintenance issues.
+
+---
+
+### **Solution:**
+To address these challenges, we added an image upload field directly to the registration form. This allows users to choose their profile image during account creation, resolving the issues as follows:
+- **User Choice:** The addition of an image input field (`<input type="file">`) empowers users to upload their profile image during registration, enhancing the customization experience.
+
+
 ## Deployment
 
 For correct operation, it is necessary to create two apps on Heroku, one for the frontend and one for the API.
@@ -203,8 +218,6 @@ The deployment process ensures that your Books and Films application is live and
     - `ALLOWED_HOSTS`: Your app's domain.
     - `DATABASE_URL`: URL for the Postgres database.
     - `CLOUDINARY_URL`: Your Cloudinary API key.
-    - `EMAIL_HOST_USER`: Email for password recovery.
-    - `EMAIL_HOST_PASSWORD`: App-specific password.
     - `DEBUG` : value of False.
     - `SECRET_KEY`: Django secret key.
 
@@ -228,12 +241,13 @@ The deployment process ensures that your Books and Films application is live and
 
 - The textual content was sourced from:
   - [Common Sense Media](https://www.commonsensemedia.org)
+  - [Rotten Tomatoes](https://www.rottentomatoes.com)
 
 - Images were sourced from:
   - [Common Sense Media](https://www.commonsensemedia.org)
   - [Pexels](https://pexels.com)
 
----
+
 
 
 
