@@ -112,7 +112,7 @@ function ReviewDetails() {
     const handleUpdateComment = async (commentId) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await api.put(``,
+            const response = await api.put(`/comments/${commentId}/update/`,
                 { content: editingCommentContent },
                 { headers: { 'Authorization': `Bearer ${token}` } }
             );
