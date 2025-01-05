@@ -22,6 +22,8 @@ function ReviewDetails() {
     const [newComment, setNewComment] = useState('');
     const userId = localStorage.getItem('userId');
     const navigate = useNavigate();
+    const [editingCommentId, setEditingCommentId] = useState(null);
+    const [editingCommentContent, setEditingCommentContent] = useState('');
 
     /**
      * useEffect Hook
@@ -107,6 +109,23 @@ function ReviewDetails() {
         }
     };
 
+    const handleUpdateComment = async (commentId) => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await api.put(``,
+                { content: editingCommentContent },
+                { headers: { 'Authorization': `Bearer ${token}` } }
+            );
+            setComments(comments.map(comment =>
+                comment.id === commentId ? { ...comment, content: response.data.content } : comment
+            ));
+            setEditingCommentId(null);
+            setEditingCommentContent('');
+        } catch (error) {
+            console.error("Error updating comment:", error);
+        }
+    };
+
     if (loading) {
         return (
             <div className="d-flex justify-content-center  mt-5" style={{ minHeight: '150vh' }}>
@@ -153,20 +172,62 @@ function ReviewDetails() {
                         <h3>Comments</h3>
                         <ul className="comment-list">
                             {comments.length > 0 ? (
-                                comments.map((comment, index) => (
+                                comments.map((comment) => (
                                     <li key={comment.id}>
-                                        <strong>{comment.user_name}:</strong> {comment.content}
-                                        {comment.user_id === parseInt(userId) && (
-                                            <button
-                                                onClick={() => handleDeleteComment(comment.id)}
-                                                style={{
-                                                    marginLeft: '40px',
-                                                    color: 'red',
-                                                    borderRadius: '8px'
-                                                }}
-                                            >
-                                                Delete
-                                            </button>
+                                        {editingCommentId === comment.id ? (
+                                            <>
+                                                <textarea
+                                                    value={editingCommentContent}
+                                                    onChange={(e) => setEditingCommentContent(e.target.value)}
+                                                    className="form-control"
+                                                />
+                                                <button
+                                                    onClick={() => handleUpdateComment(comment.id)}
+                                                    className="btn btn-success mt-1"
+                                                >
+                                                    Save
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        setEditingCommentId(null);
+                                                        setEditingCommentContent('');
+                                                    }}
+                                                    className="btn btn-secondary mt-1"
+                                                >
+                                                    Cancel
+                                                </button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <strong>{comment.user_name}:</strong> {comment.content}
+                                                {comment.user_id === parseInt(userId) && (
+                                                    <>
+                                                        <button
+                                                            onClick={() => {
+                                                                setEditingCommentId(comment.id);
+                                                                setEditingCommentContent(comment.content);
+                                                            }}
+                                                            style={{
+                                                                marginLeft: '20px',
+                                                                color: 'blue',
+                                                                borderRadius: '8px'
+                                                            }}
+                                                        >
+                                                            Edit
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleDeleteComment(comment.id)}
+                                                            style={{
+                                                                marginLeft: '10px',
+                                                                color: 'red',
+                                                                borderRadius: '8px'
+                                                            }}
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </>
+                                                )}
+                                            </>
                                         )}
                                     </li>
                                 ))
