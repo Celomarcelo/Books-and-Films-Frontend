@@ -21,6 +21,7 @@ const UserReviewsList = () => {
     const navigate = useNavigate();
 
     const token = localStorage.getItem('token');  // Retrieve authentication token
+    const loggedUserId = localStorage.getItem('userId');
 
     useEffect(() => {
         // Redirect to login if the token is invalid
