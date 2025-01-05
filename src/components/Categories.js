@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../assets/css/Category_genre_filter.css";
 import { isTokenValid } from './Auth';
@@ -16,6 +16,7 @@ const FilterReviews = () => {
   const [genresByCategory, setGenresByCategory] = useState({}); // Stores genres organized by category
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(null); // Stores the ID of the currently open dropdown or null if none
+  const menuRef = useRef(null);
 
   // Fetch categories and genres on component mount
   useEffect(() => {
