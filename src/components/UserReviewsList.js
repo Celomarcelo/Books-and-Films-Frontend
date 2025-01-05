@@ -117,9 +117,11 @@ const UserReviewsList = () => {
             <p>{user.biography ? user.biography : "Biography not available"}</p>
 
             {/* Favorite/Unfavorite button */}
-            <button className="btn btn-primary btn-lg mt-3" onClick={toggleFavorite}>
-                {isFavorite ? 'Not favorite' : 'Favorite'}
-            </button>
+            {loggedUserId !== userId && (
+                <button className="btn btn-primary btn-lg mt-3" onClick={toggleFavorite}>
+                    {isFavorite ? 'Not favorite' : 'Favorite'}
+                </button>
+            )}
 
             {/* User's reviews section */}
             <h2 className="mt-5">Reviews</h2>
