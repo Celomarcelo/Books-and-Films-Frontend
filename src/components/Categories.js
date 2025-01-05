@@ -99,7 +99,7 @@ const FilterReviews = () => {
   };
 
   return (
-    <div className="border border-secondary rounded p-3 text-center bk-color">
+    <div className="border border-secondary rounded p-3 text-center bk-color" ref={menuRef}>
       <h4>Categories</h4>
       <ul className="dropdown-list mt-3">
         {categories.map((category) => (
