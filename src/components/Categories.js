@@ -58,6 +58,30 @@ const FilterReviews = () => {
     fetchCategoriesAndGenres();
   }, [navigate]);
 
+  // Handle clicks outside the menu to close dropdowns
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setDropdownOpen(null);
+    }
+  };
+
+  // Handle "Escape" key press to close dropdowns
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      setDropdownOpen(null);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   // Navigate to the category page
   const handleCategoryClick = (categoryId) => {
     navigate(`/reviews/category/${categoryId}`);
@@ -84,7 +108,7 @@ const FilterReviews = () => {
               className="category-link mb-3"
               onClick={() => toggleDropdown(category.id)}
               aria-label={`Toggle ${category.name} genres`}
-              
+
             >
               {category.name}
             </button>
