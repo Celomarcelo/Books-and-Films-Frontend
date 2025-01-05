@@ -65,12 +65,6 @@ const UserReviewsList = () => {
     const toggleFavorite = async () => {
         const loggedUserId = localStorage.getItem('userId');
 
-        // Prevent users from favoriting themselves
-        if (!loggedUserId || !userId || loggedUserId.toString() === userId.toString()) {
-            alert('You cannot favorite yourself.');
-            return;
-        }
-
         try {
             const response = await api.post(`/user/${userId}/toggle-favorite/`, {}, {
                 headers: { Authorization: `Bearer ${token}` },
