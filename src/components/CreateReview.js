@@ -123,6 +123,7 @@ const CreateReview = () => {
             });
 
             // If the review is successfully created
+            alert('Review created successfully!');
             setSuccess('Review created successfully!');
             setError('');  // Clear any error messages
             // Reset form fields after successful submission
@@ -152,7 +153,6 @@ const CreateReview = () => {
             <h2>Create a New Review</h2>
 
             {error && <div className="alert alert-danger">{error}</div>}  {/* Display error message if any */}
-            {success && <div className="alert alert-success">{success}</div>}  {/* Display success message if any */}
 
             {/* Form for creating a new review */}
             <form onSubmit={handleSubmit} className="p-4 bg-light rounded mt-5">
