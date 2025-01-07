@@ -111,11 +111,23 @@ function ReviewDetails() {
 
     const handleUpdateComment = async (commentId) => {
         const token = localStorage.getItem('token');
+
+        console.log("Editing Comment ID:", commentId);
+        console.log("New Content:", editingCommentContent);
+
         try {
-            const response = await api.put(`/comments/${commentId}/update/`,
+            const response = await api.put(
+                `/comments/${commentId}/update/`,
                 { content: editingCommentContent },
-                { headers: { 'Authorization': `Bearer ${token}` } }
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                }
             );
+
+            console.log("Update Response:", response.data);
+
             setComments(comments.map(comment =>
                 comment.id === commentId ? { ...comment, content: response.data.content } : comment
             ));
@@ -123,6 +135,10 @@ function ReviewDetails() {
             setEditingCommentContent('');
         } catch (error) {
             console.error("Error updating comment:", error);
+            if (error.response) {
+                console.error("Error Response Data:", error.response.data);
+                console.error("Error Response Status:", error.response.status);
+            }
         }
     };
 
