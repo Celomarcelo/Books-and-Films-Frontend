@@ -38,6 +38,8 @@ const UserProfile = () => {
     // Fetch user profile data on component mount
     useEffect(() => {
         const fetchUserData = async () => {
+            console.log("Error state:", error);
+            console.log("Password error state:", passwordError);
             try {
                 // Retrieve token from local storage to authenticate the request
                 const token = localStorage.getItem('token');
@@ -84,7 +86,7 @@ const UserProfile = () => {
             setError(null);
             setPasswordError(null);
         };
-    }, [navigate]);
+    }, [navigate, error, passwordError]);
 
     // Handle changes in input fields (e.g., username, email, biography, etc.)
     const handleChange = (e) => {
