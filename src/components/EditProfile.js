@@ -79,6 +79,11 @@ const UserProfile = () => {
 
         // Call the function to fetch user data
         fetchUserData();
+
+        return () => {
+            setError(null);
+            setPasswordError(null);
+        };
     }, [navigate]);
 
     // Handle changes in input fields (e.g., username, email, biography, etc.)
