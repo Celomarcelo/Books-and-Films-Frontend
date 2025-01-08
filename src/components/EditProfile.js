@@ -138,7 +138,6 @@ const UserProfile = () => {
 
             // Display success message after successful update
             alert('Profile updated successfully!');
-            setError('');
             setTimeout(() => {
                 window.location.reload();
             }, 2000);
@@ -189,7 +188,6 @@ const UserProfile = () => {
             });
 
             alert('Password changed successfully!');
-            setError('');
             setPasswordError(null); // Clear any previous errors
             setTimeout(() => {
                 window.location.reload();
@@ -203,7 +201,7 @@ const UserProfile = () => {
         const confirmDelete = window.confirm("Are you sure you want to delete your profile?");
         if (!confirmDelete) {
             setError('');
-            setPasswordError(null);
+            setPasswordError('');
             return;
         }
 
