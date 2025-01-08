@@ -27,7 +27,6 @@ const EditReview = () => {
 
     const [genres, setGenres] = useState([]);  // Stores genres associated with the review's category
     const [error, setError] = useState('');  // State to store error messages
-    const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate();  // Navigation hook for redirection
     const token = localStorage.getItem('token');  // Retrieve token from local storage
 
@@ -176,7 +175,6 @@ const EditReview = () => {
     return (
         <div className="d-flex flex-column align-items-center my-5">
             {/* Display error message if there is one */}
-            {successMessage && <div className="alert alert-success w-50 w-md-100 text-center">{successMessage}</div>}
             {error && <div className="alert alert-danger w-50 w-md-100 text-center">{error}</div>}
             <div className="container my-5 text-center">
                 {/* Display the current review title */}

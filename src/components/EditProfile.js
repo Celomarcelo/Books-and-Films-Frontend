@@ -27,7 +27,6 @@ const UserProfile = () => {
     const [imagePreview, setImagePreview] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [successMessage, setSuccessMessage] = useState('');
     const [passwordData, setPasswordData] = useState({
         current_password: '',
         new_password: '',
@@ -132,7 +131,7 @@ const UserProfile = () => {
             });
 
             // Display success message after successful update
-            setSuccessMessage('Profile updated successfully!');
+            alert('Profile updated successfully!');
             setTimeout(() => {
                 window.location.reload();
             }, 2000);
@@ -182,7 +181,7 @@ const UserProfile = () => {
                 }
             });
 
-            setPasswordSuccessMessage('Password changed successfully!');
+            alert('Password changed successfully!');
             setPasswordError(null); // Clear any previous errors
             setTimeout(() => {
                 window.location.reload();
@@ -229,7 +228,6 @@ const UserProfile = () => {
             <h1 className="text-center my-5">Welcome {userData.username}</h1>
 
             {/* Display success or error message after updating profile */}
-            {successMessage && <div className="alert alert-success w-50 w-md-100 text-center">{successMessage}</div>}
             {error && <div className="alert alert-danger w-50 w-md-100 text-center">{error}</div>}
 
             <form onSubmit={handleSubmit} className="w-50 w-md-100">
@@ -330,7 +328,6 @@ const UserProfile = () => {
             {/* Password change form */}
             <div className="w-50 w-md-100 mt-5">
                 <h2 className="text-center mt-5">Change Password</h2>
-                {passwordSuccessMessage && <div className="alert alert-success mt-3 text-center">{passwordSuccessMessage}</div>}
                 {passwordError && <div className="alert alert-danger mt-3 text-center">{passwordError}</div>}
             </div>
             <form onSubmit={handlePasswordSubmit} className="w-50 w-md-100">
