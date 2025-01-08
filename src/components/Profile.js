@@ -69,7 +69,10 @@ const UserReviews = () => {
     // Deletes a review by ID and updates the review list in the UI
     const deleteReview = async (reviewId) => {
         const confirmDelete = window.confirm("Are you sure you want to delete this review?");
-        if (!confirmDelete) return;
+        if (!confirmDelete) {
+            setError('');
+            return;
+        }
 
         try {
             await api.delete(`/reviews/${reviewId}/delete/`, {

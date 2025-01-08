@@ -97,7 +97,10 @@ function ReviewDetails() {
 
     const handleDeleteComment = async (commentId) => {
         const confirmDelete = window.confirm("Are you sure you want to delete this comment?");
-        if (!confirmDelete) return;
+        if (!confirmDelete) {
+            setError('');
+            return;
+        }
         try {
             const token = localStorage.getItem('token');
             await api.delete(`/comments/${commentId}/delete/`, {

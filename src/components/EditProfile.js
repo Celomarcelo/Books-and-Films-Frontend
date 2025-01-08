@@ -194,7 +194,11 @@ const UserProfile = () => {
 
     const handleDeleteProfile = async () => {
         const confirmDelete = window.confirm("Are you sure you want to delete your profile?");
-        if (!confirmDelete) return;
+        if (!confirmDelete) {
+            setError('');
+            setPasswordError(null);
+            return;
+        }
 
         try {
             const token = localStorage.getItem('token');
