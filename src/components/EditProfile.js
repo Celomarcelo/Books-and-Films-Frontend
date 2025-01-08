@@ -33,7 +33,6 @@ const UserProfile = () => {
         confirm_new_password: ''
     });
     const [passwordError, setPasswordError] = useState(null);
-    const [passwordSuccessMessage, setPasswordSuccessMessage] = useState('');
     const navigate = useNavigate();
 
     // Fetch user profile data on component mount
@@ -132,6 +131,7 @@ const UserProfile = () => {
 
             // Display success message after successful update
             alert('Profile updated successfully!');
+            setError('');
             setTimeout(() => {
                 window.location.reload();
             }, 2000);
@@ -182,6 +182,7 @@ const UserProfile = () => {
             });
 
             alert('Password changed successfully!');
+            setError('');
             setPasswordError(null); // Clear any previous errors
             setTimeout(() => {
                 window.location.reload();
@@ -205,6 +206,7 @@ const UserProfile = () => {
             });
 
             alert("Profile deleted successfully.");
+            setError('');
             localStorage.removeItem('token'); // Remove token after deletion
             navigate('/login'); // Redirect to login page
         } catch (error) {
