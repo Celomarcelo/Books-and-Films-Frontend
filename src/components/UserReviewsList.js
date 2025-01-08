@@ -63,8 +63,11 @@ const UserReviewsList = () => {
 
     // Function to toggle the favorite status for the user
     const toggleFavorite = async () => {
-        const loggedUserId = localStorage.getItem('userId');
-
+        // Check if the user is currently marked as favorite
+        if (isFavorite) {
+            const confirmRemove = window.confirm(`Are you sure you want to remove ${user.username} as favorite?`);
+            if (!confirmRemove) return; // Exit if the user cancels the action
+        }
         try {
             const response = await api.post(`/user/${userId}/toggle-favorite/`, {}, {
                 headers: { Authorization: `Bearer ${token}` },
