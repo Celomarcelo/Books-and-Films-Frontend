@@ -154,7 +154,7 @@ const EditReview = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            setSuccessMessage('Review updated successfully!');
+            alert('Review updated successfully!');
             setTimeout(() => {
                 navigate('/profile');
             }, 2000);
