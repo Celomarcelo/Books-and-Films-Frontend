@@ -96,6 +96,8 @@ function ReviewDetails() {
     };
 
     const handleDeleteComment = async (commentId) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this comment?");
+        if (!confirmDelete) return;
         try {
             const token = localStorage.getItem('token');
             await api.delete(`/comments/${commentId}/delete/`, {
@@ -103,6 +105,7 @@ function ReviewDetails() {
                     'Authorization': `Bearer ${token}`
                 }
             });
+            alert('Comment deleted successfully.');
             setComments(comments.filter(comment => comment.id !== commentId));
         } catch (error) {
             console.error("Error deleting comment:", error);
@@ -127,6 +130,7 @@ function ReviewDetails() {
             setComments(comments.map(comment =>
                 comment.id === commentId ? { ...comment, content: response.data.content } : comment
             ));
+            alert('Comment updated successfully.');
             setEditingCommentId(null);
             setEditingCommentContent('');
         } catch (error) {

@@ -50,7 +50,6 @@ const UserReviews = () => {
                 setReviews(sortedReviews);
             } catch (error) {
                 setError('An error occurred while fetching the reviews.');
-                console.error(error);
             } finally {
                 setTimeout(() => {
                     setLoading(false);
