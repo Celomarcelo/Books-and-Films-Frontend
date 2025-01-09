@@ -381,12 +381,12 @@ const UserProfile = () => {
                 <div className="d-flex justify-content-center align-items-center m-5">
                     <button type="submit" className="btn btn-primary mt-3">Change Password</button>
                 </div>
-                <div className="text-center mt-4">
+            </form>
+            <div className="text-center mt-4">
                     <button className="btn btn-danger" onClick={handleDeleteProfile}>
                         Delete Profile
                     </button>
                 </div>
-            </form>
         </div>
     );
 };
