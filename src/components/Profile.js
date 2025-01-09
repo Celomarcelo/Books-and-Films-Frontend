@@ -102,7 +102,7 @@ const UserReviews = () => {
     }
 
     return (
-        <div className="d-flex flex-column align-items-center my-5">
+        <div className="d-flex flex-column align-items-center my-5" style={{ minHeight: '150vh' }}>
             {/* User Profile Section */}
             <div className="d-flex align-items-center mb-4 mt-5">
                 {user.profile_image && (
