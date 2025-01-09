@@ -382,7 +382,7 @@ const UserProfile = () => {
                     <button type="submit" className="btn btn-primary mt-3">Change Password</button>
                 </div>
             </form>
-            <div className="text-center mt-4">
+            <div className="text-center mt-4 mb-4">
                     <button className="btn btn-danger" onClick={handleDeleteProfile}>
                         Delete Profile
                     </button>
