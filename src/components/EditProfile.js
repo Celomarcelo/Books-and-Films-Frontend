@@ -86,7 +86,7 @@ const UserProfile = () => {
             setError(null);
             setPasswordError(null);
         };
-    }, [navigate, error, passwordError]);
+    }, [navigate]);
 
     // Handle changes in input fields (e.g., username, email, biography, etc.)
     const handleChange = (e) => {
