@@ -68,6 +68,7 @@ const Register = () => {
                 },
             });
 
+            console.log('Registration successful:');
             localStorage.setItem('token', response.data.access);
             navigate('/');
         } catch (error) {
