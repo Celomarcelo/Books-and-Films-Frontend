@@ -22,6 +22,8 @@ const UserReviewsList = () => {
 
     const token = localStorage.getItem('token');  // Retrieve authentication token
     const loggedUserId = localStorage.getItem('userId');
+    const [confirmRemove, setConfirmRemove] = useState(null);
+    const [success, setSuccess] = useState('');
 
     useEffect(() => {
         // Redirect to login if the token is invalid
@@ -65,7 +67,7 @@ const UserReviewsList = () => {
     const toggleFavorite = async () => {
         // Check if the user is currently marked as favorite
         if (isFavorite) {
-            const confirmRemove = window.confirm(`Are you sure you want to remove ${user.username} as favorite?`);
+            setConfirmRemove();
             if (!confirmRemove) return; // Exit if the user cancels the action
         }
         try {
@@ -73,7 +75,7 @@ const UserReviewsList = () => {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
-            alert(response.data.message);  // Display success message
+            setSuccess('User removed successfully!');  // Display success message
             setIsFavorite((prev) => !prev);  // Toggle favorite status
             setTimeout(() => {
                 window.location.reload();
@@ -115,10 +117,30 @@ const UserReviewsList = () => {
             <p>{user.biography ? user.biography : "Biography not available"}</p>
 
             {/* Favorite/Unfavorite button */}
+            {success && <div className="alert alert-success">{success}</div>}  {/* Display success message if any */}
             {loggedUserId !== userId && (
                 <button className="btn btn-primary btn-lg mt-3" onClick={toggleFavorite}>
                     {isFavorite ? 'Not favorite' : 'Favorite'}
                 </button>
+            )}
+            {confirmRemove && (
+                <div className="confirmation-modal">
+                    <div className="modal-content">
+                        <p>Are you sure you want to remove ${user.username} from your favorites?</p>
+                        <button
+                            className="btn btn-danger"
+                            onClick={confirmRemove}
+                        >
+                            Yes
+                        </button>
+                        <button
+                            className="btn btn-secondary"
+                            onClick={() => setConfirmRemove(null)}
+                        >
+                            No
+                        </button>
+                    </div>
+                </div>
             )}
 
             {/* User's reviews section */}
