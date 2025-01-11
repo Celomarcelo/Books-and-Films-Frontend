@@ -13,6 +13,7 @@ const UserReviews = () => {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [confirmDeleteId, setConfirmDeleteId] = useState(null);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
@@ -36,13 +37,11 @@ const UserReviews = () => {
 
         // Fetch the user's reviews
         const fetchUserReviews = async () => {
-
             try {
                 const response = await api.get('/reviews/user/', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
-
                 });
 
                 const sortedReviews = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -55,8 +54,7 @@ const UserReviews = () => {
                     setLoading(false);
                 }, 500);
             }
-        } 
-        
+        };
 
         fetchUserReviews();
     }, [token, navigate]);
@@ -67,13 +65,11 @@ const UserReviews = () => {
     };
 
     // Deletes a review by ID and updates the review list in the UI
-    const deleteReview = async (reviewId) => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this review?");
-        if (!confirmDelete) {
-            setError('');
-            return;
-        }
+    const deleteReview = (reviewId) => {
+        setConfirmDeleteId(reviewId);
+    };
 
+    const handleConfirmDelete = async (reviewId) => {
         try {
             await api.delete(`/reviews/${reviewId}/delete/`, {
                 headers: {
@@ -85,6 +81,8 @@ const UserReviews = () => {
         } catch (error) {
             setError('An error occurred while deleting the review.');
             console.error(error);
+        } finally {
+            setConfirmDeleteId(null);
         }
     };
 
@@ -125,13 +123,12 @@ const UserReviews = () => {
                 {user.is_superuser && (
                     <button
                         className="btn btn-outline-primary mt-3"
-                        onClick={() => window.open('https://books-and-films-api-e4ea62133d4f.herokuapp.com/admin/', '_blank')}   // Redirect to Django admin
+                        onClick={() => window.open('https://books-and-films-api-e4ea62133d4f.herokuapp.com/admin/', '_blank')}
                     >
                         Admin Panel
                     </button>
                 )}
             </div>
-            {/* Greeting message for the user */}
             <h1>Hello {user.username}, Welcome to your reviews!</h1>
             {error && <p className="text-danger">{error}</p>} {/* Displays error messages, if any */}
 
@@ -178,10 +175,31 @@ const UserReviews = () => {
                     <p>No reviews found.</p>
                 )}
             </ul>
+
+            {confirmDeleteId && (
+                <div className="confirmation-modal">
+                    <div className="modal-content">
+                        <p>Are you sure you want to delete this review?</p>
+                        <button
+                            className="btn btn-danger"
+                            onClick={() => handleConfirmDelete(confirmDeleteId)}
+                        >
+                            Yes
+                        </button>
+                        <button
+                            className="btn btn-secondary"
+                            onClick={() => setConfirmDeleteId(null)}
+                        >
+                            No
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
 
 export default UserReviews;
+
 
 
