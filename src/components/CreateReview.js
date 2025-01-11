@@ -21,6 +21,7 @@ const CreateReview = () => {
     const [rating, setRating] = useState('');
     const [img, setImg] = useState(null);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
     const [categories, setCategories] = useState([]);
     const navigate = useNavigate();
 
@@ -122,7 +123,7 @@ const CreateReview = () => {
             });
 
             // If the review is successfully created
-            alert('Review created successfully!');
+            setSuccess('Review created successfully!');
             setError('');  // Clear any error messages
             // Reset form fields after successful submission
             setTitle('');
@@ -133,12 +134,16 @@ const CreateReview = () => {
             setRating('');
             setImg(null);
             setTimeout(() => {
+                setSuccess('');
+            }, 1000);
+            setTimeout(() => {
                 navigate('/');
             }, 2000);
 
         } catch (error) {
             // Handle errors during the review creation process
             setError('An error occurred while creating the review.');
+            setSuccess('');
         }
     };
 
@@ -147,6 +152,7 @@ const CreateReview = () => {
             <h2>Create a New Review</h2>
 
             {error && <div className="alert alert-danger">{error}</div>}  {/* Display error message if any */}
+            {success && <div className="alert alert-success">{success}</div>}  {/* Display success message if any */}
 
             {/* Form for creating a new review */}
             <form onSubmit={handleSubmit} className="p-4 bg-light rounded mt-5">
