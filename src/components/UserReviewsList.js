@@ -65,24 +65,33 @@ const UserReviewsList = () => {
 
     // Function to toggle the favorite status for the user
     const toggleFavorite = async () => {
-        // Check if the user is currently marked as favorite
-        if (isFavorite) {
-            setConfirmRemove();
-            if (!confirmRemove) return; // Exit if the user cancels the action
+        if (isFavorite && !confirmRemove) {
+            setConfirmRemove(() => () => confirmRemoval());
+            return;
         }
+
         try {
             const response = await api.post(`/user/${userId}/toggle-favorite/`, {}, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
-            setSuccess('User removed successfully!');  // Display success message
-            setIsFavorite((prev) => !prev);  // Toggle favorite status
+            setSuccess(isFavorite ? 'User removed successfully!' : 'User added to favorites!'); // Success message
+            setIsFavorite((prev) => !prev); // Toggle favorite status
+            setConfirmRemove(null); // Close the confirmation modal
             setTimeout(() => {
                 window.location.reload();
             }, 2000);
         } catch (error) {
             console.error('Error favoriting user:', error);
             setError('Failed to update favorites.');
+        }
+    };
+
+    const confirmRemoval = async () => {
+        try {
+            await toggleFavorite();
+        } catch (error) {
+            console.error('Error removing user from favorites:', error);
         }
     };
 
@@ -126,10 +135,12 @@ const UserReviewsList = () => {
             {confirmRemove && (
                 <div className="confirmation-modal">
                     <div className="modal-content">
-                        <p>Are you sure you want to remove ${user.username} from your favorites?</p>
+                        <p>Are you sure you want to remove {user?.username} from your favorites?</p>
                         <button
                             className="btn btn-danger"
-                            onClick={confirmRemove}
+                            onClick={() => {
+                                confirmRemove();
+                            }}
                         >
                             Yes
                         </button>
