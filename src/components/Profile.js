@@ -16,6 +16,7 @@ const UserReviews = () => {
     const [confirmDeleteId, setConfirmDeleteId] = useState(null);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
+    const [success, setSuccess] = useState('');
 
     // If token is invalid, redirect to the login page
     useEffect(() => {
@@ -77,10 +78,10 @@ const UserReviews = () => {
                 },
             });
             setReviews(reviews.filter(review => review.id !== reviewId));
-            alert('Review deleted successfully.');
+            setSuccess('Review deleted successfully!');
         } catch (error) {
             setError('An error occurred while deleting the review.');
-            console.error(error);
+            setSuccess('');
         } finally {
             setConfirmDeleteId(null);
         }
@@ -130,6 +131,7 @@ const UserReviews = () => {
                 )}
             </div>
             <h1>Hello {user.username}, Welcome to your reviews!</h1>
+            {success && <div className="alert alert-success">{success}</div>}  {/* Display success message if any */}
             {error && <p className="text-danger">{error}</p>} {/* Displays error messages, if any */}
 
             {/* Reviews List */}
