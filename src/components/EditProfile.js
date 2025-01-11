@@ -27,12 +27,14 @@ const UserProfile = () => {
     const [imagePreview, setImagePreview] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [successMessage, setSuccessMessage] = useState('');
     const [passwordData, setPasswordData] = useState({
         current_password: '',
         new_password: '',
         confirm_new_password: ''
     });
     const [passwordError, setPasswordError] = useState(null);
+    const [passwordSuccessMessage, setPasswordSuccessMessage] = useState('');
     const navigate = useNavigate();
 
     // Fetch user profile data on component mount
@@ -79,11 +81,6 @@ const UserProfile = () => {
 
         // Call the function to fetch user data
         fetchUserData();
-
-        return () => {
-            setError(null);
-            setPasswordError(null);
-        };
     }, [navigate]);
 
     // Handle changes in input fields (e.g., username, email, biography, etc.)
@@ -135,7 +132,7 @@ const UserProfile = () => {
             });
 
             // Display success message after successful update
-            alert('Profile updated successfully!');
+            setSuccessMessage('Profile updated successfully!');
             setTimeout(() => {
                 window.location.reload();
             }, 2000);
@@ -185,7 +182,7 @@ const UserProfile = () => {
                 }
             });
 
-            alert('Password changed successfully!');
+            setPasswordSuccessMessage('Password changed successfully!');
             setPasswordError(null); // Clear any previous errors
             setTimeout(() => {
                 window.location.reload();
@@ -197,11 +194,7 @@ const UserProfile = () => {
 
     const handleDeleteProfile = async () => {
         const confirmDelete = window.confirm("Are you sure you want to delete your profile?");
-        if (!confirmDelete) {
-            setError('');
-            setPasswordError('');
-            return;
-        }
+        if (!confirmDelete) return;
 
         try {
             const token = localStorage.getItem('token');
@@ -213,7 +206,6 @@ const UserProfile = () => {
             });
 
             alert("Profile deleted successfully.");
-            setError('');
             localStorage.removeItem('token'); // Remove token after deletion
             navigate('/login'); // Redirect to login page
         } catch (error) {
@@ -225,11 +217,9 @@ const UserProfile = () => {
 
     // If loading, display a loading message
     if (loading) {
-        return (
-            <div className="d-flex justify-content-center  mt-5" style={{ minHeight: '150vh' }}>
-                <h2>Loading...</h2>
-            </div>
-        );
+        return <div className="d-flex flex-column align-items-center mt-5">
+            <h2 style={{ fontSize: '2rem', fontWeight: 'bold' }}>Loading...</h2>
+        </div>;
     }
 
     return (
@@ -237,6 +227,7 @@ const UserProfile = () => {
             <h1 className="text-center my-5">Welcome {userData.username}</h1>
 
             {/* Display success or error message after updating profile */}
+            {successMessage && <div className="alert alert-success w-50 w-md-100 text-center">{successMessage}</div>}
             {error && <div className="alert alert-danger w-50 w-md-100 text-center">{error}</div>}
 
             <form onSubmit={handleSubmit} className="w-50 w-md-100">
@@ -337,6 +328,7 @@ const UserProfile = () => {
             {/* Password change form */}
             <div className="w-50 w-md-100 mt-5">
                 <h2 className="text-center mt-5">Change Password</h2>
+                {passwordSuccessMessage && <div className="alert alert-success mt-3 text-center">{passwordSuccessMessage}</div>}
                 {passwordError && <div className="alert alert-danger mt-3 text-center">{passwordError}</div>}
             </div>
             <form onSubmit={handlePasswordSubmit} className="w-50 w-md-100">
@@ -381,10 +373,10 @@ const UserProfile = () => {
                 </div>
             </form>
             <div className="text-center mt-4 mb-4">
-                    <button className="btn btn-danger" onClick={handleDeleteProfile}>
-                        Delete Profile
-                    </button>
-                </div>
+                <button className="btn btn-danger" onClick={handleDeleteProfile}>
+                    Delete Profile
+                </button>
+            </div>
         </div>
     );
 };
