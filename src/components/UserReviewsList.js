@@ -143,7 +143,7 @@ const UserReviewsList = () => {
                         <button
                             className="btn btn-danger"
                             onClick={() => {
-                                confirmRemoval
+                                confirmRemoval()
                             }}
                         >
                             Yes
