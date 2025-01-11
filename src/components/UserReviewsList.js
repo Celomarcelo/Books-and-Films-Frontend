@@ -87,11 +87,15 @@ const UserReviewsList = () => {
         }
     };
 
-    const confirmRemoval = async () => {
-        try {
-            await toggleFavorite();
-        } catch (error) {
-            console.error('Error removing user from favorites:', error);
+    const confirmRemoval = () => {
+        toggleFavorite();
+    };
+
+    const handleFavoriteClick = () => {
+        if (isFavorite) {
+            setConfirmRemove(true);
+        } else {
+            toggleFavorite();
         }
     };
 
@@ -128,7 +132,7 @@ const UserReviewsList = () => {
             {/* Favorite/Unfavorite button */}
             {success && <div className="alert alert-success">{success}</div>}  {/* Display success message if any */}
             {loggedUserId !== userId && (
-                <button className="btn btn-primary btn-lg mt-3" onClick={toggleFavorite}>
+                <button className="btn btn-primary btn-lg mt-3" onClick={handleFavoriteClick}>
                     {isFavorite ? 'Not favorite' : 'Favorite'}
                 </button>
             )}
@@ -139,7 +143,7 @@ const UserReviewsList = () => {
                         <button
                             className="btn btn-danger"
                             onClick={() => {
-                                confirmRemove();
+                                confirmRemoval
                             }}
                         >
                             Yes
