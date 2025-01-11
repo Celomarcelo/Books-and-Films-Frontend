@@ -24,6 +24,8 @@ function ReviewDetails() {
     const navigate = useNavigate();
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editingCommentContent, setEditingCommentContent] = useState('');
+    const [confirmDeleteCommentId, setConfirmDeleteCommentId] = useState(null);
+    const [success, setSuccess] = useState('');
 
     /**
      * useEffect Hook
@@ -96,21 +98,26 @@ function ReviewDetails() {
     };
 
     const handleDeleteComment = async (commentId) => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this comment?");
-        if (!confirmDelete) {
-            setError('');
-            return;
-        }
+        setConfirmDeleteCommentId(commentId);
+    };
+
+    const confirmDeleteComment = async () => {
+        if (!confirmDeleteCommentId) return;
         try {
             const token = localStorage.getItem('token');
-            await api.delete(`/comments/${commentId}/delete/`, {
+            await api.delete(`/comments/${confirmDeleteCommentId}/delete/`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            alert('Comment deleted successfully.');
-            setComments(comments.filter(comment => comment.id !== commentId));
+            setSuccess('Comment deleted successfully!');
+            setComments(comments.filter(comment => comment.id !== confirmDeleteCommentId));
+            setConfirmDeleteCommentId(null);
+            setTimeout(() => {
+                setSuccess('');
+            }, 1000);
         } catch (error) {
+            setSuccess('');
             console.error("Error deleting comment:", error);
         }
     };
@@ -133,10 +140,14 @@ function ReviewDetails() {
             setComments(comments.map(comment =>
                 comment.id === commentId ? { ...comment, content: response.data.content } : comment
             ));
-            alert('Comment updated successfully.');
+            setSuccess('Comment updated successfully!');
             setEditingCommentId(null);
             setEditingCommentContent('');
+            setTimeout(() => {
+                setSuccess('');
+            }, 1000);
         } catch (error) {
+            setSuccess('');
             console.error("Error updating comment:", error);
         }
     };
@@ -185,6 +196,7 @@ function ReviewDetails() {
                     {/* Comments Section */}
                     <div className="mt-4">
                         <h3>Comments</h3>
+                        {success && <div className="alert alert-success">{success}</div>}  {/* Display success message if any */}
                         <ul className="comment-list">
                             {comments.length > 0 ? (
                                 comments.map((comment) => (
@@ -251,7 +263,6 @@ function ReviewDetails() {
                             )}
                         </ul>
 
-
                         {/* Add new comment */}
                         <form onSubmit={handleCommentSubmit} className="mt-3">
                             <textarea
@@ -263,6 +274,26 @@ function ReviewDetails() {
                             <button type="submit" className="btn btn-secondary mt-2">Post Comment</button>
                         </form>
                     </div>
+
+                    {confirmDeleteCommentId && (
+                        <div className="confirmation-modal">
+                            <div className="modal-content">
+                                <p>Are you sure you want to delete this comment?</p>
+                                <button
+                                    className="btn btn-danger"
+                                    onClick={confirmDeleteComment}
+                                >
+                                    Yes
+                                </button>
+                                <button
+                                    className="btn btn-secondary"
+                                    onClick={() => setConfirmDeleteCommentId(null)}
+                                >
+                                    No
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </>
             ) : (
                 <p>Review not found.</p>
