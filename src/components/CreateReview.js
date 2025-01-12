@@ -135,7 +135,7 @@ const CreateReview = () => {
             setImg(null);
             setTimeout(() => {
                 setSuccess('');
-            }, 1000);
+            }, 1500);
             setTimeout(() => {
                 navigate('/');
             }, 2000);

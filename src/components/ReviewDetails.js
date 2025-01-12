@@ -145,7 +145,7 @@ function ReviewDetails() {
             setEditingCommentContent('');
             setTimeout(() => {
                 setSuccess('');
-            }, 1000);
+            }, 1500);
         } catch (error) {
             setSuccess('');
             console.error("Error updating comment:", error);
