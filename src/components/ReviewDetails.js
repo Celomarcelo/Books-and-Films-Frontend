@@ -56,9 +56,7 @@ function ReviewDetails() {
             } catch (err) {
                 console.error("Error fetching review details:", err);
                 setError('Failed to load review details.');
-                setTimeout(() => {
-                    setLoading(false);
-                }, 500);
+                setLoading(false);
             }
         };
 
