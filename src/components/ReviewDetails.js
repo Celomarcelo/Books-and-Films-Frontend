@@ -115,7 +115,7 @@ function ReviewDetails() {
             setConfirmDeleteCommentId(null);
             setTimeout(() => {
                 setSuccess('');
-            }, 1000);
+            }, 1500);
         } catch (error) {
             setSuccess('');
             console.error("Error deleting comment:", error);
@@ -152,10 +152,14 @@ function ReviewDetails() {
         }
     };
 
-    if (loading) {
-        return <div className="d-flex flex-column align-items-center mt-5">
-            <h2 style={{ fontSize: '2rem', fontWeight: 'bold', minHeight: '150vh' }}>Loading...</h2>
-        </div>;
+    if (loading || !review || !Array.isArray(comments)) {
+        return (
+            <div className="d-flex flex-column align-items-center mt-5">
+                <h2 style={{ fontSize: '2rem', fontWeight: 'bold', minHeight: '150vh' }}>
+                    Loading...
+                </h2>
+            </div>
+        );
     }
 
     if (error) {
