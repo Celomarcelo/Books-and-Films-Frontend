@@ -122,7 +122,7 @@ const UserReviews = () => {
                 {user.is_superuser && (
                     <button
                         className="btn btn-outline-primary mt-3"
-                        onClick={() => window.open('https://books-and-films-api-e4ea62133d4f.herokuapp.com/admin/', '_blank')}
+                        onClick={() => window.open('https://books-and-films-api-12373ad9b35f.herokuapp.com/admin/', '_blank')}
                     >
                         Admin Panel
                     </button>
