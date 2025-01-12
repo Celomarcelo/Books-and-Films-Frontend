@@ -72,6 +72,7 @@ const Login = () => {
                 setPasswordError(error.response.data.detail);
             } else {
                 setPasswordError('An error occurred. Please try again.');
+                console.log('Backend response:', response.data);
             }
         };
     };
