@@ -62,16 +62,14 @@ const ReviewList = () => {
     }, [navigate]);
 
     if (loading) {
-        return (
-            <div className="d-flex justify-content-center  mt-5" style={{ minHeight: '150vh' }}>
-                <h2>Loading...</h2>
-            </div>
-        );
+        return <div className="d-flex flex-column align-items-center mt-5">
+            <h2 style={{ fontSize: '2rem', fontWeight: 'bold', minHeight: '150vh' }}>Loading...</h2>
+        </div>;
     }
 
     return (
         // Render the list of reviews
-        <div className="d-flex flex-column align-items-center mt-5">
+        <div className="d-flex flex-column align-items-center mt-5" style={{ minHeight: '150vh' }}>
             <h1>Reviews</h1>
             {/* Display error message if there's an error */}
             {error && <p className="text-danger">{error}</p>}

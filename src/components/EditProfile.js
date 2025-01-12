@@ -218,7 +218,7 @@ const UserProfile = () => {
     // If loading, display a loading message
     if (loading) {
         return <div className="d-flex flex-column align-items-center mt-5">
-            <h2 style={{ fontSize: '2rem', fontWeight: 'bold' }}>Loading...</h2>
+            <h2 style={{ fontSize: '2rem', fontWeight: 'bold', minHeight: '150vh'  }}>Loading...</h2>
         </div>;
     }
 
