@@ -62,6 +62,7 @@ const Login = () => {
             localStorage.setItem('userId', response.data.user.id);
 
             // Redirect the user to the homepage after successful login
+            console.log('Backend response:', data);
             navigate('/');
 
         } catch (error) {
