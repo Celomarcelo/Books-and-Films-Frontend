@@ -35,6 +35,8 @@ const UserProfile = () => {
     });
     const [passwordError, setPasswordError] = useState(null);
     const [passwordSuccessMessage, setPasswordSuccessMessage] = useState('');
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [deleteSuccess, setDeleteSuccess] = useState(false);
     const navigate = useNavigate();
 
     // Fetch user profile data on component mount
@@ -193,9 +195,6 @@ const UserProfile = () => {
     };
 
     const handleDeleteProfile = async () => {
-        const confirmDelete = window.confirm("Are you sure you want to delete your profile?");
-        if (!confirmDelete) return;
-
         try {
             const token = localStorage.getItem('token');
 
@@ -205,20 +204,32 @@ const UserProfile = () => {
                 },
             });
 
-            alert("Profile deleted successfully.");
+            setDeleteSuccess(true);
             localStorage.removeItem('token'); // Remove token after deletion
-            navigate('/login'); // Redirect to login page
+            setTimeout(() => {
+                navigate('/login'); // Redirect to login page
+            }, 2500);
         } catch (error) {
             setError("Failed to delete profile.");
             console.error("Error deleting profile", error);
         }
     };
 
+    const confirmDeleteProfile = () => {
+        setShowDeleteModal(true);
+    };
+
 
     // If loading, display a loading message
     if (loading) {
         return <div className="d-flex flex-column align-items-center mt-5">
-            <h2 style={{ fontSize: '2rem', fontWeight: 'bold', minHeight: '150vh'  }}>Loading...</h2>
+            <h2 style={{ fontSize: '2rem', fontWeight: 'bold', minHeight: '150vh' }}>Loading...</h2>
+        </div>;
+    }
+
+    if (deleteSuccess) {
+        return <div className="d-flex flex-column align-items-center mt-5">
+            <h2 style={{ fontSize: '2rem', fontWeight: 'bold', minHeight: '150vh' }}>Profile deleted successfully. Redirecting to login...</h2>
         </div>;
     }
 
@@ -373,10 +384,36 @@ const UserProfile = () => {
                 </div>
             </form>
             <div className="text-center mt-4 mb-4">
-                <button className="btn btn-danger" onClick={handleDeleteProfile}>
+                <button className="btn btn-danger" onClick={confirmDeleteProfile}>
                     Delete Profile
                 </button>
             </div>
+
+            {showDeleteModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h3>Confirm Profile Deletion</h3>
+                        <p>Are you sure you want to delete your profile? This action cannot be undone.</p>
+                        <div className="d-flex justify-content-around mt-4">
+                            <button
+                                className="btn btn-danger"
+                                onClick={() => {
+                                    handleDeleteProfile();
+                                    setShowDeleteModal(false);
+                                }}
+                            >
+                                Yes, Delete
+                            </button>
+                            <button
+                                className="btn btn-secondary"
+                                onClick={() => setShowDeleteModal(false)}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
