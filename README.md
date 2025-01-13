@@ -425,20 +425,174 @@ This section outlines how to test the **UserProfile** API endpoints for retrievi
 
 ### Check List
 
-| **Functionality**              | **Expected Behavior**                                | **Result** |
-|--------------------------------|-----------------------------------------------------|------------|
-| **Page Load**                  | Loads with correct layout and content.              | Pass       |
-| **Responsive Design**          | Adjusts properly on different screen sizes.         | Pass       |
-| **Login Functionality**        | Redirects and displays error/success messages.      | Pass       |
-| **Logout Functionality**       | Logs the user out and redirects to login page.      | Pass       |
-| **Category Links**             | Displays filtered reviews by category.              | Pass       |
-| **Genre Links**                | Displays filtered reviews by genre.                 | Pass       |
-| **Review Creation**            | Allows users to create new reviews with validation. | Pass       |
-| **Edit Review**                | Allows users to update existing reviews.            | Pass       |
-| **Delete Review**              | Deletes user-created reviews after confirmation.    | Pass       |
-| **Comments**                   | Users can add, edit, and delete comments.           | Pass       |
-| **Password Reset**             | Handles password reset requests and updates.        | Pass       |
-| **Favorites**                  | Displays and navigates to favorite profiles.        | Pass       |
+| **Action**                        | **Expected Behavior**                                                                                     | **Result** |
+|------------------------------------|-----------------------------------------------------------------------------------------------------------|------------|
+|**Login page**|||
+| **Page Load**                      | Renders login form with "Username" and "Password" fields, a "Login" button, and a registration link.      | Pass       |
+| **Enter Username**                 | User inputs a valid username. Field updates with the entered text.                                        | Pass       |
+| **Enter Password**                 | User inputs a valid password. Field updates with the entered text.                                        | Pass       |
+| **Empty Submit**                   | Click "Login" with empty fields. Displays "Both fields are required." error message.                      | Pass       |
+| **Invalid Username/Password**      | Submit with incorrect username or password. Displays server error message (e.g., "Invalid credentials"). | Pass       |
+| **Successful Login**               | Submit with valid credentials. Stores `accessToken` and `userId` in `localStorage`, redirects to `/`.    | Pass       |
+| **Form Validation**                | Prevents submission if fields are empty or invalid. Displays appropriate error messages.                  | Pass       |
+| **Navigate to Register**           | Click "register" link. Redirects user to the registration page (`/register`).                            | Pass       |
+| **Responsive Design**              | Properly adjusts layout on different screen sizes (mobile, tablet, desktop).                             | Pass       |
+| **Password Visibility**            | Password input obscures entered text.                                                                    | Pass       |
+| **Error Alert**                    | Displays error message in red alert box on login failure.                                                | Pass       |
+|**Register page**|||
+| **Page Load**                   | Renders registration form with "Username", "Password", "Email", and "Profile Image" fields, a "Register" button, and a login link. | Pass       |
+| **Enter Username**              | User inputs a valid username. Field updates with the entered text.                                      | Pass       |
+| **Enter Password**              | User inputs a valid password. Field updates with the entered text.                                      | Pass       |
+| **Enter Email**                 | User inputs a valid email address. Field updates with the entered text.                                 | Pass       |
+| **Upload Profile Image**        | User uploads an image file. File is accepted and stored in the state.                                   | Pass       |
+| **Empty Submit**                | Click "Register" with empty fields. Displays "All fields are required." error message.                  | Pass       |
+| **Short Password**              | Submit with a password shorter than 8 characters. Displays "Password must be at least 8 characters long." error message. | Pass       |
+| **Invalid Email**               | Submit with an invalid email format. Displays "Please enter a valid email address." error message.       | Pass       |
+| **Successful Registration**     | Submit with valid data. Sends API request, stores `token` in `localStorage`, and redirects to `/`.      | Pass       |
+| **Form Validation**             | Prevents submission if fields are empty, invalid, or if password is too short. Displays error messages.  | Pass       |
+| **API Error Handling**          | Displays server error message if registration fails (e.g., username already taken).                     | Pass       |
+| **Navigate to Login**           | Click "Login" link. Redirects user to the login page (`/login`).                                        | Pass       |
+| **Responsive Design**           | Properly adjusts layout on different screen sizes (mobile, tablet, desktop).                           | Pass       |
+| **Error Alert**                 | Displays error message in red alert box on registration failure.                                        | Pass       |
+|**Home page**|||
+| **Page Load**                    | Checks token validity. If invalid, redirects to `/login`. If valid, fetches and displays reviews.         | Pass       |
+| **Loading State**                | Displays "Loading..." message while data is being fetched.                                                | Pass       |
+| **Token Validation**             | Validates token on page load. Redirects to `/login` if token is invalid or missing.                       | Pass       |
+| **Fetch Reviews**                | Sends API request to fetch reviews using the provided token.                                              | Pass       |
+| **Sort Reviews**                 | Sorts fetched reviews by creation date in descending order (newest first).                                | Pass       |
+| **No Reviews Available**         | Displays "There is no review at the moment." if API returns an empty list.                                | Pass       |
+| **API Error Handling**           | Displays "Failed to fetch reviews. Please login again." on API errors and redirects to `/login`.           | Pass       |
+| **Display Review List**          | Displays reviews with title, author/director, and optional image.                                         | Pass       |
+| **Link to Review Details**       | Each review title links to its detailed review page (e.g., `/reviews/:id`).                               | Pass       |
+| **Display User Profile Image**   | Shows user's profile picture in the bottom-right corner of each review image, linking to their reviews.    | Pass       |
+| **Navigate to User Profile**     | Clicking on a user's profile image redirects to their reviews page (`/user/:id/reviewsList`).             | Pass       |
+| **Responsive Design**            | Adjusts layout and elements properly across different screen sizes (mobile, tablet, desktop).              | Pass       |
+| **Error Message Display**        | Displays error messages in red text when applicable.                                                      | Pass       |
+|**Review details page**|||
+| **Page Load**                    | Validates token and fetches review details using the review ID from the URL. Redirects to `/login` if invalid. | Pass       |
+| **Loading State**                | Displays "Loading..." message while data is being fetched.                                                  | Pass       |
+| **Token Validation**             | Checks token validity on page load. Redirects to `/login` if token is invalid or missing.                   | Pass       |
+| **Fetch Review Details**         | Sends API request to fetch review details using the provided review ID.                                     | Pass       |
+| **Display Review Details**       | Displays review title, author/director, genre, rating, content, and optional image.                         | Pass       |
+| **Like Review**                  | Sends API request to like the review and updates the like count dynamically.                                | Pass       |
+| **Add Comment**                  | Submits a new comment using the API, updates the comment list, and clears the input field.                  | Pass       |
+| **Edit Comment**                 | Allows the user to edit their own comment, updates it via the API, and displays the updated comment.        | Pass       |
+| **Delete Comment**               | Prompts the user for confirmation and deletes the comment via the API if confirmed. Removes it from the list. | Pass       |
+| **Handle No Comments**           | Displays "No comments yet." if the review has no comments.                                                  | Pass       |
+| **Display Comments**             | Lists all comments associated with the review, including the username and content.                         | Pass       |
+| **Navigate on Invalid Review**   | Displays "Review not found." if the review ID is invalid or review data is unavailable.                     | Pass       |
+| **Error Handling**               | Displays "Failed to load review details." if the API request fails.                                         | Pass       |
+| **Responsive Design**            | Properly adjusts layout on different screen sizes (mobile, tablet, desktop).                               | Pass       |
+| **Confirmation Modal for Delete**| Displays a modal to confirm comment deletion.                                                               | Pass       |
+|**Create reviews page**|||
+| **Page Load**                    | Validates token. If invalid, redirects to `/login`. Fetches categories for the dropdown menu.             | Pass       |
+| **Category Selection**           | Fetches and displays genres when a category is selected.                                                  | Pass       |
+| **Enter Title**                  | Accepts and updates title input. Title must be between 3 and 100 characters.                              | Pass       |
+| **Enter Author/Director**        | Accepts and updates author/director input. Value must be between 3 and 50 characters.                     | Pass       |
+| **Enter Review Content**         | Accepts and updates review content. Value must be between 20 and 20000 characters.                        | Pass       |
+| **Select Category**              | Allows user to select a category from the dropdown menu.                                                  | Pass       |
+| **Select Genre**                 | Allows user to select a genre from the dropdown menu corresponding to the selected category.              | Pass       |
+| **Enter Rating**                 | Accepts and updates rating input. Value must be between 0 and 5.                                          | Pass       |
+| **Upload Image**                 | Accepts an image file and updates the selected file state. Displays the name of the uploaded file.        | Pass       |
+| **Submit Valid Form**            | Sends form data via API. If successful, displays "Review created successfully!" and redirects to `/`.     | Pass       |
+| **Validation: Empty Fields**     | Displays "Please fill in all required fields." if any required field is empty.                            | Pass       |
+| **Validation: Invalid Title**    | Displays "The title must be between 3 and 100 characters." for invalid title length.                      | Pass       |
+| **Validation: Invalid Author**   | Displays "The author/director name must be between 3 and 50 characters." for invalid length.              | Pass       |
+| **Validation: Invalid Content**  | Displays "The review content must be between 20 and 20000 characters." for invalid content length.        | Pass       |
+| **Handle API Error**             | Displays "An error occurred while creating the review." if the API request fails.                        | Pass       |
+| **Success Message Display**      | Displays success message and clears form fields on successful review creation.                            | Pass       |
+| **Responsive Design**            | Properly adjusts layout on different screen sizes (mobile, tablet, desktop).                             | Pass       |
+|**Edit reviews page**|||
+| **Page Load**                    | Validates token and fetches review details using the review ID. Redirects to `/login` if invalid.       | Pass       |
+| **Display Review Details**       | Prefills the form with existing review data (title, content, genre, rating).                            | Pass       |
+| **Edit Title**                   | Updates the title field in the form. Value must be between 3 and 100 characters.                        | Pass       |
+| **Edit Content**                 | Updates the content field in the form. Value must be between 20 and 20000 characters.                   | Pass       |
+| **Select Genre**                 | Updates the genre field based on user selection.                                                        | Pass       |
+| **Edit Rating**                  | Updates the rating field. Value must be between 0 and 5.                                                | Pass       |
+| **Upload Image**                 | Allows the user to select and upload a new image. Updates the image field in the form state.            | Pass       |
+| **Save Edited Review**           | Sends updated review data via API. Displays "Review updated successfully!" on success and redirects to `/profile`. | Pass       |
+| **Validation: Empty Fields**     | Displays "Please fill in all required fields." if any required field is empty.                          | Pass       |
+| **Validation: Invalid Title**    | Displays "Title must be between 3 and 100 characters." if the title length is invalid.                  | Pass       |
+| **Validation: Invalid Content**  | Displays "Content must be between 20 and 20000 characters." if the content length is invalid.           | Pass       |
+| **Validation: Invalid Rating**   | Displays "Rating must be between 0 and 5." if the rating is out of bounds.                              | Pass       |
+| **Handle API Error**             | Displays "An error occurred while saving the review." if the API request fails.                        | Pass       |
+| **Cancel Edit**                  | Cancels the editing process and redirects to `/profile`.                                                | Pass       |
+| **Responsive Design**            | Properly adjusts layout on different screen sizes (mobile, tablet, desktop).                           | Pass       |
+|**Profile page**|||
+| **Page Load**                    | Validates token. Redirects to `/login` if invalid. Fetches user profile and their reviews.              | Pass       |
+| **Display User Profile**         | Displays the user's profile image, username, and a button to edit the profile.                         | Pass       |
+| **Admin Panel Button**           | Displays a button to navigate to the Django admin panel if the user is a superuser.                    | Pass       |
+| **Display Reviews**              | Displays a list of the user's reviews, including title, author/director, genre, rating, and content.    | Pass       |
+| **Edit Review**                  | Clicking "Edit" navigates to the review editing page (`/reviews/edit/:id`).                            | Pass       |
+| **Delete Review**                | Clicking "Delete" prompts for confirmation and removes the review upon confirmation.                   | Pass       |
+| **Confirm Delete Modal**         | Displays a modal to confirm review deletion. Deletes the review if confirmed.                          | Pass       |
+| **Handle Empty Reviews**         | Displays "No reviews found." if the user has no reviews.                                               | Pass       |
+| **Error Handling**               | Displays error messages if there is an issue fetching data or deleting a review.                       | Pass       |
+| **Success Message Display**      | Displays "Review deleted successfully!" after a successful deletion.                                   | Pass       |
+| **Responsive Design**            | Properly adjusts layout on different screen sizes (mobile, tablet, desktop).                           | Pass       |
+| **Loading State**                | Displays "Loading..." while user profile and reviews data are being fetched.                           | Pass       |
+|**Edit Profile page**|||
+| **Page Load**                    | Validates token. Redirects to `/login` if invalid. Fetches user profile data.                            | Pass       |
+| **Display Profile Information**  | Displays username, email, name, biography, and profile picture.                                           | Pass       |
+| **Edit Profile Information**     | Updates input fields for username, email, name, and biography.                                            | Pass       |
+| **Profile Image Preview**        | Displays a preview of the selected profile image.                                                        | Pass       |
+| **Save Profile Changes**         | Sends updated profile data via API. Displays "Profile updated successfully!" on success.                 | Pass       |
+| **Validation: Invalid Email**    | Displays "Please provide a valid email address." if email is invalid.                                    | Pass       |
+| **Change Password**              | Updates password fields. Validates new password and confirms it matches the confirmation field.          | Pass       |
+| **Save New Password**            | Sends password update data via API. Displays "Password changed successfully!" on success.                | Pass       |
+| **Validation: Password Length**  | Displays "New password must be at least 8 characters long." if the new password is too short.            | Pass       |
+| **Validation: Password Mismatch**| Displays "New passwords do not match." if confirmation doesn't match the new password.                   | Pass       |
+| **Delete Profile**               | Deletes user profile via API after confirmation. Redirects to `/login` on success.                       | Pass       |
+| **Delete Confirmation Modal**    | Displays a modal to confirm profile deletion. Cancels deletion if user opts out.                         | Pass       |
+| **Error Handling**               | Displays appropriate error messages for issues during profile update, password change, or deletion.      | Pass       |
+| **Loading State**                | Displays "Loading..." while fetching profile data.                                                       | Pass       |
+| **Responsive Design**            | Properly adjusts layout and forms on different screen sizes (mobile, tablet, desktop).                   | Pass       |
+|**Favorites**|||
+| **Page Load**                    | Validates token. Redirects to `/login` if invalid. Fetches the user's favorite profiles.               | Pass       |
+| **Display Loading State**        | Displays "Loading favorites..." while fetching favorite profiles data.                                 | Pass       |
+| **Display Error State**          | Displays "Failed to load favorites." if there is an error during data fetching.                        | Pass       |
+| **Display Favorites**            | Displays a grid of favorite profiles with clickable profile images that link to their review pages.    | Pass       |
+| **Handle No Favorites**          | Displays "You have no favorite users." if the user has no favorites.                                   | Pass       |
+| **Favorite Profile Click**       | Navigates to the selected favorite user's review page (`/user/:id/reviewsList`).                       | Pass       |
+| **Responsive Design**            | Adjusts layout and grid properly across different screen sizes (mobile, tablet, desktop).              | Pass       |
+| **Error Handling**               | Handles authentication issues or API errors gracefully, displaying appropriate messages.               | Pass       |
+| **Grid Layout**                  | Renders favorite profiles in a visually appealing grid format with consistent styling.                 | Pass       |
+|**Filtered Reviews**|||
+| **Page Load**                    | Validates token. Redirects to `/login` if invalid. Fetches reviews filtered by category or genre.       | Pass       |
+| **Display Loading State**        | Displays "Loading..." while filtered reviews are being fetched.                                         | Pass       |
+| **Display Error State**          | Displays "Failed to load reviews." if there is an error during data fetching.                          | Pass       |
+| **Display No Reviews Message**   | Displays "No reviews found for the selected category or genre." if no reviews are returned.            | Pass       |
+| **Display Filtered Reviews**     | Renders a list of reviews filtered by category or genre, including images, titles, and author/director. | Pass       |
+| **Review Details Navigation**    | Clicking on a review title navigates to its detailed page (`/reviews/:id`).                            | Pass       |
+| **User Profile Navigation**      | Clicking on a user's profile picture navigates to their review list (`/user/:id/reviewsList`).         | Pass       |
+| **Responsive Design**            | Adjusts layout and elements properly across different screen sizes (mobile, tablet, desktop).          | Pass       |
+| **Error Handling**               | Handles authentication issues or API errors gracefully, displaying appropriate messages.               | Pass       |
+| **Dynamic API Query**            | Constructs the API endpoint dynamically based on category or genre parameter.                          | Pass       |
+|**Search Results**|||
+| **Display No Results Message**   | Displays "No results found." if the `results` array is empty.                                           | Pass       |
+| **Display Search Results**       | Displays a list of results, including images, titles, and author/director information.                  | Pass       |
+| **Review Details Navigation**    | Clicking on a review title navigates to its detailed page (`/reviews/:id`).                            | Pass       |
+| **User Profile Navigation**      | Clicking on a user's profile picture navigates to their review list (`/user/:id/reviewsList`).         | Pass       |
+| **Responsive Design**            | Properly adjusts layout and elements across different screen sizes (mobile, tablet, desktop).          | Pass       |
+| **Error Handling**               | Gracefully handles an empty `results` array without causing crashes or rendering issues.               | Pass       |
+| **Image Display**                | Shows the review image if available, with proper styling and alignment.                                | Pass       |
+| **Profile Picture Display**      | Shows the user's profile picture with proper styling and alignment if available.                       | Pass       |
+| **Dynamic Content Rendering**    | Dynamically renders results based on the content of the `results` array.                               | Pass       |
+|**User Reviews page**|||
+| **Page Load**                    | Validates token. Redirects to `/login` if invalid. Fetches user data, their reviews, and favorite status. | Pass       |
+| **Display Loading State**        | Displays "Loading..." while user data and reviews are being fetched.                                   | Pass       |
+| **Display Error State**          | Displays "Failed to load data." if there is an error during data fetching.                             | Pass       |
+| **Display User Profile**         | Displays the user's profile image, username, and biography.                                            | Pass       |
+| **Display Reviews**              | Displays a list of the user's reviews, including title, author/director, genre, and rating.            | Pass       |
+| **Handle No Reviews**            | Displays "No reviews found." if the user has no reviews.                                               | Pass       |
+| **Favorite User**                | Clicking "Favorite" adds the user to the favorites list via API and updates the button text.           | Pass       |
+| **Unfavorite User**              | Clicking "Not Favorite" removes the user from the favorites list after confirmation.                   | Pass       |
+| **Confirmation Modal for Remove**| Displays a modal to confirm removal of the user from the favorites list.                               | Pass       |
+| **Responsive Design**            | Properly adjusts layout and elements across different screen sizes (mobile, tablet, desktop).          | Pass       |
+| **Error Handling**               | Handles authentication and API errors gracefully, displaying appropriate messages.                     | Pass       |
+| **Dynamic Content Rendering**    | Dynamically renders user reviews and updates favorite status based on API responses.                   | Pass       |
+
+
 
 ---
 
