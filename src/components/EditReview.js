@@ -64,8 +64,6 @@ const EditReview = () => {
                     });
                     setGenres(categoryResponse.data);  // Updates genres in state
                 }
-                console.log('Review ID:', reviewId);
-                console.log('Fetched Review Data:', response.data);
             } catch (error) {
                 // Handle error in fetching the review details
                 setError('An error occurred while fetching the review details.');
@@ -177,12 +175,12 @@ const EditReview = () => {
 
     return (
         <div className="d-flex flex-column align-items-center my-5">
+            {/* Display error message if there is one */}
+            {successMessage && <div className="alert alert-success w-50 w-md-100 text-center">{successMessage}</div>}
+            {error && <div className="alert alert-danger w-50 w-md-100 text-center">{error}</div>}
             <div className="container my-5 text-center">
                 {/* Display the current review title */}
                 <h1>{review.title}</h1>
-                {/* Display error message if there is one */}
-                {successMessage && <div className="alert alert-success w-50 w-md-100 text-center">{successMessage}</div>}
-                {error && <div className="alert alert-danger w-50 w-md-100 text-center">{error}</div>}
 
                 {/* Title input field */}
                 <div className="mb-3">
