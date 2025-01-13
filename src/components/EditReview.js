@@ -64,6 +64,8 @@ const EditReview = () => {
                     });
                     setGenres(categoryResponse.data);  // Updates genres in state
                 }
+                console.log('Review ID:', reviewId);
+                console.log('Fetched Review Data:', response.data);
             } catch (error) {
                 // Handle error in fetching the review details
                 setError('An error occurred while fetching the review details.');
