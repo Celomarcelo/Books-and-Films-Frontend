@@ -165,7 +165,7 @@ function ReviewDetails() {
     }
 
     return (
-        <div className="d-flex flex-column align-items-center pt-5 mt-5 mb-5">
+        <div className="d-flex flex-column align-items-center pt-5 mt-5 mb-5" style={{ minHeight: '150vh' }}>
             {/* Check if review data is available */}
             {review ? (
                 <>

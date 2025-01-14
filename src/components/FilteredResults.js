@@ -66,7 +66,7 @@ const FilteredReviews = () => {
     }
 
     return (
-        <div className="d-flex flex-column align-items-center mt-5">
+        <div className="d-flex flex-column align-items-center mt-5" style={{ minHeight: '150vh' }}>
             <h2>Reviews</h2>
             {/* Display error message if there was an error during data fetching */}
             {error && <p>{error}</p>}
